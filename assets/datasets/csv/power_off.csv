@@ -1,0 +1,11 @@
+input,output_json
+전원 꺼 줘,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"
+꺼,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"
+정지해,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"
+끄자,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"
+power off,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"
+멈춰,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"
+전원 내려,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"
+작동 중지,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"
+정지,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"
+꺼 주세요,"{""calls"": [{""name"": ""power_off"", ""arguments"": {}}] }"

@@ -1,0 +1,11 @@
+input,output_json
+전원 켜줘,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"
+켜,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"
+가동 시작,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"
+공기청정기 켜,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"
+시작해,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"
+작동해줘,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"
+전원 on,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"
+전원 버튼 눌러,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"
+켜 주세요,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"
+가동해,"{""calls"":[{""name"":""power_on"",""arguments"":{}}]}"

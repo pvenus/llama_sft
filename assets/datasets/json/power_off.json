@@ -1,0 +1,12 @@
+[
+  {"user":"전원 꺼 줘","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"},
+  {"user":"꺼","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"},
+  {"user":"정지해","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"},
+  {"user":"끄자","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"},
+  {"user":"power off","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"},
+  {"user":"멈춰","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"},
+  {"user":"전원 내려","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"},
+  {"user":"작동 중지","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"},
+  {"user":"정지","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"},
+  {"user":"꺼 주세요","assistant":"{\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"}
+]

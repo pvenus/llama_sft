@@ -1,0 +1,11 @@
+input,output_json
+야간모드 켜줘,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"
+밤 모드로,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"
+수면 모드 켜,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"
+저소음으로 바꿔,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"
+조용하게 모드 전환,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"
+야간에 쓰게 모드 변경,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"
+night mode on,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"
+수면모드로 바꿔줘,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"
+밤모드,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"
+야간 설정,"{""calls"": [{""name"": ""enable_night_mode"", ""arguments"": {}}]}"

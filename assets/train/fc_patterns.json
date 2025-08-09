@@ -1,0 +1,14 @@
+{
+  "sys_prompt": "You are a function-calling router. Output ONLY one JSON object...",
+  "fewshot": [
+    "User: 전원 켜줘",
+    "Assistant: {\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}",
+    "User: 야간 모드 켜줘",
+    "Assistant: {\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}",
+    "User: 전원 꺼 줘",
+    "Assistant: {\"calls\":[{\"name\":\"power_off\",\"arguments\":{}}]}"
+  ],
+  "regex_full": "\\{\\s*\"calls\"\\s*:\\s*\\[\\s*\\{\\s*\"name\"\\s*:\\s*\"(power_on|power_off|enable_night_mode)\"\\s*,\\s*\"arguments\"\\s*:\\s*(\\{\\s*\\}|\\[\\s*\\])\\s*\\}\\s*\\]\\s*\\}",
+  "regex_tail_with_name": "\"name\"\\s*:\\s*\"(power_on|power_off|enable_night_mode)\"\\s*,\\s*\"arguments\"\\s*:\\s*(\\{\\s*\\}|\\[\\s*\\])\\s*\\}\\s*\\]\\s*\\}",
+  "regex_tail_nameless": "(power_on|power_off|enable_night_mode)\"\\s*,\\s*\"arguments\"\\s*:\\s*(\\{\\s*\\}|\\[\\s*\\])\\s*\\}\\s*\\]\\s*\\}"
+}

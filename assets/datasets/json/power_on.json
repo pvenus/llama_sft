@@ -1,0 +1,12 @@
+[
+  {"user":"전원 켜줘","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"},
+  {"user":"켜","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"},
+  {"user":"가동 시작","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"},
+  {"user":"공기청정기 켜","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"},
+  {"user":"시작해","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"},
+  {"user":"작동해줘","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"},
+  {"user":"전원 on","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"},
+  {"user":"전원 버튼 눌러","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"},
+  {"user":"켜 주세요","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"},
+  {"user":"가동해","assistant":"{\"calls\":[{\"name\":\"power_on\",\"arguments\":{}}]}"}
+]

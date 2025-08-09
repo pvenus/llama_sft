@@ -1,0 +1,12 @@
+[
+  {"user":"야간모드 켜줘","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"},
+  {"user":"밤 모드로","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"},
+  {"user":"수면 모드 켜","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"},
+  {"user":"저소음으로 바꿔","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"},
+  {"user":"조용하게 모드 전환","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"},
+  {"user":"야간에 쓰게 모드 변경","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"},
+  {"user":"night mode on","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"},
+  {"user":"수면모드로 바꿔줘","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"},
+  {"user":"밤모드","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"},
+  {"user":"야간 설정","assistant":"{\"calls\":[{\"name\":\"enable_night_mode\",\"arguments\":{}}]}"}
+]
