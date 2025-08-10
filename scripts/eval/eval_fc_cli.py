@@ -8,11 +8,11 @@ using mlx_lm CLI generation. It can be used as a CLI or imported via
 import argparse
 import copy
 import json
-import os
 import re
 import subprocess
 import sys
 from pathlib import Path
+from scripts.common.env import backend
 
 
 __all__ = [
@@ -165,46 +165,78 @@ def extract_calls_json(raw: str) -> str:
     return ""
 
 # ===== Generation via mlx_lm CLI =====
-def gen_cli(model, prompt, max_tokens=32, adapter_path=None):
-    """Call mlx_lm CLI to generate text. Retries with alternate entrypoint and
-    provides detailed diagnostics on failure."""
-    base_args = [
-        "--model", model,
-        "--ignore-chat-template",
-        "--temp", "0.0", "--top-k", "1",
-        "--max-tokens", str(max_tokens),
-        "--prompt", prompt,
-    ]
-    if adapter_path:
-        base_args += ["--adapter-path", adapter_path]
+_HF_CACHE = {}
 
-    cmd1 = [sys.executable, "-m", "mlx_lm", "generate", *base_args]
-    cmd2 = [sys.executable, "-m", "mlx_lm.generate", *base_args]  # deprecated path, but works on some installs
+def _gen_hf(model: str, prompt: str, max_tokens=32, adapter_path=None) -> str:
+    """Transformers/PEFT generation path for CUDA/CPU backends."""
+    import torch
+    from transformers import AutoTokenizer, AutoModelForCausalLM
+    try:
+        from peft import PeftModel  # optional
+    except Exception:
+        PeftModel = None
 
-    # First attempt
-    out = subprocess.run(cmd1, capture_output=True, text=True)
-    if out.returncode == 0:
-        return out.stdout.strip()
-
-    # Retry with alternate invocation
-    out2 = subprocess.run(cmd2, capture_output=True, text=True)
-    if out2.returncode == 0:
-        return out2.stdout.strip()
-
-    # Compose rich error message
-    def fmt(cmd, cp):
-        return (
-            "Command: " + " ".join([repr(c) for c in cmd]) + "\n" +
-            f"Return code: {cp.returncode}\n" +
-            ("STDERR:\n" + (cp.stderr or "<empty>") + "\n") +
-            ("STDOUT:\n" + (cp.stdout or "<empty>") + "\n")
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    key = (model, adapter_path, device)
+    tok, m = _HF_CACHE.get(key, (None, None))
+    if tok is None:
+        tok = AutoTokenizer.from_pretrained(model)
+        m = AutoModelForCausalLM.from_pretrained(
+            model,
+            torch_dtype=(torch.float16 if device == "cuda" else None),
         )
+        if adapter_path and PeftModel is not None:
+            # PEFT adapters directory
+            m = PeftModel.from_pretrained(m, adapter_path)
+        if device == "cuda":
+            m = m.to("cuda")
+        _HF_CACHE[key] = (tok, m)
 
-    err = (
-        "[mlx_lm generate] failed twice.\n\n" +
-        fmt(cmd1, out) + "\n--- RETRY ---\n" + fmt(cmd2, out2)
-    )
-    raise RuntimeError(err)
+    inputs = tok(prompt, return_tensors="pt")
+    if device == "cuda":
+        inputs = {k: v.to("cuda") for k, v in inputs.items()}
+    out = m.generate(**inputs, max_new_tokens=max_tokens, do_sample=False)
+    return tok.decode(out[0], skip_special_tokens=True)
+
+def gen_cli(model, prompt, max_tokens=32, adapter_path=None):
+    # Decide backend dynamically
+    if backend() == "mlx":
+        base_args = [
+            "--model", model,
+            "--ignore-chat-template",
+            "--temp", "0.0", "--top-k", "1",
+            "--max-tokens", str(max_tokens),
+            "--prompt", prompt,
+        ]
+        if adapter_path:
+            base_args += ["--adapter-path", adapter_path]
+
+        cmd1 = [sys.executable, "-m", "mlx_lm", "generate", *base_args]
+        cmd2 = [sys.executable, "-m", "mlx_lm.generate", *base_args]
+
+        out = subprocess.run(cmd1, capture_output=True, text=True)
+        if out.returncode == 0:
+            return out.stdout.strip()
+
+        out2 = subprocess.run(cmd2, capture_output=True, text=True)
+        if out2.returncode == 0:
+            return out2.stdout.strip()
+
+        def fmt(cmd, cp):
+            return (
+                "Command: " + " ".join([repr(c) for c in cmd]) + "\n" +
+                f"Return code: {cp.returncode}\n" +
+                ("STDERR:\n" + (cp.stderr or "<empty>") + "\n") +
+                ("STDOUT:\n" + (cp.stdout or "<empty>") + "\n")
+            )
+        err = (
+            "[mlx_lm generate] failed twice.\n\n" +
+            fmt(cmd1, out) + "\n--- RETRY ---\n" + fmt(cmd2, out2)
+        )
+        raise RuntimeError(err)
+    else:
+        # HF (CUDA/CPU)
+        return _gen_hf(model, prompt, max_tokens=max_tokens, adapter_path=adapter_path)
 
 # ===== Config resolution =====
 def resolve_args(args):
@@ -369,13 +401,13 @@ def main():
     )
     ap.add_argument(
         "--file",
-        default="outputs/datasets/sample/eval.jsonl",
+        default="outputs/datasets/eval.jsonl",
         help="Path to eval JSONL file (each line has {'messages': [...], 'assistant': '...'}). Default: outputs/datasets/eval.jsonl",
     )
     ap.add_argument(
         "--spec",
         default="assets/train/fc_patterns.json",
-        help="Path to JSON file defining sys_prompt/fewshot/regex patterns. Default: scripts/specs/fc_patterns.json",
+        help="Path to JSON file defining sys_prompt/fewshot/regex patterns. Default: assets/train/fc_patterns.json",
     )
     ap.add_argument(
         "--out",

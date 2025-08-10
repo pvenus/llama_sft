@@ -4,8 +4,8 @@
 
 # 가상환경 생성
 venv:
-	python3 -m venv .venv && . .venv/bin/activate && pip install -U pip && pip install -r requirements.txt
+	python3 -m venv .venv && . .venv/bin/activate && pip install -U pip && pip install --upgrade pip && pip install -r requirements.txt
 
 # 학습 실행
 sft:
-	.venv/bin/python scripts/main.py
+	. .venv/bin/activate && python -m scripts.main
