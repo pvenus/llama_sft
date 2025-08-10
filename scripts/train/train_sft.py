@@ -210,7 +210,7 @@ def _train_with_peft_transformers(
         per_device_train_batch_size=batch_size,
         per_device_eval_batch_size=batch_size,
         max_steps=iters,
-        evaluation_strategy="steps",
+        eval_strategy="steps",
         eval_steps=eval_every_steps,
         save_steps=save_every_steps,
         learning_rate=lr,
