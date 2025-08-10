@@ -7,6 +7,4 @@ if __name__ == "__main__":
 
     R_T = train_sft(train_path=R_D["train_path"], eval_path=R_D["eval_path"])
 
-    print(str(R_T))
-
     run_eval_suite(adapters=str(R_T))
