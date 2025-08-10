@@ -127,8 +127,8 @@ def gather_files(root: Path, pattern: str, recursive: bool = True):
 
 
 def prepare_dataset(
-    in_root: str = "assets/datasets",
-    out_dir: str = "outputs/datasets",
+    in_root: str = "assets/datasets/sample",
+    out_dir: str = "outputs/datasets/sample",
     json_pattern: str = "json/*.json",
     csv_pattern: str = "csv/*.csv",
     csv_input_col: str = "input",
@@ -244,8 +244,8 @@ def resolve_args(args):
 
 def main():
     ap = argparse.ArgumentParser(description="Prepare dataset (CSV/JSON -> chat JSONL) with train/eval(/test) splits.")
-    ap.add_argument("--in-root", default="assets/datasets", help="input root folder that contains json/ and/or csv/ subfolders")
-    ap.add_argument("--out-dir", default="outputs/datasets", help="output folder for train/eval(/test).jsonl")
+    ap.add_argument("--in-root", default="assets/datasets/sample", help="input root folder that contains json/ and/or csv/ subfolders")
+    ap.add_argument("--out-dir", default="outputs/datasets/sample", help="output folder for train/eval(/test).jsonl")
     ap.add_argument("--json-pattern", default="json/*.json", help="glob under in-root for JSON arrays (comma-separated allowed)")
     ap.add_argument("--csv-pattern", default="csv/*.csv", help="glob under in-root for CSV files (comma-separated allowed)")
 

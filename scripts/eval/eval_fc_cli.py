@@ -369,7 +369,7 @@ def main():
     )
     ap.add_argument(
         "--file",
-        default="outputs/datasets/eval.jsonl",
+        default="outputs/datasets/sample/eval.jsonl",
         help="Path to eval JSONL file (each line has {'messages': [...], 'assistant': '...'}). Default: outputs/datasets/eval.jsonl",
     )
     ap.add_argument(

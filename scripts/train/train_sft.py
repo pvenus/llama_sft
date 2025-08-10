@@ -29,7 +29,7 @@ def train_sft(
     base_model: str = "mlx-community/Bio-Medical-Llama-3-2-1B-CoT-012025",
     train_path: str | Path,
     eval_path: str | Path,
-    output_dir: str | Path = "outputs/train/adapters",
+    output_dir: str | Path = "outputs/train/adapters/sample/",
     batch_size: int = 2,
     iters: int = 500,
     eval_every_steps: int = 100,

@@ -72,8 +72,8 @@ def run_eval_suite(
     *,
     model: str = "mlx-community/Bio-Medical-Llama-3-2-1B-CoT-012025",
     adapters: Optional[str] = None,
-    file: str = "outputs/datasets/test.jsonl",
-    out_dir: str = "outputs/eval_suite",
+    file: str = "outputs/datasets/sample/test.jsonl",
+    out_dir: str = "outputs/eval_suite/sample",
     max_tokens: int = 32,
     spec: str = "assets/train/fc_patterns.json",
 ) -> Tuple[Path, List[Tuple[str, Optional[Dict[str, float]]]]]:
@@ -147,8 +147,8 @@ def _parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(description="Run a 4-case eval suite (baseline/finetuned × fb on/off)")
     ap.add_argument("--model", default="mlx-community/Bio-Medical-Llama-3-2-1B-CoT-012025", help="Model name or path")
     ap.add_argument("--adapters", default=None, help="Path to finetuned adapters directory; if omitted, finetuned cases are skipped")
-    ap.add_argument("--file", default="outputs/datasets/test.jsonl", help="Path to eval jsonl")
-    ap.add_argument("--out_dir", default="outputs/eval_suite", help="Directory to store evaluation outputs")
+    ap.add_argument("--file", default="outputs/datasets/sample/test.jsonl", help="Path to eval jsonl")
+    ap.add_argument("--out_dir", default="outputs/eval_suite/sample", help="Directory to store evaluation outputs")
     ap.add_argument("--max_tokens", type=int, default=32, help="Max generation tokens per sample")
     ap.add_argument("--spec", default="assets/train/fc_patterns.json", help="Prompt/regex spec JSON file")
     return ap.parse_args()
