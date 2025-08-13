@@ -421,7 +421,17 @@ def _infer_once(user_text: str, model: str, adapters: str | None, max_tokens: in
     raw = gen_cli(model, prompt, max_tokens=max_tokens, adapter_path=adapters)
     cut = raw.split("\nUser:", 1)[0]
     pred_txt = cut.strip()  # 가공 없이 모델 원본(JSON 가정) 그대로 사용
-    pred = parse_json('{"calls":[{"name":"'+pred_txt)
+    closing = "}}]}"
+    idx = pred_txt.find(closing)
+    if idx != -1:
+        pred = parse_json('{"calls":[{"name":"' + pred_txt[:idx + len(closing)])
+    else:
+        closing = "}}]"
+        idx = pred_txt.find(closing)
+        if idx != -1:
+            pred = parse_json('{"calls":[{"name":"' + pred_txt[:idx + len(closing)] + "}")
+        else:
+            pred = parse_json('{"calls":[{"name":"' + pred_txt)
     used_fallback = False
     if ((not pred) or (not calls_from(pred))) and allow_fallback:
         fb = fallback_route_ko(user_text)
@@ -587,6 +597,7 @@ def run_streamlit(model: str,
                 df = pd.DataFrame(columns=[
                     "sys_prompt",
                     "user message",
+                    "expected message",
                     "pred",
                     "pred_text",
                     "all",
@@ -615,6 +626,7 @@ def run_streamlit(model: str,
                         df.loc[len(df)] = {
                             "sys_prompt": s_prompt,
                             "user message": user_text,
+                            "expected message": (m.get("expected") or "").strip(),
                             "pred": out.get("pred"),
                             "pred_text": out.get("pred_text"),
                             "all": out,
