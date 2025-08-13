@@ -1,0 +1,12 @@
+{
+  "datas": [
+    "The output must be a single JSON object containing only the keys name and arguments.",
+    "The arguments key must be an array of strings. If there are no parameters, use an empty array [].",
+    "Disallowed keys include: action, call, tool, tool_name, args, parameters, function_call, tool_calls.",
+    "Do not include any text, explanations, code fences, or comments outside the JSON (e.g., no ```).",
+    "All values must be normalized as strings: trim whitespace, remove units or unnecessary phrases (e.g., ' 45 degrees ' → '45').",
+    "Numerical ranges and enumerations must follow the function.yaml specification. If out of range, snap to the nearest valid value.",
+    "Ambiguous inputs should be interpreted as default or safest values according to the spec. Omit parameters if uncertain.",
+    "The output JSON must be compact, minimizing spaces, line breaks, and indentation"
+  ]
+}

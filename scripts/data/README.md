@@ -16,3 +16,23 @@
 | `--train-name`     | Output file name for train set                              | `train.jsonl`            |
 | `--eval-name`      | Output file name for eval set                               | `eval.jsonl`             |
 | `--test-name`      | Output file name for test set                               | `test.jsonl`             |
+
+## system_template.py option
+
+| Option     | Description                                                        | Default                 |
+|------------|--------------------------------------------------------------------|-------------------------|
+| `--spec`   | Path to YAML spec file (local file only)                           |                         |
+| `--base`   | Path to base SYSTEM message text file to prepend (local file only) |                         |
+| `--out`    | Path to save output; if omitted, print to stdout                   |                         |
+| `--format` | Output format: 'yaml' or 'json'                                    | `yaml`                  |
+| `--pretty` | Pretty-print output (for JSON format only)                         | `off`                   |
+
+### Example usage
+
+```bash
+python system_template.py --spec configs/spec.yaml --base configs/base_system.txt --out outputs/system_prompt.txt
+```
+
+```bash
+python system_template.py --spec configs/spec.yaml --base configs/base_system.txt --format json --pretty --out outputs/system_prompt.json
+```

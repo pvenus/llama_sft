@@ -1,0 +1,43 @@
+# air_purifier_functions.yaml
+functions:
+  - name: power_on
+    description: Turn on the air purifier
+    args: []   # no parameters
+
+  - name: power_off
+    description: Turn off the air purifier
+    args: []   # no parameters
+
+  - name: set_speed
+    description: Set the fan speed level
+    args:
+      - name: level
+        type: string
+        enum: [low, mid, high, max, "1", "2", "3", "4", "5"]
+        order: 1
+
+  - name: set_direction
+    description: Set wind direction
+    args:
+      - name: direction
+        type: string
+        enum: [left, right, front, back]
+        order: 1
+
+  - name: rotate
+    description: Rotate to a certain angle in degrees
+    args:
+      - name: angle_deg
+        type: integer
+        minimum: 0
+        maximum: 360
+        order: 1
+
+  - name: set_timer
+    description: Set auto power-off timer in minutes
+    args:
+      - name: minutes
+        type: integer
+        minimum: 1
+        maximum: 600
+        order: 1

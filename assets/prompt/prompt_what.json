@@ -1,0 +1,11 @@
+{
+  "datas": [
+    "Interpret the user's command and output a JSON function call using this schema: a single object {\"name\":\"...\",\"arguments\":{...}}; when multiple actions are required, use a wrapper {\"calls\":[{...},{...}] }.",
+    "Map the intent to air purifier capabilities: power on/off, set speed (low/mid/high/max or 1–5), set direction (left/right/front/back), rotate by angle (0–360), and set timer (1–600 minutes).",
+    "Keep all argument values within the allowed ranges and enums; use safe defaults when unspecified (e.g., speed=mid, direction=front).",
+    "Resolve ambiguities (e.g., \"a little faster\" → increase one level) and normalize units and whitespace (e.g., \"45도\" → 45).",
+    "When multiple actions are implied, return them in execution order (e.g., power_on before set_speed).",
+    "If the request is unrelated to the air purifier or cannot be mapped safely, return an empty call list: {\"calls\":[]}.",
+    "The output must be JSON only, with no explanations or code fences."
+  ]
+}

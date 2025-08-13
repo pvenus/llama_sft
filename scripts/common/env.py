@@ -3,10 +3,14 @@ import torch
 
 def backend():
     if platform.system() == "Darwin" and platform.machine() == "arm64":
+        print("Mode mlx")
         return "mlx"
     elif torch.cuda.is_available():
-        print("cuda")
+        print("Mode cuda")
         return "cuda"
     else:
-        print("cpu")
+        print("Mode cpu")
         return "cpu"
+
+if __name__ == "__main__":
+    backend()

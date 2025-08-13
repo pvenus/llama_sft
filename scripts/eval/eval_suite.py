@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Tuple
 
 try:
     # prefer package-style import
-    from eval_fc_cli import evaluate_fc
+    from .eval_fc_cli import evaluate_fc
 except Exception:
     # fallback
     from .eval_fc_cli import evaluate_fc  # type: ignore
