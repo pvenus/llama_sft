@@ -1,23 +1,14 @@
-#LLAMA SFT PROJECT
+# LLAMA SFT PROJECT
 
-## Run (Mac)
+## Prerequisites
+- Python 3.12 (권장)
+- [pip-tools](https://github.com/jazzband/pip-tools)
+- GNU Make (Windows 사용자는 Git Bash / MSYS2 / Chocolatey 등으로 설치 가능)
+
+---
+
+## Run (macOS / Windows / Linux)
 
 ```bash
-make venv
-make sft
+make all
 ```
-
-## Run (Windows)
->```bash
->make venv
->```
->```bash
->.\.venv\Scripts\activate
->```
->```bash
->pip uninstall torch torchvision torchaudio -y
->pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
->```
->```bash
->python -m scripts.main
->```

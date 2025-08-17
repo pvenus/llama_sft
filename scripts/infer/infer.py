@@ -65,9 +65,11 @@ COMPILED_RE = None
 
 # Singleton text-generation runner (loaded once and reused)
 RUNNER = None
+_RUNNER_KEY = None  # 추가: 현재 로드된 러너 식별
 
 class _HFRunner:
     def __init__(self, model: str, adapters: str | None = None):
+        _patch_tqdm_if_broken()  # 추가
         import torch
         from transformers import AutoTokenizer, AutoModelForCausalLM
         try:
@@ -171,6 +173,10 @@ class _MLXRunner:
 def init_runner(model: str, adapters: str | None = None):
     """Initialize the global RUNNER once based on backend()."""
     global RUNNER
+    key = (backend(), model, adapters or "")
+    if RUNNER is not None and _RUNNER_KEY == key:
+        print("get runner")
+        return RUNNER  # 이미 동일 구성이면 재사용
     try:
         if backend() == "mlx":
             RUNNER = _MLXRunner(model, adapters)
@@ -179,6 +185,11 @@ def init_runner(model: str, adapters: str | None = None):
     except Exception as e:
         raise RuntimeError(f"Model load failed: {e}")
     return RUNNER
+
+def get_runner(model: str, adapters: str | None = None):
+    """필요할 때만 로드하고, 있으면 그대로 반환."""
+    global RUNNER
+    return RUNNER if RUNNER is not None else init_runner(model, adapters)
 
 def load_patterns(spec_path: str | None = None):
     """Load SPEC and compile regexes strictly from an external JSON file.
@@ -408,7 +419,7 @@ def _gen_hf(model: str, prompt: str, max_tokens=32, adapter_path=None) -> str:
 
 def gen_cli(model, prompt, max_tokens=32, adapter_path=None):
     # Reuse single-loaded runner (no per-request subprocess/model reload)
-    runner = init_runner(model, adapter_path)
+    runner = get_runner(model, adapter_path)
     return runner.generate(prompt, max_tokens=max_tokens)
 
 
@@ -494,7 +505,6 @@ def run_streamlit(model: str,
 
     # Ensure spec and model are loaded once
     _ensure_spec_loaded(spec_path)
-    init_runner(model, adapters)
 
     st.set_page_config(page_title="Function-Call Inference", layout="centered")
     st.title("🔧 Function-Call Inference — Streamlit (Single-load)")

@@ -1,6 +1,6 @@
 datasets==4.0.0
 peft==0.17.0
-torch==2.8.0
+torch==2.8.0; sys_platform == 'darwin'
 transformers==4.55.0
 mlx_lm==0.26.3; sys_platform == 'darwin'
 streamlit==1.48.1

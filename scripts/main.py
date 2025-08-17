@@ -5,7 +5,7 @@ from pathlib import Path
 
 # package-local imports (run as module: `python -m scripts.main`)
 from .data.dataset_preparer import prepare_dataset
-from .train.train_sft import train_sft
+from .train.train_sft import train_sft, SFTConfig
 from .eval.eval_suite import run_eval_suite
 
 # optional helper: detect backend (mlx vs others)
@@ -45,11 +45,17 @@ if __name__ == "__main__":
 
     # 3) Train SFT (LoRA) — pass the chosen base model if supported
     #    train_sft returns the adapters path (e.g., outputs/.../adapters.npz or a folder)
-    R_T = train_sft(
+    cfg = SFTConfig(
+        base_model=base_model,  # 지정하지 않으면 SFTConfig 기본값 사용
         train_path=R_D["train_path"],
         eval_path=R_D["eval_path"],
-        base_model=base_model,  # if train_sft ignores it, it will use its own default
+        # 필요하면 다른 옵션도 여기서 오버라이드 가능
+        # iters=1000,
+        # batch_size=4,
+        # fine_tune_type="dora",
     )
+
+    R_T = train_sft(cfg)
 
     # 4) Evaluate (baseline vs finetuned suite). We pass model + adapters.
     #    run_eval_suite will read eval file from arguments or use defaults.
