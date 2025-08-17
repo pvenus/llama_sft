@@ -85,43 +85,62 @@ class _HFRunner:
     def __init__(self, model: str, adapters: str | None = None):
         _seed_all(0)
         _patch_tqdm_if_broken()  # 추가
+        os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
         import torch
         from transformers import AutoTokenizer, AutoModelForCausalLM
         try:
             from peft import PeftModel  # optional
         except Exception:
             PeftModel = None
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+
+        # Prefer MPS on macOS, then CUDA, else CPU
+        if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            self.device = "mps"
+        elif torch.cuda.is_available():
+            self.device = "cuda"
+        else:
+            self.device = "cpu"
+
         self.tok = AutoTokenizer.from_pretrained(model)
-        # Normalize pad/eos tokens so decoding/stopping is consistent with MLX
+
+        # Normalize pad/eos tokens so decoding/stopping is consistent
         if self.tok.pad_token_id is None and self.tok.eos_token_id is not None:
             try:
                 self.tok.pad_token = self.tok.eos_token
             except Exception:
                 pass
-        self.m = AutoModelForCausalLM.from_pretrained(
-            model,
-            torch_dtype=(torch.float16 if self.device == "cuda" else None),
-        )
+
+        dtype = (torch.float16 if self.device in ("cuda", "mps") else None)
+        self.m = AutoModelForCausalLM.from_pretrained(model, torch_dtype=dtype)
+
         if adapters and PeftModel is not None:
             self.m = PeftModel.from_pretrained(self.m, adapters)
-        if self.device == "cuda":
-            self.m = self.m.to("cuda")
+
+        if self.device != "cpu":
+            self.m = self.m.to(self.device)
+
+        # Deterministic: eval mode
+        try:
+            self.m.eval()
+        except Exception:
+            pass
 
     def generate(self, prompt: str, max_tokens: int = 32) -> str:
-        inputs = self.tok(prompt, return_tensors="pt")
-        if self.device == "cuda":
-            inputs = {k: v.to("cuda") for k, v in inputs.items()}
-        out = self.m.generate(
+        inputs = self.tok(prompt, return_tensors="pt", add_special_tokens=False)
+        if self.device != "cpu":
+            inputs = {k: v.to(self.device) for k, v in inputs.items()}
+        # length of the prompt tokens
+        in_len = inputs["input_ids"].shape[1]
+        seq = self.m.generate(
             **inputs,
             max_new_tokens=max_tokens,
-            do_sample=False,            # greedy
-            temperature=0.0,            # explicit
-            top_p=1.0,                  # explicit
+            do_sample=False,  # greedy / deterministic
             eos_token_id=self.tok.eos_token_id,
             pad_token_id=self.tok.pad_token_id,
         )
-        return self.tok.decode(out[0], skip_special_tokens=True)
+        # slice off the prompt part; keep only the continuation
+        gen_ids = seq[0][in_len:]
+        return self.tok.decode(gen_ids, skip_special_tokens=True)
 
 #
 # --- Compatibility shim: handle broken/old tqdm variants ----------------------
@@ -160,7 +179,7 @@ def _patch_tqdm_if_broken():
         _sys.modules["tqdm"] = stub  # type: ignore
 
 
-class _MLXRunner:
+class _MlxLmRunner:
     def __init__(self, model: str, adapters: str | None = None):
         _seed_all(0)
         # Uses mlx_lm Python API (no subprocess). Adapters may be unsupported; ignored if not available.
@@ -188,7 +207,8 @@ class _MLXRunner:
 
     def generate(self, prompt: str, max_tokens: int = 32) -> str:
         from mlx_lm import generate as mlx_generate
-        # Use only minimal args + explicitly match HF decoding behavior
+        # Prefer the newer API signature (version 1): max_tokens/temperature/top_p/eos_token_id
+        eos_id = getattr(self.tok, "eos_token_id", None)
         try:
             return mlx_generate(
                 self.m,
@@ -197,22 +217,15 @@ class _MLXRunner:
                 max_tokens=max_tokens,
                 temperature=0.0,
                 top_p=1.0,
-                eos_token_id=getattr(self.tok, "eos_token_id", None),
+                eos_token_id=eos_id,
             )
         except TypeError:
-            # Older API variants
-            try:
-                return mlx_generate(
-                    self.m,
-                    self.tok,
-                    prompt,
-                    max_new_tokens=max_tokens,
-                    temperature=0.0,
-                    top_p=1.0,
-                )
-            except TypeError:
-                # Final fallback: rely on library defaults
-                return mlx_generate(self.m, self.tok, prompt)
+            # Minimal fallback for older mlx_lm variants
+            return mlx_generate(self.m, self.tok, prompt, max_tokens=max_tokens)
+
+
+# Backward-compat alias (in case other modules referenced the old name)
+_MLXRunner = _MlxLmRunner
 
 
 def init_runner(model: str, adapters: str | None = None):
@@ -223,8 +236,11 @@ def init_runner(model: str, adapters: str | None = None):
         print("get runner")
         return RUNNER  # 이미 동일 구성이면 재사용
     try:
-        if backend() == "mlx":
-            RUNNER = _MLXRunner(model, adapters)
+        # On macOS, prefer Transformers+PyTorch(MPS) runner instead of MLX
+        if _sys.platform == "darwin":
+            RUNNER = _HFRunner(model, adapters)
+        elif backend() == "mlx":
+            RUNNER = _MlxLmRunner(model, adapters)
         else:
             RUNNER = _HFRunner(model, adapters)
     except Exception as e:
@@ -475,8 +491,7 @@ def _ensure_spec_loaded(spec_path: str):
 def _infer_once(user_text: str, model: str, adapters: str | None, max_tokens: int, allow_fallback: bool) -> dict:
     prompt = build_prompt(user_text)
     raw = gen_cli(model, prompt, max_tokens=max_tokens, adapter_path=adapters)
-    cut = raw.split("\nUser:", 1)[0]
-    pred_txt = cut.strip()  # 가공 없이 모델 원본(JSON 가정) 그대로 사용
+    pred_txt = raw.strip()  # HF 경로는 프롬프트+출력을 함께 반환하므로, generate에서 continuation만 디코드
     closing = "}}]}"
     idx = pred_txt.find(closing)
     if idx != -1:
@@ -528,7 +543,7 @@ def main():
 
     # Already under Streamlit: run the UI
     run_streamlit(
-        model="mlx-community/Llama-3.2-1B-Instruct-bf16",
+        model="meta-llama/Llama-3.2-1B-Instruct",
         adapters=None,
         spec_path="assets/train/fc_patterns.json",
         default_max_tokens=32,
