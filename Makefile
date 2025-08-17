@@ -9,6 +9,7 @@ ifeq ($(OS),Windows_NT)
   PIP := .venv\Scripts\pip.exe
   REQ := requirements-win.txt
   PYBOOT := py -3.12
+  CHECK_REQ := if not exist requirements.in ( echo requirements.in not found & exit /b 1 )
 else
   PY := .venv/bin/python
   PIP := .venv/bin/pip
@@ -18,7 +19,8 @@ else
   else
     REQ := requirements-linux.txt
   endif
-  PYBOOT := python3
+  PYBOOT := $(shell command -v /opt/homebrew/bin/python3 || command -v python3 || echo /usr/bin/python3)
+  CHECK_REQ := test -f requirements.in || { echo "requirements.in not found"; exit 1; }
 endif
 
 help:
@@ -37,7 +39,7 @@ venv:
 # 2) Compile per-OS lockfile from requirements.in
 #    - If you want hashes, add --generate-hashes
 lock: | venv
-	@if not exist requirements.in (echo requirements.in not found && exit 1)
+	@$(CHECK_REQ)
 	"$(PY)" -m piptools compile requirements.in -o "$(REQ)" --upgrade
 
 install: | lock

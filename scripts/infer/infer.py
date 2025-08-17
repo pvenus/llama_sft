@@ -65,10 +65,25 @@ COMPILED_RE = None
 
 # Singleton text-generation runner (loaded once and reused)
 RUNNER = None
+
 _RUNNER_KEY = None  # 추가: 현재 로드된 러너 식별
+
+# Helper to seed both torch and mlx for deterministic generation
+def _seed_all(seed: int = 0):
+    try:
+        import torch
+        torch.manual_seed(seed)
+    except Exception:
+        pass
+    try:
+        import mlx.core as mx
+        mx.random.seed(seed)
+    except Exception:
+        pass
 
 class _HFRunner:
     def __init__(self, model: str, adapters: str | None = None):
+        _seed_all(0)
         _patch_tqdm_if_broken()  # 추가
         import torch
         from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -78,6 +93,12 @@ class _HFRunner:
             PeftModel = None
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.tok = AutoTokenizer.from_pretrained(model)
+        # Normalize pad/eos tokens so decoding/stopping is consistent with MLX
+        if self.tok.pad_token_id is None and self.tok.eos_token_id is not None:
+            try:
+                self.tok.pad_token = self.tok.eos_token
+            except Exception:
+                pass
         self.m = AutoModelForCausalLM.from_pretrained(
             model,
             torch_dtype=(torch.float16 if self.device == "cuda" else None),
@@ -91,7 +112,15 @@ class _HFRunner:
         inputs = self.tok(prompt, return_tensors="pt")
         if self.device == "cuda":
             inputs = {k: v.to("cuda") for k, v in inputs.items()}
-        out = self.m.generate(**inputs, max_new_tokens=max_tokens, do_sample=False)
+        out = self.m.generate(
+            **inputs,
+            max_new_tokens=max_tokens,
+            do_sample=False,            # greedy
+            temperature=0.0,            # explicit
+            top_p=1.0,                  # explicit
+            eos_token_id=self.tok.eos_token_id,
+            pad_token_id=self.tok.pad_token_id,
+        )
         return self.tok.decode(out[0], skip_special_tokens=True)
 
 #
@@ -133,6 +162,7 @@ def _patch_tqdm_if_broken():
 
 class _MLXRunner:
     def __init__(self, model: str, adapters: str | None = None):
+        _seed_all(0)
         # Uses mlx_lm Python API (no subprocess). Adapters may be unsupported; ignored if not available.
         _patch_tqdm_if_broken()
         from mlx_lm import load as mlx_load
@@ -158,15 +188,30 @@ class _MLXRunner:
 
     def generate(self, prompt: str, max_tokens: int = 32) -> str:
         from mlx_lm import generate as mlx_generate
-        # Use only minimal args to maximize compatibility across mlx_lm versions
+        # Use only minimal args + explicitly match HF decoding behavior
         try:
-            return mlx_generate(self.m, self.tok, prompt, max_tokens=max_tokens)
+            return mlx_generate(
+                self.m,
+                self.tok,
+                prompt,
+                max_tokens=max_tokens,
+                temperature=0.0,
+                top_p=1.0,
+                eos_token_id=getattr(self.tok, "eos_token_id", None),
+            )
         except TypeError:
+            # Older API variants
             try:
-                # Some versions use `max_new_tokens` instead of `max_tokens`
-                return mlx_generate(self.m, self.tok, prompt, max_new_tokens=max_tokens)
+                return mlx_generate(
+                    self.m,
+                    self.tok,
+                    prompt,
+                    max_new_tokens=max_tokens,
+                    temperature=0.0,
+                    top_p=1.0,
+                )
             except TypeError:
-                # Fallback: rely on library defaults
+                # Final fallback: rely on library defaults
                 return mlx_generate(self.m, self.tok, prompt)
 
 
