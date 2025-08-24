@@ -1,12 +1,8 @@
 {
   "datas": [
     {
-      "name": "string",
-      "args": ["string"]
-    },
-    {
-      "name": "",
-      "args": [""]
+      "name": "...",
+      "arguments": {"key_name": "..."}
     }
   ]
 }

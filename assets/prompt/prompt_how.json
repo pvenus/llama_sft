@@ -4,9 +4,8 @@
     "The arguments key must be an array of strings. If there are no parameters, use an empty array [].",
     "Disallowed keys include: action, call, tool, tool_name, args, parameters, function_call, tool_calls.",
     "Do not include any text, explanations, code fences, or comments outside the JSON (e.g., no ```).",
-    "All values must be normalized as strings: trim whitespace, remove units or unnecessary phrases (e.g., ' 45 degrees ' → '45').",
+    "All values must be normalized as strings with explicit conversions: trim whitespace, collapse repeated spaces, remove units/phrases (e.g., ' 45 degrees ' → '45'), normalize full-width digits to ASCII, and standardize units (e.g., '도'/'degrees' → angle int, '분'/'minutes' → minutes int).",
     "Numerical ranges and enumerations must follow the function.yaml specification. If out of range, snap to the nearest valid value.",
-    "Ambiguous inputs should be interpreted as default or safest values according to the spec. Omit parameters if uncertain.",
-    "The output JSON must be compact, minimizing spaces, line breaks, and indentation"
+    "Ambiguous inputs must resolve to explicit defaults: if speed unclear → 'mid', if direction unclear → 'front', if timer unclear → omit; if any parameter cannot be determined safely, omit that parameter."
   ]
 }

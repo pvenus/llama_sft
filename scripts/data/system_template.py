@@ -71,9 +71,7 @@ def build_functions_section(functions):
     lines = []
     # Global output format
     lines.append("Output JSON format (fixed):")
-    lines.append("  calls: [")
-    lines.append("    { name: string, arguments: { ... } }")
-    lines.append("  ]")
+    lines.append("  { name: string, arguments: { ... } }")
     lines.append("  # Return JSON only. No extra text.")
     lines.append("")
     # Functions
@@ -100,11 +98,10 @@ def build_functions_section(functions):
             lines.append("  (no parameters)")
         # Example with placeholders (compact JSON)
         if param_items:
-            arg_kv = ",".join([f"\"{pname}\":\"string\"" for pname, _ in param_items])
-            args_obj = f"{{{arg_kv}}}"
+            args_obj = {pname: "..." for pname, _ in param_items}
         else:
             args_obj = "{}"
-        example = f'{{"calls":[{{"name":"{name}","arguments":{args_obj}}}]}}'
+        example = f'{{"name":"{name}","arguments":{args_obj}}}'
         lines.append(f"  example: {example}")
     return "\n".join(lines)
 
@@ -186,14 +183,6 @@ def main():
             preview = opts[idx]["text"] if 0 <= idx < len(opts) else ""
             with st.expander("sys_prompt preview"):
                 st.code(preview, language="text")
-            if st.button("Apply selected sys_prompt", key="btn_apply_selected"):
-                try:
-                    if SPEC is None:
-                        _ensure_spec_loaded(spec_path)
-                    SPEC["sys_prompt"] = preview
-                    st.success("sys_prompt applied.")
-                except Exception as e:
-                    st.error(f"Apply error: {e}")
     else:
         st.info("Load WHAT/HOW/FORMAT JSON to enable selection.")
 
