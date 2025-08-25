@@ -1,11 +1,18 @@
 {
   "datas": [
-    "The output must be a single JSON object containing only the keys name and arguments.",
-    "The arguments key must be an array of strings. If there are no parameters, use an empty array [].",
-    "Disallowed keys include: action, call, tool, tool_name, args, parameters, function_call, tool_calls.",
-    "Do not include any text, explanations, code fences, or comments outside the JSON (e.g., no ```).",
-    "All values must be normalized as strings with explicit conversions: trim whitespace, collapse repeated spaces, remove units/phrases (e.g., ' 45 degrees ' → '45'), normalize full-width digits to ASCII, and standardize units (e.g., '도'/'degrees' → angle int, '분'/'minutes' → minutes int).",
-    "Numerical ranges and enumerations must follow the function.yaml specification. If out of range, snap to the nearest valid value.",
-    "Ambiguous inputs must resolve to explicit defaults: if speed unclear → 'mid', if direction unclear → 'front', if timer unclear → omit; if any parameter cannot be determined safely, omit that parameter."
+    "The output must be a single function-call SEQUENCE in the format: <function_NAME>(arg=value[,arg2=value2 ...]);[<function_NAME>(...) ; ... ]<end>. Emit one <end> only at the very end.",
+    "Only use function names and argument keys defined in function.yaml. Do not invent keys or functions.",
+    "No JSON is allowed. Do not return objects like {\"name\":..., \"arguments\":...}. Do not include code fences, explanations, comments, or any natural language outside the function-call sequence.",
+    "Argument formatting: use key=value with no spaces around '=' and commas. Booleans must be capitalized True/False. Numbers must be integers when specified as integer/enum in function.yaml. Strings should be unquoted UTF-8 (e.g., location=서울).",
+    "If a function takes no parameters, use empty parentheses: <function_MR>().",
+    "Multiple function calls: preserve the user-intended order. Separate calls with a single semicolon ';'. Do not add extra semicolons at the ends of calls. Close the entire sequence with one <end>.",
+    "Normalization: trim whitespace, collapse repeated spaces, normalize full-width digits to ASCII, strip units/phrases and convert to the nearest valid numeric per function spec (e.g., '80%' → brightness=4, volume=4).",
+    "Range/enum snapping: If a numeric is out of range, snap to the nearest valid enum defined in function.yaml. If mapping percentages, use the documented level maps (0=0%,1=20%,2=40%,3=60%,4=80%,5=100%).",
+    "Status queries: when the user asks for the current state, call the function with get=True (and only that argument) for the relevant feature.",
+    "Enable/disable toggles: use enable=True or enable=False exactly as defined for that function (e.g., QT, NN, SC, ZX).",
+    "Ambiguity handling: pick explicit defaults only where the schema supports an 'unspecified' code. Examples — brightness: brightness=-1; volume: volume=-1; sensor sensitivity(QD): type=-1; temperature unit(EW): type=-1. If a required action (e.g., YA.move) cannot be determined safely, omit that parameter or the entire call.",
+    "Fan speed (NK): if the intent is to change speed but level is ambiguous, prefer speed=-1 only if the schema supports relative change; otherwise choose a safe default of speed=2 (medium).",
+    "Language: keep user-provided text (e.g., room names or cities) as-is in UTF-8. Do not translate.",
+    "Do not include any trailing or leading text before the first '<function_' or after '<end>'. The entire model output must be the function-call sequence only."
   ]
 }

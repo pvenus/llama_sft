@@ -1,0 +1,595 @@
+functions:
+  - name: function_BP
+    description: Controls AI mode operations (enable/disable and type switching).
+    args:
+      - name: enable
+        type: number
+        description: Controls AI mode ON/OFF state (0 = ON, 1 = OFF).
+        enum:
+          - 0
+          - 1
+      - name: get
+        type: boolean
+        description: Query the current AI mode status.
+        enum:
+          - true
+      - name: type
+        type: number
+        description:
+          Selects which AI mode or data linkage to control:
+            -1 = all AI functions,
+            0 = outdoor air quality linkage,
+            1 = room/space air quality,
+            2 = both modes simultaneously.
+        enum:
+          - -1
+          - 0
+          - 1
+          - 2
+  - name: function_BS
+    description: Toggles special scene modes (e.g., Night/Ghost/Do Not Disturb).
+    args:
+      - name: enable
+        type: boolean
+        description: Turn the selected scene mode ON/OFF.
+        enum:
+          - true
+          - false
+  - name: function_CE
+    description: Provides reports or results about the air purification process (status, duration, or outcome).
+    args: [ ]
+  - name: function_CK
+    description: Controls the "Follow Me" mode, enabling the device to follow the user’s movement or location.
+    args: [ ]
+  - name: function_CS
+    description: Determines optimal device placement or quantity (e.g., where to install the purifier or how many units are needed).
+    args:
+      - name: type
+        type: number
+        description: >
+          Selects the type of placement/quantity query:
+            1 = purifier installation location,
+            2 = number of purifiers needed,
+            3 = air sensor installation location.
+        enum:
+          - 1
+          - 2
+          - 3
+  - name: function_DW
+    description: Provides safety precautions or warnings related to device usage, charging, installation, or child safety.
+    args:
+      - name: type
+        type: number
+        description: >
+          Selects the type of safety precaution query:
+            1 = child safety precautions,
+            2 = charging precautions,
+            3 = installation precautions,
+            4 = general usage precautions.
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+  - name: function_EF
+    description: Triggers whole-space air purification (global cleaning).
+    args:
+      - name: action
+        type: number
+        description: >
+          Selects the action to execute:
+            1 = start whole-space air purification (global cleaning).
+        enum:
+          - 1
+  - name: function_EN
+    description: Provides explanations of available modes, features, or introductions of the device.
+    args:
+      - name: type
+        type: number
+        description: >
+          Selects which description or feature to provide:
+            1 = self-introduction / product introduction,
+            2 = general functions overview,
+            3 = purification-related features,
+            4 = welcome feature explanation,
+            5 = wake-up feature explanation,
+            6 = relax mode explanation,
+            7 = vital sign feature explanation.
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+  - name: function_EW
+    description: Manages temperature unit settings (Celsius, Fahrenheit) or queries the current unit.
+    args:
+      - name: get
+        type: boolean
+        description: Query the current temperature unit setting.
+        enum:
+          - true
+      - name: type
+        type: number
+        description: >
+          Selects or changes the temperature unit:
+            -1 = unspecified / change requested without explicit unit,
+             0 = Celsius,
+             1 = Fahrenheit.
+        enum:
+          - -1
+          - 0
+          - 1
+  - name: function_FF
+    description: Starts air purification for a specified room/zone or the currently selected space.
+    args:
+      - name: position
+        type: string
+        description: >
+          Target room or zone name. Use "-1" to indicate the current or selected location.
+  - name: function_FR
+    description: Rotates/aims the device to face the user ("look at me" / turn toward me).
+    args: []
+  - name: function_GN
+    description: Toggles Privacy Mode ON/OFF or queries the current Privacy Mode state.
+    args:
+      - name: enable
+        type: boolean
+        description: Turn Privacy Mode ON/OFF.
+        enum:
+          - true
+          - false
+      - name: get
+        type: boolean
+        description: Query the current Privacy Mode state.
+        enum:
+          - true
+  - name: function_GQ
+    description: Sets or queries the device voice gender (male, female, or unspecified change).
+    args:
+      - name: gender
+        type: number
+        description: >
+          Select or change the voice gender:
+            -1 = unspecified change request,
+             1 = female voice,
+             2 = male voice.
+        enum:
+          - -1
+          - 1
+          - 2
+      - name: get
+        type: boolean
+        description: Query the current voice gender setting.
+        enum:
+          - true
+  - name: function_GV
+    description: Initiates vital sign measurement (e.g., blood pressure, pulse, oxygen saturation, stress index).
+    args: []
+  - name: function_HG
+    description: Manages display theme settings for the standby screen (default, indoor air quality, detailed air quality) or queries the current theme.
+    args:
+      - name: get
+        type: boolean
+        description: Query the current standby screen theme setting.
+        enum:
+          - true
+      - name: theme
+        type: number
+        description: >
+          Selects or changes the standby screen theme:
+            -1 = unspecified / change request without explicit theme,
+             0 = default theme,
+             2 = indoor air quality theme.
+        enum:
+          - -1
+          - 0
+          - 2
+  - name: function_HI
+    description: Provides energy usage information or estimates electricity cost (power consumption vs. bill estimate).
+    args:
+      - name: type
+        type: number
+        description: >
+          Selects the electricity information to provide:
+            1 = device power consumption / energy usage (e.g., watts),
+            2 = estimated electricity bill or cost based on usage assumptions.
+        enum:
+          - 1
+          - 2
+  - name: function_HS
+    description: Manages device language settings (Korean/English) or applies a generic change request.
+    args:
+      - name: type
+        type: number
+        description: >
+          Selects or changes the device language:
+            -1 = unspecified / change request without explicit language,
+             1 = Korean,
+             2 = English.
+        enum:
+          - -1
+          - 1
+          - 2
+  - name: function_HW
+    description: Explains air pollutant categories (PM, PM2.5, VOCs, NOx, formaldehyde, CO₂).
+    args:
+      - name: type
+        type: number
+        description: >
+          Selects pollutant to explain:
+            1 = particulate matter (PM),
+            2 = fine particulate matter (PM2.5),
+            3 = volatile organic compounds (VOCs),
+            4 = nitrogen oxides (NOx),
+            5 = formaldehyde (HCHO),
+            6 = carbon dioxide (CO₂).
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+  - name: function_ID
+    description: Queries whether the device (purifier/air system) is currently operating or in a specific mode.
+    args:
+      - name: get
+        type: boolean
+        description: Check if the device is currently running or in operation.
+        enum:
+          - true
+  - name: function_IH
+    description: Controls or queries the scanning air purification mode (start, stop, or check status).
+    args:
+      - name: scan
+        type: boolean
+        description: Enable or disable scanning purification mode.
+        enum:
+          - true
+          - false
+      - name: get
+        type: boolean
+        description: Query the current scanning purification mode status.
+        enum:
+          - true
+  - name: function_IO
+    description: Provides air quality monitoring or forecast for a given location and timeframe.
+    args:
+      - name: timeframe
+        type: number
+        description: >
+          Selects the timeframe for the air quality data:
+            0 = current / real-time status,
+            1 = tomorrow forecast,
+            2 = weekend forecast,
+            3 = Monday forecast,
+            4 = Tuesday forecast,
+            5 = Wednesday forecast,
+            6 = Thursday forecast,
+            7 = Friday forecast,
+            8 = Saturday forecast,
+            9 = Sunday forecast.
+        enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+      - name: location
+        type: string
+        description: >
+          Location to query the air quality (city, district, or "0" = device/nearby default).
+  - name: function_JJ
+    description: Queries the device battery status (remaining percentage and charging state).
+    args: [ ]
+  - name: function_JS
+    description: Provides UI/help explanations for specific settings and features (what they are and where/how to set them).
+    args:
+      - name: type
+        type: number
+        description: >
+          Selects the help topic to explain:
+            1 = Manner mode (what it is / how it works),
+            2 = Privacy mode,
+            3 = Night mode,
+            4 = “Namu Voice” (voice brand/voice option),
+            5 = Temperature unit options and where to change them,
+            6 = UV LED (purpose/function),
+            7 = Front display / LED eye / top screen,
+            8 = Supported languages (list of available languages),
+            9 = Sensor sensitivity (what/why/how to adjust),
+            10 = AI mode (what it is and where to set it).
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+  - name: function_KI
+    description: Sends the device back to its charging dock/home base.
+    args: [ ]
+  - name: function_KP
+    description: Provides charging guidance—either the estimated time to full charge or troubleshooting when charging doesn’t work.
+    args:
+      - name: type
+        type: number
+        description: >
+          Selects the charging topic:
+            1 = estimated time to full charge,
+            2 = charging issue / troubleshooting (e.g., “not charging”).
+        enum:
+          - 1
+          - 2
+  - name: function_MO
+    description: Shows weather (current or day-specific forecast) for a given location.
+    args:
+      - name: timeframe
+        type: number
+        description: >
+          Pick the day/timeframe to display:
+            0 = current weather,
+            1 = tomorrow,
+            2 = weekend,
+            3 = Monday,
+            4 = Tuesday,
+            5 = Wednesday,
+            6 = Thursday,
+            7 = Friday,
+            8 = Saturday,
+            9 = Sunday.
+        enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+      - name: location
+        type: string
+        description: >
+          City/district name to query (e.g., "Seoul", "London").
+          Use "0" to mean the device's/default current location.
+  - name: function_MR
+    description: Provides a natural-language, empathetic reply to the user (small talk, encouragement, tips). Does not control the device.
+    args: [ ]
+  - name: function_MV
+    description: Controls or queries the mute state of the device.
+    args:
+      - name: mute
+        type: boolean
+        description: >
+          Set mute ON/OFF.  
+          true = mute (sound OFF),  
+          false = unmute (sound ON).
+        enum: [ true, false ]
+      - name: get
+        type: boolean
+        description: Query the current mute state.
+        enum: [ true ]
+  - name: function_NK
+    description: Controls or queries the fan speed level.
+    args:
+      - name: speed
+        type: number
+        description: >
+          Set fan speed level.  
+          -1 = decrease one level (relative),  
+           0 = auto mode,  
+           1 = low,  
+           2 = medium,  
+           3 = high,  
+           4 = turbo.
+        enum: [ -1, 0, 1, 2, 3, 4 ]
+      - name: get
+        type: boolean
+        description: Query the current fan speed.
+        enum: [ true ]
+  - name: function_NN
+    description: Controls the UV sterilization LED mode.
+    args:
+      - name: enable
+        type: boolean
+        description: >
+          Turn the UV sterilization LED on or off.  
+          true = turn on,  
+          false = turn off.
+        enum: [ true, false ]
+      - name: get
+        type: boolean
+        description: Query the current UV sterilization LED status.
+        enum: [ true ]
+  - name: function_PC
+    description: Provides product care and maintenance instructions (cleaning/replacement/management).
+    args:
+      - name: type
+        type: int
+        description: >
+          Provides product care/maintenance instructions for specific parts:
+            1 = Filter replacement cycle,
+            3 = A1 filter cleaning,
+            4 = Sensor window cleaning,
+            5 = LiDAR sensor cleaning,
+            6 = Obstacle detection sensor cleaning,
+            7 = Power port cleaning,
+            8 = Product exterior cleaning.
+        enum:
+          - 1
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+  - name: function_PG
+    description: Executes the fixed air purification (start cleaning) operation. Additional settings (e.g., weather check, brightness/volume/sensitivity adjustments) should be combined with other functions.
+    args: [ ]
+  - name: function_QD
+    description: Manages the sensor detection sensitivity (set level or query current level).
+    args:
+      - name: get
+        type: boolean
+        description: Query the current sensor sensitivity level.
+        enum: [ true ]
+      - name: type
+        type: number
+        description: >
+          Set the sensor sensitivity level or apply an unspecified change request:
+            -1 = unspecified / change requested without explicit level,
+             0 = Low,
+             1 = Normal,
+             2 = High (Sensitive).
+        enum: [ -1, 0, 1, 2 ]
+  - name: function_QT
+    description: Manages the voice recognition / listening mode (enable or disable) and allows querying the current status.
+    args:
+      - name: enable
+        type: boolean
+        description: Toggle voice recognition (listening) ON/OFF.  
+          true = enable listening,  
+          false = disable listening.
+        enum: [ true, false ]
+      - name: get
+        type: boolean
+        description: Query the current voice recognition (listening) status.
+        enum: [ true ]
+  - name: function_SB
+    description: Provides product specs and basics - certifications, filter type/compatibility, max noise level, component structure, and privacy/data security overview.
+    args:
+      - name: type
+        type: number
+        description: >
+          Select the information category:
+            1 = certifications and compliance,
+            2 = filter type used / which filter to buy (compatibility),
+            3 = maximum noise level (e.g., at high/turbo),
+            4 = purifier composition / components overview,
+            5 = privacy & personal data security basics.
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+  - name: function_SC
+    description: Controls or queries the air quality status display LED (turn ON/OFF or check current state).
+    args:
+      - name: enable
+        type: boolean
+        description: >
+          Toggle the air quality status display LED.  
+          true = turn ON,  
+          false = turn OFF.
+        enum: [ true, false ]
+      - name: get
+        type: boolean
+        description: Query whether the air quality status display LED is currently active.
+        enum: [ true ]
+  - name: function_SV
+    description: Queries the device/system status for basic conditions (time, date, network, and mode states).
+    args:
+      - name: type
+        type: number
+        description: >
+          Select the system status to query:
+            1 = current time (clock),
+            2 = manner mode (Do Not Disturb) status,
+            3 = night mode status,
+            4 = Wi-Fi / internet connection status,
+            5 = current date.
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+  - name: function_UJ
+    description: Displays or queries the filter condition, usage level, and remaining lifespan (optionally shown on screen).
+    args: [ ]
+  - name: function_UY
+    description: Provides explanations for error codes displayed on the device screen, including causes and possible resolutions.
+    args: [ ]
+  - name: function_WN
+    description: Sets or queries the display/LED brightness level for the device screen or LED eye.
+    args:
+      - name: brightness
+        type: number
+        description: >
+          Set the brightness level or apply a generic change request. Levels map roughly to percentages:
+            0 = OFF (0%),
+            1 = 20%,
+            2 = 40%,
+            3 = 60%,
+            4 = 80%,
+            5 = 100%,
+           -1 = unspecified change (e.g., "increase/decrease", "middle", "default/auto", or a % value to be interpreted).
+        enum: [ -1, 0, 1, 2, 3, 4, 5 ]
+      - name: get
+        type: boolean
+        description: Query the current brightness level.
+        enum: [ true ]
+  - name: function_XO
+    description: Displays the device’s error/event history log so the user can review recent errors. Read-only; does not clear or modify logs.
+    args: [ ]
+  - name: function_YA
+    description: Controls the movement or operation cycle of the purifier/drive system.
+      Used to start, pause, or stop ongoing cleaning/movement processes.
+      Often paired with MR for natural conversation.
+    args:
+      - name: move
+        type: int
+        description: Movement state to set.
+        enum:
+          - 0: Stop operation completely
+          - 1: Pause (temporary hold)
+          - 2: Resume or restart operation
+  - name: function_ZV
+    description: Sets or queries the device’s audio/volume level (system sounds, effects, TTS, touch sounds, etc.).
+      Supports absolute levels, percentage mapping, or generic change requests (e.g., “increase”, “decrease”, “lower the sound”).
+    args:
+      - name: volume
+        type: number
+        description: >
+          Set the audio/volume level or apply a general change request. Levels map to approximate percentages:  
+            0 = mute (0%),  
+            1 = very low (20%),  
+            2 = low (40%),  
+            3 = medium (60%),  
+            4 = high (80%),  
+            5 = maximum (100%),  
+           -1 = unspecified change (e.g., "increase/decrease", "lower", "raise", "default/auto").
+        enum: [ -1, 0, 1, 2, 3, 4, 5 ]
+      - name: get
+        type: boolean
+        description: Query the current volume level.
+        enum: [ true ]
+  - name: function_ZX
+    description: Toggles Manner Mode (Do Not Disturb) ON/OFF or queries its current status. When enabled, the device minimizes non‑critical sounds/notifications and may dim indicators for quieter operation.
+    args:
+      - name: enable
+        type: boolean
+        description: >
+          Toggle Manner Mode.
+            true = enable Manner Mode (quiet / do-not-disturb),
+            false = disable Manner Mode.
+        enum: [ true, false ]
+      - name: get
+        type: boolean
+        description: Query whether Manner Mode is currently enabled.
+        enum: [ true ]

@@ -5,6 +5,7 @@ import json
 import re
 from pathlib import Path
 import os
+import csv
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from collections import deque, defaultdict
@@ -46,9 +47,43 @@ def _read_jsonl_head(path: str, limit: int = 300) -> list[dict]:
                 pass
     return out
 
+# --- Read test_user_message.csv and normalize to [{"message":..., "expected":...}] ---
+def _read_msg_csv(path: str) -> list[dict]:
+    """
+    Read test_user_message.csv and normalize to a list of dicts:
+      {"message": <Query text>, "expected": <LLM Output>}
+    Expected headers (case-sensitive preferred, case-insensitive fallback):
+      - "Query(한글)" or "Query"
+      - "LLM Output" or "expected"
+    Rows with empty Query are skipped.
+    """
+    p = Path(path)
+    if not p.exists():
+        return []
+    out: list[dict] = []
+    with p.open("r", encoding="utf-8") as rf:
+        reader = csv.DictReader(rf)
+        for row in reader:
+            # Header fallbacks
+            msg = (row.get("Query(한글)")
+                   or row.get("Query")
+                   or row.get("query")
+                   or row.get("MESSAGE")
+                   or row.get("message")
+                   or "").strip()
+            expected = (row.get("LLM Output")
+                        or row.get("expected")
+                        or row.get("EXPECT")
+                        or row.get("Expect")
+                        or "").strip()
+            if not msg:
+                continue
+            out.append({"message": msg, "expected": expected})
+    return out
+
 # Default static system prompt (since SPEC is removed)
 def build_prompt(sys_text: str, user_text: str) -> str:
-    return f"{sys_text}, User:{user_text}, Assistant: " + '{"name":'
+    return f"{sys_text}, User:{user_text}, Assistant: <"
 
 # --- Import runners from package (no local caching) ---
 try:
@@ -73,6 +108,89 @@ def parse_json(text: str):
 
 def _undouble_quotes(s: str) -> str:
     return s.replace('""', '"') if s.count('""') > s.count('"')//2 else s
+
+# --- helpers for <function_XX>(arg=val) format ---
+def _coerce_scalar(v: str):
+    s = v.strip()
+    if not s:
+        return ""
+    # strip surrounding quotes if present
+    if (s.startswith('"') and s.endswith('"')) or (s.startswith("'") and s.endswith("'")):
+        s = s[1:-1]
+    ls = s.lower()
+    if ls in ("true", "false"):
+        return ls == "true"
+    # int
+    try:
+        if s.isdigit() or (s.startswith("-") and s[1:].isdigit()):
+            return int(s)
+    except Exception:
+        pass
+    # float
+    try:
+        return float(s)
+    except Exception:
+        pass
+    return s
+
+def _parse_args_kv(arg_str: str) -> dict:
+    """Parse 'a=1, b="x"' to {a: 1, b: 'x'}. Empty -> {}"""
+    if arg_str is None:
+        return {}
+    s = arg_str.strip()
+    if not s:
+        return {}
+    out = {}
+    # allow trailing <end>
+    s = re.sub(r"<\s*end\s*>\s*$", "", s, flags=re.IGNORECASE)
+    # split by commas that are not inside quotes
+    parts = re.split(r",(?=(?:[^\\\"]|\\.|\"[^\"]*\")*$)", s)
+    for p in parts:
+        if not p.strip():
+            continue
+        if "=" not in p:
+            # bare flag -> treat as True
+            k = p.strip()
+            out[k] = True
+            continue
+        k, v = p.split("=", 1)
+        out[k.strip()] = _coerce_scalar(v)
+    return out
+
+def parse_function_call(s: str):
+    """Return (name, args) from strings like '<function_WN>(brightness=2)' or '<function_IO>(timeframe=1, location="0")'.
+    If multiple calls are present (separated by ';'), parse the first. Returns (None, None) on failure.
+    """
+    if not s:
+        return None, None
+    text = s.strip()
+    # keep only first segment before ';'
+    text = text.split(";", 1)[0].strip()
+    m = re.search(r"<\s*function_([A-Za-z0-9]+)\s*>\s*\((.*?)\)\s*(?:<\s*end\s*>\s*)?$", text)
+    if not m:
+        # also allow no-arg form like <function_KI>() or <function_KI>
+        m2 = re.search(r"<\s*function_([A-Za-z0-9]+)\s*>\s*(?:\((.*?)\))?", text)
+        if not m2:
+            return None, None
+        fname = f"function_{m2.group(1)}"
+        arg_str = m2.group(2) or ""
+        return fname, _parse_args_kv(arg_str)
+    fname = f"function_{m.group(1)}"
+    arg_str = m.group(2) or ""
+    return fname, _parse_args_kv(arg_str)
+
+def decode_call_any(s: str):
+    """Decode either legacy JSON {"name":..., "arguments":{...}} or the new '<function_XX>(...)' string.
+    Returns (name, args) or (None, None).
+    """
+    if not s:
+        return None, None
+    # try JSON first
+    obj = parse_json(s)
+    if isinstance(obj, dict) and "name" in obj:
+        return obj.get("name"), obj.get("arguments") if isinstance(obj.get("arguments"), dict) else {}
+    # try function-call format
+    return parse_function_call(s)
 def _finalize_pred_continuation(cont: str):
     """
     cont: model continuation that starts right after '{"name":'
@@ -111,14 +229,20 @@ def _infer_once(sys_text:str, user_text: str, model: str, adapters: str | None, 
         pass
     raw = get_runner(model, adapters, index=runner_index).generate(prompt, max_tokens=max_tokens)
     pred_txt = raw.strip()
-    pred, used_text = _finalize_pred_continuation(pred_txt)
+
+    # Prefer new '<function_XX>(...)' format; fallback to legacy JSON; then heuristic JSON completion
+    fname, fargs = decode_call_any(pred_txt)
     used_fallback = False
-    if ((not pred) or (not isinstance(pred, dict)) or ("name" not in pred)) and allow_fallback:
-        fb = fallback_route_ko(user_text)
-        if fb:
-            pred = {"name": fb, "arguments": {}}
-            pred_txt = json.dumps(pred, ensure_ascii=False)
-            used_fallback = True
+    if fname:
+        pred = {"name": fname, "arguments": fargs or {}}
+    else:
+        pred, _used = _finalize_pred_continuation(pred_txt)
+        if ((not pred) or (not isinstance(pred, dict)) or ("name" not in pred)) and allow_fallback:
+            fb = fallback_route_ko(user_text)
+            if fb:
+                pred = {"name": fb, "arguments": {}}
+                pred_txt = json.dumps(pred, ensure_ascii=False)
+                used_fallback = True
     return {
         "pred": pred,
         "pred_text": pred_txt,
@@ -150,22 +274,19 @@ def _iter_infer_rows(index: int, s_prompt: str, msg_list: list[dict], model: str
         print(f"[infer] prompt#{index:02d} runner_idx={runner_index} thread={threading.current_thread().name} -> done {elapsed_ms} ms")
 
         expected_raw = (m.get("expected") or "").strip()
-        expected_obj = parse_json(expected_raw)
-        expected_name = expected_obj.get("name") if isinstance(expected_obj, dict) else None
-        expected_args = expected_obj.get("arguments") if isinstance(expected_obj, dict) else None
+        expected_name, expected_args = decode_call_any(expected_raw)
 
         pred_obj = out.get("pred")
-        if isinstance(pred_obj, dict):
+        pred_name = None
+        pred_args = None
+        if isinstance(pred_obj, dict) and "name" in pred_obj:
             pred_name = pred_obj.get("name")
-            pred_args = pred_obj.get("arguments")
+            pred_args = pred_obj.get("arguments") if isinstance(pred_obj.get("arguments"), dict) else {}
         else:
-            try:
-                pred_parsed = json.loads(pred_obj)
-                pred_name = pred_parsed.get("name") if isinstance(pred_parsed, dict) else None
-                pred_args = pred_parsed.get("arguments") if isinstance(pred_parsed, dict) else None
-            except Exception:
-                pred_name = None
-                pred_args = None
+            # try to decode from pred_text (new format)
+            ptxt = out.get("pred_text") or ""
+            pn, pa = decode_call_any(ptxt)
+            pred_name, pred_args = pn, pa
 
         name_match = (pred_name == expected_name)
         arg_match = _args_equal(pred_args, expected_args)
@@ -215,13 +336,14 @@ def fallback_route_ko(text: str):
     return None
 
 def _args_equal(a, b) -> bool:
+    if a is None: a = {}
+    if b is None: b = {}
     if not (isinstance(a, dict) and isinstance(b, dict)):
         return False
     if set(a.keys()) != set(b.keys()):
         return False
     for k in a:
         va, vb = a[k], b[k]
-        # Normalize both to string for comparison
         if str(va) != str(vb):
             return False
     return True
@@ -252,15 +374,15 @@ def render(
         max_rows_keep = st.number_input("Max table rows kept", min_value=50, max_value=5000, value=500, step=50, help="Older rows will be dropped from view to save memory.")
 
     st.markdown("---")
-    st.subheader("Batch Inference (sys_prompt.jsonl × test_user_message.jsonl)")
+    st.subheader("Batch Inference (sys_prompt.jsonl × test_user_message.csv)")
 
     colb1, colb2, colb3 = st.columns([5, 5, 1])
     with colb1:
         sys_path = st.text_input("sys_prompt.jsonl 경로", value="assets/prompt/sys_prompt.jsonl",
                                  key="sys_jsonl_path")
     with colb2:
-        msg_path = st.text_input("test_user_message.jsonl 경로", value="assets/prompt/test_user_message.jsonl",
-                                 key="msg_jsonl_path")
+        msg_path = st.text_input("test_user_message.csv 경로", value="assets/prompt/test_user_message.csv",
+                                 key="msg_csv_path")
     run_batch = st.button("Batch Infer", type="primary", key="btn_batch_infer")
 
 
@@ -269,17 +391,18 @@ def render(
         try:
             # 1) 데이터 로드
             sys_list = _read_jsonl(sys_path)  # 기대: [{"prompt":"..."}] * N
-            msg_list = _read_jsonl(msg_path)  # 기대: [{"message":"..."}] * M
+            msg_list = _read_msg_csv(msg_path)  # 기대: [{"message":"..." , "expected":"..."}] * M
             if not sys_list:
                 st.error("sys_prompt.jsonl에서 항목을 찾지 못했습니다. (빈 파일 또는 경로 확인)")
             if not msg_list:
-                st.error("test_user_message.jsonl에서 항목을 찾지 못했습니다. (빈 파일 또는 경로 확인)")
+                st.error("test_user_message.csv에서 항목을 찾지 못했습니다. (빈 파일 또는 경로 확인)")
 
             cols = [
                 "name_match",
                 "arg_match",
                 "pred_name",
                 "pred_args",
+                "pred_text",  # raw model output string in <function_XX>(...) format
                 "expected_name",
                 "expected_args",
                 "sys_prompt",
@@ -312,23 +435,18 @@ def render(
                     name_match = row["name_match"]
                     arg_match = row["arg_match"]
                     pred_obj = row.get("pred")
-                    expected_obj = parse_json(row.get("expected") or "")
-                    expected_name = expected_obj.get("name") if isinstance(expected_obj, dict) else None
-                    expected_args = expected_obj.get("arguments") if isinstance(expected_obj, dict) else None
 
-                    if isinstance(pred_obj, dict):
+                    # Decode expected from either '<function_XX>(...)' or legacy JSON
+                    expected_name, expected_args = decode_call_any(row.get("expected") or "")
+
+                    # Predicted: prefer already-parsed dict; else decode from pred_text
+                    if isinstance(pred_obj, dict) and "name" in pred_obj:
                         pred_name = pred_obj.get("name")
-                        pred_args = pred_obj.get("arguments")
+                        pred_args = pred_obj.get("arguments") if isinstance(pred_obj.get("arguments"), dict) else {}
                     else:
-                        try:
-                            pred_parsed = json.loads(pred_obj)
-                            pred_name = pred_parsed.get("name") if isinstance(pred_parsed, dict) else None
-                            pred_args = pred_parsed.get("arguments") if isinstance(pred_parsed, dict) else None
-                        except Exception:
-                            pred_name = None
-                            pred_args = None
+                        pred_name, pred_args = decode_call_any(row.get("pred_text") or "")
 
-                    # update per-prompt counters (mutually classified)
+                    # update per-prompt counters (mutually exclusive buckets)
                     if name_match and arg_match:
                         all_match_sum += 1
                     elif name_match and not arg_match:
@@ -356,6 +474,7 @@ def render(
                         "arg_match": "✅" if arg_match else "❌",
                         "pred_name": pred_name,
                         "pred_args": json.dumps(pred_args, ensure_ascii=False) if isinstance(pred_args, dict) else str(pred_args),
+                        "pred_text": row.get("pred_text"),
                         "expected_name": expected_name,
                         "expected_args": json.dumps(expected_args, ensure_ascii=False) if isinstance(expected_args, dict) else str(expected_args),
                         "sys_prompt": s_prompt,
@@ -466,37 +585,31 @@ def _iter_infer_rows_batched(index: int, s_prompt: str, msg_list: list[dict], mo
         # Parse each output and yield rows
         for (user_text, expected_raw), raw in zip(chunk, outputs):
             pred_txt = (raw or "").strip()
-            out = {
-                "pred_text": pred_txt,
-                "source": "model",
-            }
-            pred, used_text = _finalize_pred_continuation(pred_txt)
-            used_fallback = False
+            out = {"pred_text": pred_txt, "source": "model"}
+
+            # Prefer new '<function_XX>(...)' format; fallback to legacy JSON; then heuristic JSON completion
+            fname, fargs = decode_call_any(pred_txt)
+            if fname:
+                pred = {"name": fname, "arguments": fargs or {}}
+            else:
+                pred, _used = _finalize_pred_continuation(pred_txt)
+
             if ((not pred) or (not isinstance(pred, dict)) or ("name" not in pred)) and allow_fb:
                 fb = fallback_route_ko(user_text)
                 if fb:
                     pred = {"name": fb, "arguments": {}}
                     out["pred_text"] = json.dumps(pred, ensure_ascii=False)
                     out["source"] = "fallback"
-                    used_fallback = True
+
             out["pred"] = pred
 
-            expected_obj = parse_json(expected_raw)
-            expected_name = expected_obj.get("name") if isinstance(expected_obj, dict) else None
-            expected_args = expected_obj.get("arguments") if isinstance(expected_obj, dict) else None
+            expected_name, expected_args = decode_call_any(expected_raw)
 
-            pred_obj = out.get("pred")
-            if isinstance(pred_obj, dict):
-                pred_name = pred_obj.get("name")
-                pred_args = pred_obj.get("arguments")
+            if isinstance(pred, dict) and "name" in pred:
+                pred_name = pred.get("name")
+                pred_args = pred.get("arguments") if isinstance(pred.get("arguments"), dict) else {}
             else:
-                try:
-                    pred_parsed = json.loads(pred_obj)
-                    pred_name = pred_parsed.get("name") if isinstance(pred_parsed, dict) else None
-                    pred_args = pred_parsed.get("arguments") if isinstance(pred_parsed, dict) else None
-                except Exception:
-                    pred_name = None
-                    pred_args = None
+                pred_name, pred_args = decode_call_any(out.get("pred_text") or "")
 
             name_match = (pred_name == expected_name)
             arg_match = _args_equal(pred_args, expected_args)

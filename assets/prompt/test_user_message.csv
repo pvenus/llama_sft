@@ -1,0 +1,51 @@
+Index,Query(한글),LLM Output
+0AHOXU,새로 배운 운동이 있어,<function_MR>()<end>
+0AWHVF,온라인에서 저렴하게 살 수 있는 방법 있니,<function_MR>()<end>
+0BBYNN,가족과 함께 주말에 나들이를 가기로 했어,<function_MR>()<end>
+0BPVEC,요즘 유행하는 물건이 뭐가 있을까?,<function_MR>()<end>
+0BSMLN,새로 시작한 프로젝트가 너무 힘들어서 스트레스가 쌓여,<function_MR>()<end>
+0CLNTI,커피 한 잔 할까,<function_MR>()<end>
+0CSLXJ,가장 좋아하는 음식이 뭐야,<function_MR>()<end>
+0CSRJF,새로 산 옷이 너무 마음에 들어 매일 입고 다니고 있어,<function_MR>()<end>
+0CYKTS,오늘 저녁엔 뭘 만들어볼까,<function_MR>()<end>
+0EBDGS,이번에 새로 배운 취미 있어,<function_MR>()<end>
+0ABTPU,월요일 날씨 좀 알려줘요,"<function_MO>(timeframe=3, location=""0"")<end>"
+0AYPWN,이 지역의 내일 저녁 공기질 예측을 보여줘,"<function_IO>(timeframe=1, location=""0"")<end>"
+0BAWRV,내일 베를린 날씨 어때요,"<function_MO>(timeframe=1, location=""베를린"")<end>"
+0BIBUW,개인수업실에서 공기청정 바로 가동해봐,"<function_FF>(position=""개인수업실"")<end>"
+0BPAPQ,쿠알라룸푸르 내일 TVOC 때문에 걱정해야 해,"<function_IO>(timeframe=1, location=""쿠알라룸푸르"")<end>"
+0CANRE,주말 공기 좀 알려줘요,"<function_IO>(timeframe=2, location=""0"")<end>"
+0CCDZN,내일 서울의 대기질은 어떨까?,"<function_IO>(timeframe=1, location=""서울"")<end>"
+0DAJXZ,금요일 자그레브 날씨에 눈 오니,"<function_MO>(timeframe=7, location=""자그레브"")<end>"
+0DCQZG,조용한공간의 청정 모드 가동해줄 수 있나요?,"<function_FF>(position=""조용한공간"")<end>"
+0DDRAB,화요일 부산 날씨는 어때?,"<function_MO>(timeframe=4, location=""부산"")<end>"
+0AFDAW,볼만한 영화 하나 추천해 줄 수 있어 그리고 날씨 알려줘,"<function_MR>();<function_MO>(timeframe=0, location=""0"")<end>"
+0AFLIZ,청정 켜봐 그 다음에 토요일 노량진 날씨 알려줘,"<function_PG>();<function_MO>(timeframe=8, location=노량진)<end>"
+0AGZWI,충전 위치로 되돌아가 그 후에 오늘 날씨 어때,"<function_KI>();<function_MO>(timeframe=0, location=""0"")<end>"
+0AXURU,고정 공기 청정 실행해줘 금요일 여기에 공기가 나쁠까,"<function_PG>();<function_IO>(timeframe=7, location=""0"")<end>"
+0BNPFL,감지 민감도를 보통으로 조정할 수 있어 이어서 내일 아침에 일찍 일어나서 운동해야지,<function_QD>(type=1);<function_MR>()<end>
+0BZJBD,충전 위치로 돌아가고 부산의 수요일 공기질은 어때?,"<function_KI>();<function_IO>(timeframe=4, location=부산)<end>"
+0BZRWY,고정 청정 온 그리고 서울의 금요일 공기질 상태가 어떨지 확인해줘,"<function_PG>();<function_IO>(timeframe=7, location=서울)<end>"
+0CAASH,소리 볼륨을 네로 맞춰줘 그리고 오늘은 할 일이 많아서 바쁘게 보냈어,<function_MR>();<function_ZV>(volume=4)<end>
+0CCPJM,내일 여기에 공기가 나쁠까 또 새로 배운 운동이 있어,"<function_IO>(timeframe=1, location=""0"");<function_MR>()<end>"
+0CDUKW,엘이디 눈 밝기를 이단계로 설정해줘 그러고 나서 이 영화 언제 개봉해,<function_WN>(brightness=2);<function_MR>()<end>
+0AKMHR,중국어반에서 즉시 공기청정해줄래요,"<function_FF>(position=""중국어반"")<end>"
+0ALPFJ,주말 날씨 알려줄래,"<function_MO>(timeframe=2, location=""0"")<end>"
+0AMLEO,내일 도쿄 날씨는 어떤지 좀 알려줘,"<function_MO>(timeframe=3, location=""도쿄"")<end>"
+0AQCTL,현재 공기질 모니터링 결과 띄워봐,"<function_IO>(timeframe=0, location=""0"")<end>"
+0AVFCU,광주 지역의 현재 대기질이 궁금해.,"<function_IO>(timeframe=0, location=""광주"")<end>"
+0BQBIM,수요일 강릉 날씨 어때,"<function_MO>(timeframe=5, location=""강릉"")<end>"
+0BRSSQ,이번 주말 공기질이 괜찮을지 궁금해,"<function_IO>(timeframe=2, location=""0"")<end>"
+0CBOJC,방재실에서 청정해줘,"<function_FF>(position=""방재실"")<end>"
+0CIQVF,유아부실 공기청정 동작 시작해주세요,"<function_FF>(position=""유아부실"")<end>"
+0CNQFF,제주 월요일 날씨 어때,"<function_MO>(timeframe=3, location=""제주"")<end>"
+0CDZKO,소리 볼륨을 4로 맞춰줄 수 있어? 그 다음에 이번 주말에는 영화 보러 갈까 생각 중이야.,<function_MR>();<function_ZV>(volume=4)<end>
+0CEEVY,고정 청정 온 그 후에 전체 공간 청정 기능을 꺼줘,<function_PG>();<function_EF>(action=0)<end>
+0CMVUL,목요일 날씨 추울까 그러고 나서 저녁으로 뭘 먹을지 아직도 고민 중이야 빨리 결정해야겠어,"<function_MO>(timeframe=6, location=""0"");<function_MR>()<end>"
+0CRPLS,고정 청정 온 또 방해 금지 모드 중단할게,<function_PG>();<function_BS>(enable=False)<end>
+0DLPFT,오늘은 진짜 아무것도 하기 싫어서 그냥 누워만 있었어 그 다음에 내일 날씨 알려줘,"<function_MR>();<function_MO>(timeframe=1, location=""0"")<end>"
+0DLTMH,고정 공청 기능 켜줘 그리고 공간별 공기질 이력 연동 설정을 켜줄래요,"<function_PG>();<function_BP>(enable=0, type=1)<end>"
+0ELQQR,바람 세기를 약하게 조절해 줄래? 그리고 오늘은 뭘 할지 고민 중이야.,<function_MR>();<function_NK>(speed=1)<end>
+0EVCHF,고정 공기 청정 실행해줘 그 다음에 감지 감도를 낮게 설정해줘,<function_PG>();<function_QD>(type=0)<end>
+0EYJAY,소리 볼륨을 두 단계로 조정해줄래 그리고 오늘은 할 일이 많아.,<function_MR>();<function_ZV>(volume=2)<end>
+0FACWK,청정 켜봐 그 다음에 목요일 날씨 알려줘,"<function_PG>();<function_MO>(timeframe=6, location=""0"")<end>"

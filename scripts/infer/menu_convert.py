@@ -81,7 +81,7 @@ def render(st):
             fmts = _load_datas_list(fmt_path)
 
             # Fixed function section from YAML (hidden)
-            fixed_yaml = Path("assets/prompt/function.yaml")
+            fixed_yaml = Path("assets/prompt/function_real.yaml")
             if yaml is None:
                 raise RuntimeError("PyYAML is not installed. Please `pip install pyyaml`.")
             if not fixed_yaml.exists():

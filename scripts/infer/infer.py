@@ -98,7 +98,7 @@ def run_streamlit(model: str,
                   adapters: str | None = None,
                   spec_path: str = "assets/train/fc_patterns.json",
                   default_max_tokens: int = 32,
-                  default_no_fallback: bool = False):
+                  default_no_fallback: bool = True):
     """Run a minimal Streamlit UI that reuses the single-loaded model.
     Execute with: `streamlit run server.py -- --model ... --spec ... --max_tokens 32 --streamlit`
     """
