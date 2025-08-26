@@ -1,0 +1,113 @@
+functions:
+  - name: mode_on
+    description: Turn a specific mode ON (start/enable the selected operating mode).
+    args:
+      - name: mode
+        type: string
+        description: Select which mode to enable.
+        enum:
+          - AI_Mode
+          - Outdoor_Air_Quality_AI_Mode
+          - Room_Air_Quality_AI_Mode
+          - Night_Mode
+          - Ghost_Mode
+          - Fixed_Mode
+          - Follow_Mode
+          - Global_Cleaning_Mode
+          - Zone_Selection_Mode
+          - Privacy_Mode
+          - Vital_Sign_Mode
+          - Scanning_Mode
+          - Return_Home_Mode
+          - Charging_Mode
+          - Mute_Mode
+          - Drive_Mode
+          - Voice_Recognition_Mode          -
+  - name: mode_off
+    description: Turn a specific mode OFF or pause/resume it.
+    args:
+      - name: mode
+        type: string
+        description: Select which mode to disable or pause/resume.
+        enum:
+          - AI_Mode
+          - Outdoor_Air_Quality_AI_Mode
+          - Room_Air_Quality_AI_Mode
+          - Night_Mode
+          - Ghost_Mode
+          - Fixed_Mode
+          - Follow_Mode
+          - Global_Cleaning_Mode
+          - Zone_Selection_Mode
+          - Privacy_Mode
+          - Vital_Sign_Mode
+          - Scanning_Mode
+          - Return_Home
+          - Charging
+          - Mute_Mode
+          - Drive_Mode
+          - Voice_Recognition
+      - name: pause
+        type: boolean
+        description: If provided, pause (true) or unpause (false) the selected mode instead of fully turning it off.
+        enum: [ true, false ]
+
+  - name: info
+    description: Retrieve information about status, features, settings, battery, or air quality. Optionally provide a sub-detail topic.
+    args:
+      - name: data
+        type: string
+        description: High-level category to query.
+        enum:
+          - Status
+          - Information
+          - Precautions
+          - Features
+          - Settings
+          - Battery
+          - Air_Quality
+          - Weather
+          - Machine_Cleaning
+          - Personal_Info
+      - name: detail
+        type: string
+        required: false
+        description: Optional sub-topic to narrow the query (e.g., "filter status", "network", "noise", etc.).
+
+  - name: swap_env
+    description: Query current environment settings (theme, temperature unit, voice) or toggle between available options.
+    args:
+      - name: key
+        type: string
+        description: Environment item to inspect/swap.
+        enum:
+          - Theme
+          - Temperature_Unit
+          - Voice
+          - Brightness
+          - Volume
+  - name: set_env
+    description: Explicitly set environment parameters such as theme, temperature unit, direction, or voice.
+    args:
+      - name: key
+        type: string
+        description: Environment item to set.
+        enum:
+          - Theme
+          - Temperature_Unit
+          - Direction
+          - Voice
+          - Fan_Speed
+          - Volume
+          - Brightness
+          - Sensor_Sensitivity
+      - name: value
+        type: string
+        description: Target value to apply (free-form; validated by the application layer).
+
+  - name: talk
+    description: Send a free-form natural language message response (small talk or informational text) without controlling the device.
+    args:
+      - name: message
+        type: string
+        description: Plain text message to present to the user.

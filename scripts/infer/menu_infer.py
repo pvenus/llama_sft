@@ -83,7 +83,7 @@ def _read_msg_csv(path: str) -> list[dict]:
 
 # Default static system prompt (since SPEC is removed)
 def build_prompt(sys_text: str, user_text: str) -> str:
-    return f"{sys_text}, User:{user_text}, Assistant: <"
+    return f"{sys_text}, User:{user_text}, Assistant: " + '{"name":'
 
 # --- Import runners from package (no local caching) ---
 try:
