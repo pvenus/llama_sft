@@ -256,9 +256,9 @@ def convert_csv(
     df["map_enum"] = map_enums
     df["map_args"] = map_args
 
-    # 결과 포맷 고정: func / raw_args / query / map_func / map_enum / map_args
+    # 결과 포맷 고정: func / raw_args / map_func / map_enum / query / map_args
     if minimal:
-        cols = [c for c in ["func", "raw_args", "query", "map_func", "map_enum", "map_args"] if c in df.columns]
+        cols = [c for c in ["func", "raw_args", "map_func", "map_enum", "query", "map_args"] if c in df.columns]
         df = df[cols]
 
     df.to_csv(out_csv, index=False, encoding=encoding_out)
