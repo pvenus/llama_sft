@@ -1,0 +1,441 @@
+﻿sample_no,row_id,func,raw_args,call_order,source_index,query,fill_reason
+1,439,BP,get=True,1,1NAVMX,청정 켜봐 또 공간별 누적 대기질 정보 연동 작동 중인가요,unique_all
+2,4,BP,"enable=0, type=2",0,0ALMTU,지금 에이아이 모드 둘 다 작동시켜 주세요,unique_all
+3,19,BP,"enable=0, type=0",0,0BOJBS,에이아이 모드에서 실외 대기질 정보 연동 켜주세요,unique_all
+4,144,BP,"enable=1, type=1",1,0LDFUB,오랜만에 부모님과 시간을 보내려고 계획 중이야 그리고 에이아이 모드에서 공간별 누적 공기질 정보 연동 꺼주세요,unique_all
+5,231,BP,"enable=0, type=1",1,0RYLDI,오늘은 무슨 일을 해야 할지 모르겠어 그냥 쉬고 싶어 그 다음에 에이아이 모드의 공간별 공기질 데이터 연동 상태로 바꿔줘,unique_all
+6,417,BP,"enable=1, type=0",0,1JZMTA,실외 공기질 정보 연결 설정을 꺼줄래요 그러고 나서 다음 주말에 부모님과 시간을 보낼까 생각 중이야,unique_all
+7,447,BP,"enable=1, type=2",1,1NTZAN,고정 공청 기능 켜줘 그리고 혹시 에이아이 모드 동시에 꺼주실 수 있나요,unique_all
+8,245,BP,"enable=0, type=-1",0,0TTMRN,당장 에이아이 모드 온 하도록 도와줄거지,unique_all
+9,420,BP,"enable=1, type=-1",0,1KKZGA,바로 에이아이 기능 종료,unique_all
+10,323,BP,"enable=0, type=1",1,1BXVYX,고정 공청 기능 켜줘 그리고 공간별 공기질 이력 연동 설정을 켜줄래요,fill_duplicate
+1,333,BS,enable=True,1,1CUPEZ,고정 공기 청정 가동 시작해줘 그 다음에 나이트 모드 시작할래,unique_all
+2,723,BS,enable=False,1,2PDLTR,고정 공청 기능 켜줘 그러고 나서 나이트 모드 비활성화해줘,unique_all
+3,526,BS,enable=True,0,1UNYXM,고스트 모드 설정해주세요 그러고 나서 오늘 하루는 그냥 아무것도 안 하고 싶어,fill_duplicate
+4,560,BS,enable=True,0,1YKPJF,어두운 모드로 바꿔줘,fill_duplicate
+5,926,BS,enable=False,0,3IHJRD,고스트 모드 종료해주세요 그리고 주말에 뭐 할지 아직 정하지 못했어 그냥 집에 있을까 생각 중이야,fill_duplicate
+6,1078,BS,enable=True,0,3XHJTV,고스트 모드 켜줘,fill_duplicate
+7,1167,BS,enable=True,0,4EUGLD,고스트 모드 실행해줘,fill_duplicate
+8,1212,BS,enable=False,1,4IOTZL,고정 청정 온 또 방해 금지 모드 중단할게,fill_duplicate
+9,1358,BS,enable=False,0,4WHWLT,고스트 모드 중지해줘,fill_duplicate
+10,1482,BS,enable=False,1,5HMRPG,이번에 새로 나온 스마트폰이 정말 좋다는데 살까 말까 고민이네 그리고 나이트 모드 꺼줘,fill_duplicate
+1,12,CE,,0,0AWJDL,공기청정 소요시간이 얼마였어 그리고 내일은 조금 더 부지런하게 보내야겠어 할 일이 많아,fill_empty
+2,33,CE,,1,0CSGIE,내일 중요한 발표가 있는데 너무 긴장 돼 잘해야 할 텐데 그리고 청정 결과 보고서 보여줘,fill_empty
+3,196,CE,,0,0PSHSU,청정 리포트 보여줘,fill_empty
+4,361,CE,,0,1FJVOR,청정 상태 보고서 보여줘,fill_empty
+5,568,CE,,0,1ZCZNQ,쳥정 리포트 보고싶어,fill_empty
+6,821,CE,,1,2XXMAC,고정 청정 온 이어서 청정 결과 미세먼지 농도 알려줘,fill_empty
+7,890,CE,,0,3EPOQJ,청정 결과 확인할래,fill_empty
+8,1028,CE,,0,3SEEKU,청정 결과 알려줘,fill_empty
+9,1620,CE,,0,5UOWDC,청정 결과 미세먼지 농도 알려줘 그리고 이번 주말에는 오랜만에 영화를 보러 가려고 해,fill_empty
+10,1879,CE,,1,6QBPAS,고정 공기 청정 가동 시작해줘 그러고 나서 공기청정 언제 끝났니,fill_empty
+1,661,CK,,0,2ICCSB,내 뒤를 따라와 그 다음에 이번 주말에는 가족들이랑 시간을 보내기로 했어,fill_empty
+2,674,CK,,1,2IYUPE,고정 공기 청정 실행해줘 그러고 나서 팔로미,fill_empty
+3,900,CK,,0,3FSGIP,나 따라올래,fill_empty
+4,1065,CK,,1,3VLZCC,고정 공청 기능 켜줘 그러고 나서 팔로미,fill_empty
+5,1280,CK,,1,4OYHRU,내일 아침에 일찍 일어나서 운동을 해볼까 생각 중이야 그 다음에 팔로미,fill_empty
+6,1322,CK,,1,4SNOII,다음 주에는 더 열심히 일해야겠어 할 일이 많아 그 다음에 저를 향해 이동해주실래요,fill_empty
+7,1804,CK,,0,6JEAWC,나 따라와줘요,fill_empty
+8,1925,CK,,1,6TBVSG,청정 켜봐 그리고 여기로 따라와주세요,fill_empty
+9,2140,CK,,0,7MWFFW,나를 따라와 줄래?,fill_empty
+10,2750,CK,,0,9PPQMO,나 따라와,fill_empty
+1,252,CS,type=1,0,0UPWCI,일반적으로 기기 설치 어디다가 하는 게 좋아,unique_all
+2,575,CS,type=2,0,2AADIF,공기청정기 몇 대 정도 있어야 가장 좋을까요?,unique_all
+3,1106,CS,type=3,0,3ZNYEZ,에어 센서 대체 어디에 두는 게 좋을까요,unique_all
+4,1090,CS,type=2,0,3YMZIP,이 공간에 공기청정기 몇 대 정도 둬야할까?,fill_duplicate
+5,1199,CS,type=2,0,4HDPSK,이 공기청정기를 몇 대 두는 게 좋을지 잘 모르겠어.,fill_duplicate
+6,1585,CS,type=3,0,5RCFQI,에어 센서 놓기에 가장 쾌적한 곳이 어디라 생각하니,fill_duplicate
+7,1663,CS,type=2,0,5YKPLC,공기청정기 몇 대가 있는 게 제일 이상적이야?,fill_duplicate
+8,1737,CS,type=1,0,6DPQDX,이 기기 어디에 설치하면 돼,fill_duplicate
+9,2050,CS,type=1,0,7DKVBA,이 기기 어디에다가 설치하면 되는거야,fill_duplicate
+10,2259,CS,type=1,0,7VTEQG,공기청정기 설치 위치로 어디가 좋을까,fill_duplicate
+1,7,DW,type=1,0,0ARBCO,어린이가 주의해야 하는 사항을 알려죠,unique_all
+2,294,DW,type=4,0,0ZIUPD,이 기계 사용 시 어떤 거 조심해야 해,unique_all
+3,356,DW,type=3,0,1ERBWI,공기청정기 설치 시 주의사항만 알려줘.,unique_all
+4,1365,DW,type=2,0,4WZXWS,충전할 때에는 뭘 조심해야해,unique_all
+5,704,DW,type=3,0,2NFNYF,공기청정기 설치 방법에서 주의할 점 있어?,fill_duplicate
+6,873,DW,type=4,0,3CZJDH,공기청정기 사용할 때 주의할 점 간단히 알려줘,fill_duplicate
+7,991,DW,type=4,0,3ORERT,이 기계를 사용할 때 주의해야 할 사항은 무엇인가요?,fill_duplicate
+8,1287,DW,type=4,0,4PLKIX,이 제품 작동 시 조심해야 할 거 뭐가 있어?,fill_duplicate
+9,1509,DW,type=2,0,5JWNGC,충전 중에 내가 조심해야 할 게 있어,fill_duplicate
+10,1524,DW,type=3,0,5KVAAH,공기청정기 설치 시 주의해야 할 거 뭐가 있어?,fill_duplicate
+1,56,EF,action=1,1,0EKYLI,이 음악 들어봤어 그 후에 전체 공간 청정 해줘,unique_all
+2,154,EF,action=1,1,0MCXQC,충전하러 복귀 그 다음에 전체 공간 청정 해줘,fill_duplicate
+3,800,EF,action=1,0,2WPVOJ,전체 공간 공기청정 해줘,fill_duplicate
+4,927,EF,action=1,1,3IJASD,이제 그만 복귀해 또 전체 이동 공기청정 할래,fill_duplicate
+5,1121,EF,action=1,0,4BJSHW,전체 공간 청정해줘,fill_duplicate
+6,1510,EF,action=1,1,5JWXNZ,고정 공청 기능 켜줘 전체 구역 청정 부탁할게,fill_duplicate
+7,1854,EF,action=1,1,6NMNXN,고정 공기 청정 가동 시작해줘 그리고 전체 공간 청정 해줘,fill_duplicate
+8,2063,EF,action=1,0,7ENKPT,전체 공간 공기 청정 시작해,fill_duplicate
+9,2158,EF,action=1,1,7OGBXG,넌 무슨 음식을 좋아해 그 후에 전체 구역 청정 부탁할게,fill_duplicate
+10,2280,EF,action=1,0,7XIUHG,모든 방 청소 시작해줘,fill_duplicate
+1,34,EN,type=4,0,0CTIHT,웰컴 기능이 뭐야,unique_all
+2,50,EN,type=6,0,0DWUKW,릴렉스 모드의 특징에 대해 알려주세요,unique_all
+3,279,EN,type=2,0,0XSOJJ,넌 무슨 기능이 있어?,unique_all
+4,581,EN,type=5,0,2AFXBK,웨이크업 기능에 대해서 설명해줄래,unique_all
+5,634,EN,type=1,0,2FVZBN,당신의 소개를 들려주세요.,unique_all
+6,1180,EN,type=7,0,4FKAMS,바이탈 사인 기능에 대한 설명이 필요해.,unique_all
+7,1446,EN,type=3,0,5ELZEZ,어떤 청정 기능이 탑재되어 있나요,unique_all
+8,369,EN,type=2,0,1GKJXK,넌 뭘 할 수 있어?,fill_duplicate
+9,546,EN,type=6,0,1WQPYO,릴렉스 모드에 대해 간단히 설명해줘,fill_duplicate
+10,547,EN,type=6,0,1WQPZM,릴렉스 모드가 무엇을 하는지 궁금해요,fill_duplicate
+1,15,EW,type=1,0,0BCWRH,온도 단위 화씨로 바꿔줄래,unique_all
+2,91,EW,type=0,0,0GSFUQ,섭씨 단위가 편해요,unique_all
+3,1063,EW,type=-1,0,3VIBND,온도 단위 바꾸고 싶어,unique_all
+4,145,EW,get=True,0,0LJMYM,사용되는 온도 표시를 말씀해주세요,unique_all
+5,197,EW,get=True,0,0PTHFO,현재 온도 표시는 화씨입니까 그리고 주말에 뭘 할지 아직 못 정했는데 그냥 영화나 볼까 생각 중이야,fill_duplicate
+6,454,EW,type=1,0,1OKVNM,온도 단위를 화씨로 변경해주세요,fill_duplicate
+7,740,EW,type=0,0,2QKKAU,온도를 섭씨로 변경할 수 있어 다음으로 새로 나온 책을 읽고 있는데 너무 흥미진진해서 시간 가는 줄 몰라,fill_duplicate
+8,792,EW,type=0,1,2VYPCI,고정 청정 온 그 후에 온도를 섭씨로 변경할 수 있어,fill_duplicate
+9,856,EW,type=1,0,3BLOXF,온도를 화씨로 변경할 수 있어 그러고 나서 저녁으로 뭐 먹을까 치킨 아니면 피자,fill_duplicate
+10,866,EW,type=1,0,3CGBYT,온도 단위를 화씨로 바꿔줘요,fill_duplicate
+1,793,FF,position=가든,1,2VYSIX,고정 청정 온 그 후에 가든으로 가서 청정해 줘,unique_diverse
+2,1618,FF,"position=""방재실""",0,5UBGRK,방재실에서 청정해줘,unique_diverse
+3,2147,FF,"position=""2층홀""",0,7NIFIW,2층홀에서 즉시 청정 시스템 작동해주실래요,unique_diverse
+4,522,FF,"position=""발표장""",0,1UCFPF,발표장에서 청정 진행해줄래요,unique_diverse
+5,1775,FF,"position=""유아부실""",0,6GMOQA,유아부실 공기청정 동작 시작해주세요,unique_diverse
+6,521,FF,"position=""드링크룸""",0,1UBZBL,드링크룸에서 청정 바로 해줘,unique_diverse
+7,848,FF,"position=""동물원방""",0,3AEJUI,동물원방 공기청정 작동해주세요,unique_diverse
+8,1185,FF,"position=""스타리움관""",0,4FQBMC,스타리움관 공기청정 진행해줘,unique_diverse
+9,1163,FF,"position=""입구옆자리""",0,4EJENT,입구옆자리에서 공기청정해보시면 감사해요,unique_diverse
+10,2379,FF,"position=""마이크로필름실""",0,8GILUY,마이크로필름실 청정 진행 시작해,unique_diverse
+1,72,FR,,0,0FLTFS,나 쪽으로 돌려줄래?,fill_empty
+2,82,FR,,1,0GGEKN,오늘 하루가 너무 바빴어 이제 좀 쉬고 싶어 그 후에 제 방향으로 돌려주실래요,fill_empty
+3,313,FR,,0,1APAFN,저를 향해 봐주세요 그 후에 이번 주에는 운동을 좀 더 열심히 해야겠어 체력이 필요해,fill_empty
+4,540,FR,,0,1WAYFB,나 쪽으로 돌려주겠니?,fill_empty
+5,954,FR,,0,3KXLPW,나 쪽으로 돌려줄 수 있어?,fill_empty
+6,1127,FR,,1,4BOWDR,고정 공청 기능 켜줘 이어서 제 방향으로 돌려주실래요,fill_empty
+7,1273,FR,,0,4OCQMC,이쪽으로 틀어줄 수 있어 그 후에 내일은 아침 일찍 일어나서 하루를 길게 써볼까 생각 중이야,fill_empty
+8,1343,FR,,0,4USVSY,나를 바라봐줄래?,fill_empty
+9,1457,FR,,1,5FMBZH,고정 공기 청정 가동 시작해줘 그리고 룩앳미,fill_empty
+10,2249,FR,,0,7VBJQQ,나 좀 봐줄래?,fill_empty
+1,75,GN,get=True,1,0FQPUP,고정 공기 청정 실행해줘 그 다음에 프라이버시 상태 확인해줘,unique_all
+2,214,GN,enable=True,1,0QOEFS,고정 청정 온 또 프라이버시 설정 활성화해줄 수 있어,unique_all
+3,62,GN,enable=False,0,0EYUVH,프라이버시 모드 중지해줘,unique_all
+4,236,GN,enable=True,0,0TBNVZ,프라이버시 모드 작동시켜줘,fill_duplicate
+5,430,GN,get=True,0,1MFZSI,지금 프라이버시 기능 켜놨나요,fill_duplicate
+6,478,GN,get=True,1,1QQRTQ,고정 청정 온 지금 프라이버시 모드 상태가 어떻게 돼,fill_duplicate
+7,554,GN,enable=False,1,1XXCMG,고정 청정 온 그리고 프라이버시 기능 꺼줘,fill_duplicate
+8,605,GN,enable=True,0,2DKEUO,프라이버시 설정해줘,fill_duplicate
+9,633,GN,get=True,0,2FTTUC,현재 프라이버시가 어떤 상태입니까 그 다음에 다음 주에 중요한 발표가 있는데 준비가 잘 될지 걱정 돼,fill_duplicate
+10,702,GN,enable=True,0,2NEQLI,프라이버시 모드 켜줘,fill_duplicate
+1,24,GQ,gender=2,1,0BWRJQ,청정 켜봐 이어서 음성을 남자로 전환해줄래,unique_all
+2,151,GQ,get=True,1,0MBHUR,고정 공기 청정 실행해줘 다음으로 목소리 설정이 어떻게 되어있나요,unique_all
+3,664,GQ,gender=1,0,2IIESY,목소리 여성으로 설정해줘,unique_all
+4,220,GQ,gender=-1,0,0QZVMD,다른 성별의 목소리로 변경해 주세요.,unique_all
+5,85,GQ,gender=2,1,0GJEHI,고정 공기 청정 가동 시작해줘 그러고 나서 하이나무 남자로 설정해주세요,fill_duplicate
+6,235,GQ,get=True,0,0SRVSR,나무 음성 성별 상태 알려줘,fill_duplicate
+7,272,GQ,get=True,0,0WYYBI,나무 음성 성별 알려줘,fill_duplicate
+8,346,GQ,gender=-1,0,1DXTXQ,목소리 성별 바꿀래요,fill_duplicate
+9,378,GQ,gender=2,0,1HDZEK,목소리 남성으로 바꿔줘,fill_duplicate
+10,399,GQ,gender=-1,0,1ITGHW,성별을 다른 목소리로 설정해 주세요.,fill_duplicate
+1,211,GV,,0,0QLKFD,바이탈 사인 측정을 시작해주세요.,fill_empty
+2,455,GV,,1,1OMGFL,고정 청정 온 다음으로 혈압 상태를 체크해주실래요,fill_empty
+3,659,GV,,0,2IBFUI,산소포화도 확인하고 싶어요 다음으로 다음 주말에는 부모님과 시간을 보내기로 했어,fill_empty
+4,731,GV,,1,2PONZQ,오늘 저녁은 무슨 메뉴로 할지 고민 중이야 다음으로 바이탈 사인 체크해주세요,fill_empty
+5,1215,GV,,1,4IXAHT,고정 공청 기능 켜줘 혈압 상태를 체크해주실래요,fill_empty
+6,1370,GV,,0,4XETQX,맥박 수치 측정하고 싶어.,fill_empty
+7,1515,GV,,0,5KGWSV,맥박수 측정하고 알려줄래?,fill_empty
+8,1711,GV,,0,6BTGYY,혈압 상태를 체크해주실래요 다음으로 이번 주말에는 캠핑을 가기로 했는데 기대 돼,fill_empty
+9,1830,GV,,0,6LQONV,맥박 수치 확인해주시겠어요?,fill_empty
+10,1867,GV,,1,6OZAXP,다음 주에 있을 중요한 발표를 준비 중이야 다음으로 스트레스 지수 측정해줘,fill_empty
+1,114,HG,theme=2,0,0INURX,테마를 실내 공기질로 설정해줘,unique_all
+2,524,HG,theme=0,1,1UERHW,이번 주말에는 뭘 할까 새로운 계획을 세워봐야겠어 또 화면 기본으로 설정해줘,unique_all
+3,124,HG,get=True,0,0JPVJP,대기화면이 기본 테마로 설정됐어,unique_all
+4,1602,HG,theme=-1,0,5SWKQA,대기화면 바꿔볼래요,unique_all
+5,264,HG,theme=2,1,0WAHMX,이번 주에는 운동을 조금 더 열심히 해야겠어 이어서 실내 공기질 테마로 화면 설정해줘,fill_duplicate
+6,432,HG,get=True,1,1MIQHL,고정 청정 온 이어서 대기화면이 실내 공기질 테마인가요,fill_duplicate
+7,640,HG,theme=2,0,2GMHXV,테마를 상세 공기질로 변경해주실래요 이어서 새로 나온 영화가 기대 돼 이번 주말에 보러 갈까 생각 중이야,fill_duplicate
+8,805,HG,theme=0,1,2WYXBZ,청정 켜봐 기본 테마로 대기화면 설정해주세요,fill_duplicate
+9,842,HG,theme=2,1,2ZPKFZ,고정 공기 청정 실행해줘 테마를 상세 공기질로 변경해주실래요,fill_duplicate
+10,853,HG,theme=0,0,3BHHHD,기본으로 설정해줄래,fill_duplicate
+1,215,HI,type=2,0,0QOIST,전기세가 얼마나 나오는지 계산해줘,unique_all
+2,314,HI,type=1,0,1AQYNF,이 제품은 소비 전력이 얼마나 돼,unique_all
+3,237,HI,type=2,0,0TDJKB,공청기 사용시 예상되는 전기 요금,fill_duplicate
+4,360,HI,type=1,0,1FHSLS,이 공청기의 소비 전력을 알고 싶어,fill_duplicate
+5,912,HI,type=1,0,3GUWXB,얼마나 전기를 많이 먹어,fill_duplicate
+6,1560,HI,type=2,0,5OHCAD,전기 요금이 많이 나올까,fill_duplicate
+7,2082,HI,type=1,0,7GNDMY,이거 전기 얼마나 써,fill_duplicate
+8,2261,HI,type=2,0,7VXJCZ,하루에 전기세가 얼마나 나올까,fill_duplicate
+9,2278,HI,type=2,0,7WXTBI,이 공청기 전기세가 얼마나 돼,fill_duplicate
+10,215,HI,type=2,0,0QOIST,전기세가 얼마나 나오는지 계산해줘,pad_repeat
+1,117,HS,type=1,0,0JANXX,기기 언어 한국어로 바꿔줘,unique_all
+2,171,HS,type=2,0,0NJEOM,영어로 기기 언어 설정해줘,unique_all
+3,132,HS,type=-1,0,0KFVMG,언어 바꿔줘,unique_all
+4,190,HS,type=2,0,0OZVPY,영어로 설정해 그러고 나서 새 앨범 들어봤어,fill_duplicate
+5,208,HS,type=1,0,0QIDJD,한국어로 기기 언어 설정해줘,fill_duplicate
+6,212,HS,type=2,1,0QLMYP,드럼 배우고 싶은데 어디서 시작하지 그러고 나서 기기 언어 영어로 바꿔줄래,fill_duplicate
+7,226,HS,type=2,1,0RPXRW,청정 켜봐 그리고 기기 언어 영어로 바꿔줄래,fill_duplicate
+8,351,HS,type=2,0,1ELKKX,영어로 기기 언어 바꿔줘,fill_duplicate
+9,389,HS,type=1,1,1IFIXM,처음 위치로 돌아가주면 좋겠어 그 다음에 기기 언어 설정 한국어로 바꿔줘,fill_duplicate
+10,394,HS,type=2,1,1IOTVP,처음 위치로 돌아가주면 좋겠어 그 다음에 언어 영어로 맞춰,fill_duplicate
+1,8,HW,type=3,0,0ARLFI,유기화합물은 어떤 거야,unique_all
+2,222,HW,type=1,0,0RGFQL,미세먼지는 왜 건강에 나쁜가요?,unique_all
+3,497,HW,type=2,0,1SLJIK,초미세먼지는 무슨 뜻인가요?,unique_all
+4,1114,HW,type=4,0,4APQMJ,질소산화물이란 무엇입니까,unique_all
+5,1359,HW,type=6,0,4WMGAE,이산화탄소가 뭔지 말해줘,unique_all
+6,1644,HW,type=5,0,5XBQFM,포름알데히드가 무엇인지 말해줘,unique_all
+7,630,HW,type=3,0,2FOVEL,유기화합물이 뭐예요,fill_duplicate
+8,688,HW,type=3,0,2KZPEE,유기화합물이란 무엇을 의미합니까,fill_duplicate
+9,1025,HW,type=2,0,3RTCNM,초미세먼지란 무엇을 의미합니까,fill_duplicate
+10,1126,HW,type=1,0,4BORCR,미세먼지가 무슨 의미야,fill_duplicate
+1,435,ID,get=True,0,1MLNRY,공기송전기는 실행하고 있을까요?,unique_all
+2,465,ID,get=True,0,1PKXUZ,공기청정 모드 실행 중이신가요?,fill_duplicate
+3,733,ID,get=True,1,2PWBLM,고정 공청 기능 켜줘 다음으로 공기청정 작동 중인가요,fill_duplicate
+4,761,ID,get=True,0,2SHHTD,어디로 가는 중인지 말해주실래요 그리고 이번 주말에는 집에서 푹 쉬면서 시간을 보내려고 해,fill_duplicate
+5,1076,ID,get=True,0,3WQMTA,공기청정 기능 작동하고 있나요?,fill_duplicate
+6,1508,ID,get=True,0,5JUZTP,공기청정 모드 실행하고 있니?,fill_duplicate
+7,2255,ID,get=True,1,7VMRTG,고정 공기 청정 실행해줘 이어서 지금 어디서 청정하고 있는지 알려줄 수 있어,fill_duplicate
+8,2263,ID,get=True,0,7VYJSW,현재 뭐하고 있나요 그리고 내일 아침에는 일찍 일어나서 운동을 할 계획이야,fill_duplicate
+9,2426,ID,get=True,1,8KQLAH,이번 주말에는 오랜만에 친구들과 만나서 저녁을 먹기로 했어 그리고 지금 충전 중인지 확인해줘,fill_duplicate
+10,2625,ID,get=True,0,9ENLFP,현재 공기청정기가 작동 중인지 알려줘.,fill_duplicate
+1,249,IH,get=True,0,0UIKER,스캐닝 청정중이야,unique_all
+2,391,IH,scan=True,1,1IIJEQ,고정 청정 온 이어서 스캐닝 청정 시작하세요,unique_all
+3,36,IH,scan=False,0,0CVLAX,스캐닝 공기청정 종료,unique_all
+4,300,IH,get=True,0,0ZNCHM,스캐닝 청정 하고있어,fill_duplicate
+5,475,IH,scan=True,0,1QOBDO,스캐닝 청정 시작하세요 그리고 이 식당 가볼까,fill_duplicate
+6,507,IH,get=True,1,1THYAR,이제 그만 복귀해 다음으로 스캐닝 청정 상태 좀 알려줘,fill_duplicate
+7,694,IH,scan=False,1,2LXTGV,요즘 재미있는 책 있어 또 스캐닝 공기청정 꺼라,fill_duplicate
+8,739,IH,scan=False,0,2QHGML,스캐닝 기능 비활성화 해줘 또 주말엔 보통 뭐해,fill_duplicate
+9,825,IH,get=True,0,2YESPG,스캐닝 청정 켜져있어,fill_duplicate
+10,997,IH,get=True,0,3PKXOY,스캐닝 청정 지금 꺼져 있나요 이어서 이번 주말에 계획 있어,fill_duplicate
+1,2369,IO,"timeframe=9, location=빈",0,8FKTDT,일요일 빈 대기질을 화면에 보여줘 이어서 새로 나온 노래가 되게 좋더라 계속 반복해서 듣고 있어,unique_diverse
+2,1971,IO,"timeframe=1, location=뉴욕",1,6XINXB,고정 공기 청정 가동 시작해줘 그 후에 내일 뉴욕 미세먼지 어때,unique_diverse
+3,1082,IO,"timeframe=4, location=두바이",0,3XNZYI,화요일 두바이 공기질 걱정해야 할까 그리고 시간 관리 방법 공유해줄래,unique_diverse
+4,116,IO,"timeframe=6, location=광진구",0,0IZVJR,목요일 광진구 공기질 걱정해야 할까 그 후에 다음 달에 친구랑 여행 갈 계획 세우고 있어,unique_diverse
+5,483,IO,"timeframe=0, location=하노이",1,1QYEZU,처음 위치로 돌아가주면 좋겠어 그러고 나서 현재 하노이 공기질 알려주세요,unique_diverse
+6,953,IO,"timeframe=1, location=""리마""",0,3KXJKO,내일 리마 미세먼지 때문에 마스크 필요할까,unique_diverse
+7,1262,IO,"timeframe=0, location=""홍콩""",0,4NNQAI,지금 홍콩 피엠이쩜오 때문에 외출하기 괜찮아,unique_diverse
+8,1499,IO,"timeframe=0, location=""뉴델리""",0,5IYBUE,현재 뉴델리 초미세먼지 농도 몇이야,unique_diverse
+9,1667,IO,"timeframe=1, location=""몬트리올""",0,5YNSNM,내일 몬트리올 공기질 괜찮아,unique_diverse
+10,2026,IO,"timeframe=0, location=""센프란시스코""",0,7BRUBY,오늘 센프란시스코 미세먼지 농도는 얼마야,unique_diverse
+1,98,JJ,,0,0HAVQG,배터리 잔량이 얼마인지 확인해줘,fill_empty
+2,269,JJ,,1,0WUGLT,고정 공기 청정 실행해줘 그리고 배터리 몇 퍼센트야,fill_empty
+3,752,JJ,,0,2RFGVX,배터리 상태 알려줘,fill_empty
+4,947,JJ,,1,3KJYZN,충전하러 복귀 이어서 배터리 상태 알려줘,fill_empty
+5,1420,JJ,,1,5CAZYO,이번에 새로 배운 취미 있어 그리고 충전량 얼마야,fill_empty
+6,1444,JJ,,1,5EJMJD,고정 공기 청정 가동 시작해줘 그리고 배터리 잔량 확인해줘,fill_empty
+7,1645,JJ,,0,5XHVCU,배터리 얼마나 남았어,fill_empty
+8,1758,JJ,,1,6FJXQN,고정 청정 온 다음으로 충전량 얼마야,fill_empty
+9,1845,JJ,,1,6MNUQJ,클래식 음악 들으면 마음이 편해져 그리고 배터리 몇 퍼센트야,fill_empty
+10,1870,JJ,,0,6PKTST,배터리 잔량 확인해줘 그리고 피아노 연습 많이 했어,fill_empty
+1,17,JS,type=8,0,0BHLMI,설정이 가능한 언어 종류 뭐야,unique_diverse
+2,37,JS,type=7,0,0CWOFW,상단 화면에 대해 설명해 줘,unique_diverse
+3,193,JS,type=9,0,0PMRQS,센서의 민감도를 조정하는 이유는 무엇인가요?,unique_diverse
+4,256,JS,type=1,0,0VITXJ,매너모드는 무슨 기능이야,unique_diverse
+5,667,JS,type=6,0,2IMIJI,유브이 엘이디는 어떤 기능이야,unique_diverse
+6,749,JS,type=2,0,2QWUPY,프라이버시 모드는 어떤 기능이야,unique_diverse
+7,958,JS,type=3,0,3LLJUP,나이트 모드는 뭐야,unique_diverse
+8,1638,JS,type=4,0,5WXFWG,나무 보이스는 뭐야,unique_diverse
+9,1783,JS,type=5,0,6HEGIO,온도 단위 변경을 위한 메뉴는 어디에 있어?,unique_diverse
+10,463,JS,type=10,0,1PDLZZ,에이아이 모드에 대해 설명해 줘,unique_diverse
+1,9,KI,,0,0ASWQQ,이제 그만 복귀해 밝기를 일로 조정해줘,fill_empty
+2,30,KI,,0,0CIGVC,처음 위치로 돌아가주면 좋겠어 엘이디를 팔십프로로 바꿔줘,fill_empty
+3,41,KI,,0,0DCNQW,이제 그만 복귀해 그리고 화면 밝기를 4단계로 조정해줄래,fill_empty
+4,64,KI,,0,0EZPFP,충전하러 복귀 이어서 음소거 되어있나요,fill_empty
+5,71,KI,,0,0FILTG,이제 그만 복귀해 효과음을 5단계로 바꿔줘,fill_empty
+6,76,KI,,0,0FTAMX,충전하러 복귀 그 다음에 월요일 공기질 상태 알려줘,fill_empty
+7,78,KI,,0,0FVGFB,스테이션 위치로 복귀하세요 그리고 일요일 미세먼지 정보 보여줘,fill_empty
+8,86,KI,,0,0GKANF,처음 위치로 돌아가주면 좋겠어 그리고 유부이 에릴디 작동 중이야,fill_empty
+9,113,KI,,0,0ILGGD,충전하러 복귀 다음으로 주말 공기질 지수를 화면에 보여줘,fill_empty
+10,137,KI,,0,0KXCPQ,처음 위치로 돌아가주면 좋겠어 그 다음에 일요일 공기질 상태 알려줘,fill_empty
+1,639,KP,type=1,0,2GHLNP,완충하기까지 얼마나 시간이 소요 돼,unique_all
+2,668,KP,type=2,0,2INJQL,갑자기 충전이 안되는데 어떡하지,unique_all
+3,1029,KP,type=2,0,3SEUOJ,지금 충전이 안되기 시작해,fill_duplicate
+4,1366,KP,type=1,0,4XBDBS,이 제품의 충전 시간은 몇 시간이야,fill_duplicate
+5,1398,KP,type=1,0,5AKQZK,완충하려면 얼마나 걸려,fill_duplicate
+6,1590,KP,type=1,0,5RJMSJ,완충까지 걸리는 시간을 알려줘,fill_duplicate
+7,1690,KP,type=2,0,6AMWPX,충전이 하나도 안 됐어,fill_duplicate
+8,2230,KP,type=2,0,7TKGPR,충전이 안되는데 어떡해,fill_duplicate
+9,2561,KP,type=1,0,8WZXPT,제품 충전 시간을 알려죠,fill_duplicate
+10,639,KP,type=1,0,2GHLNP,완충하기까지 얼마나 시간이 소요 돼,pad_repeat
+1,1732,MO,"timeframe=1, location=도쿄",0,6DFYMX,내일 도쿄 날씨 비 와 다음으로 새로 나온 게임이 재미있어 보이던데 언제 한번 해봐야겠어,unique_diverse
+2,2327,MO,"timeframe=1, location=베이징",0,8BNXCK,베이징의 내일 날씨 정보 표시해줄래 다음으로 오늘은 좀 일찍 잠자리에 들어야겠어 내일 할 일이 많거든,unique_diverse
+3,1527,MO,"timeframe=6, location=""선양""",0,5LDPSV,목요일 선양 날씨 비 와,unique_diverse
+4,1882,MO,"timeframe=1, location=""송도""",0,6QLHPU,내일 송도 날씨 상황 어때,unique_diverse
+5,421,MO,"timeframe=3, location=""여수""",0,1KQILT,월요일 여수 날씨 따뜻하게 입어야 할까,unique_diverse
+6,586,MO,"timeframe=7, location=""사이판""",0,2BABDE,금요일 사이판 날씨 알려주세요,unique_diverse
+7,652,MO,"timeframe=9, location=""벤쿠버""",0,2HRSMB,일요일 벤쿠버 날씨 어때,unique_diverse
+8,1784,MO,"timeframe=9, location=""밀드라""",0,6HHGUH,밀드라 일요일 날씨 어때요,unique_diverse
+9,655,MO,"timeframe=7, location=""미슐콜츠""",0,2HVLGU,미슐콜츠의 금요일 날씨 정보 표시해줄래,unique_diverse
+10,994,MO,"timeframe=5, location=""부에노스아이레스""",0,3OYBJK,수요일 부에노스아이레스 날씨가 어떤가요,unique_diverse
+1,2,MR,,0,0AIWYM,저는 음악을 듣는 걸 좋아해요,fill_empty
+2,6,MR,,0,0AOMIK,이 책 정말 재밌어,fill_empty
+3,13,MR,,0,0AXBFG,다음 달에 있을 콘서트를 기대하고 있어 정말 재밌을 것 같아,fill_empty
+4,16,MR,,0,0BGMGY,제주도 여행 가봤어,fill_empty
+5,22,MR,,0,0BSLTV,새로 시작한 취미가 너무 재미있어서 시간 가는 줄 모르겠어,fill_empty
+6,25,MR,,0,0BYOOB,이번 달은 너무 바빠서 친구들 만날 시간이 없었어,fill_empty
+7,32,MR,,0,0CSFLE,오늘 저녁은 뭘 먹을지 고민 중이야 배는 고픈데 딱히 생각나는 게 없어,fill_empty
+8,35,MR,,0,0CUUMZ,요즘 읽고 있는 책이 정말 흥미로워,fill_empty
+9,39,MR,,0,0CYSFB,새로운 가방을 사고 싶은데 어떤 게 좋을까 고민 중이야,fill_empty
+10,42,MR,,0,0DFGKQ,요즘 스트레스를 너무 많이 받아서 운동으로 풀려고 해,fill_empty
+1,64,MV,get=True,1,0EZPFP,충전하러 복귀 이어서 음소거 되어있나요,unique_all
+2,535,MV,mute=True,0,1VMEHJ,음소거 기능 활성화를 원해요 그리고 이번에 새로 나온 영화 본 사람 있어,unique_all
+3,183,MV,mute=False,0,0OKAPN,음소거 해제해줘,unique_all
+4,234,MV,mute=False,0,0SKXEZ,음소거 취소해줘,fill_duplicate
+5,284,MV,mute=False,0,0YGHOM,지금 음소거 모드 해제해줘 그 후에 이 영화 명장면이지,fill_duplicate
+6,440,MV,get=True,1,1NDFQY,고정 공기 청정 실행해줘 또 음소거 상태 알려줘,fill_duplicate
+7,479,MV,get=True,0,1QQTYQ,음소거 기능 켜져있어,fill_duplicate
+8,566,MV,get=True,1,1YZFFJ,고정 공기 청정 가동 시작해줘 그리고 음소거 상태 알려줘,fill_duplicate
+9,570,MV,get=True,1,1ZJHEN,스테이션 위치로 복귀하세요 또 음소거 아닌 상태야,fill_duplicate
+10,709,MV,mute=False,0,2NYLEI,음소거 꺼줘,fill_duplicate
+1,26,NK,speed=3,0,0CAISP,풍량 강풍으로 바꿔줘,unique_all
+2,81,NK,speed=0,1,0GEHXS,내일 중요한 미팅 있어 이어서 바람 강도 자동으로 맞춰줘,unique_all
+3,141,NK,speed=4,1,0LCDVR,이 영화 예고편 봤어 다음으로 풍량을 터보로 바꿔줘,unique_all
+4,189,NK,speed=2,0,0OYVXZ,풍속 중풍으로 조정해줘 그 후에 오늘 하루 어땠어,unique_all
+5,199,NK,speed=1,0,0PUZUR,약풍으로 바꿔줘,unique_all
+6,27,NK,speed=-1,0,0CBIBZ,풍량을 조금 줄여주세요,unique_all
+7,443,NK,get=True,1,1NJOFW,커피 마실래 그러고 나서 풍속 몇으로 맞춰져 있는지 확인해줘,unique_all
+8,52,NK,speed=-1,0,0EDYNH,풍량을 낮춰주세요,fill_duplicate
+9,176,NK,speed=4,0,0NSZAC,팬 풍냥 터보 세기로 해줘 다음으로 오늘 뭔가 할 게 많아,fill_duplicate
+10,225,NK,speed=1,0,0RLGFK,약한 바람으로 해줘,fill_duplicate
+1,86,NN,get=True,1,0GKANF,처음 위치로 돌아가주면 좋겠어 그리고 유부이 에릴디 작동 중이야,unique_all
+2,11,NN,enable=True,0,0AUZHX,유부이 살균 에릴디 실행해줘 그 후에 오늘 저녁은 샐러드로 가볍게 먹을까,unique_all
+3,267,NN,enable=False,1,0WKHKW,충전 위치로 되돌아가 또 유뷔 엘리디 작동 정지해,unique_all
+4,102,NN,enable=True,0,0HFJLQ,유브이 살균 엘이디 좀 켜줘,fill_duplicate
+5,275,NN,enable=True,1,0XKLHS,빵집에서 맛있는 빵 사왔어 그 후에 유뷔 살균 엘이디 기능 시작,fill_duplicate
+6,326,NN,enable=True,1,1BZDGL,고정 청정 온 또 유비이 에리디 빛 켜주라,fill_duplicate
+7,382,NN,get=True,1,1HPAMB,고정 공기 청정 실행해줘 그러고 나서 유브이 살균 엘이디 기능 켜져 있나요,fill_duplicate
+8,409,NN,get=True,0,1JOTFO,유비이 살균 에릴디 기능 상태 확인해줘 다음으로 비행기 표 예약했어,fill_duplicate
+9,418,NN,enable=False,1,1KDCND,이번 주말에 근교로 드라이브 갈래 그 다음에 유뷔 엘리디 작동 정지해,fill_duplicate
+10,459,NN,enable=True,0,1OPTPG,유비이 에리디 빛 켜주라 그 후에 아이스크림 먹으러 가자,fill_duplicate
+1,412,PC,type=5,0,1JWARW,라이다 센서 관리하는 법이 궁금해,unique_all
+2,550,PC,type=4,0,1XMSNU,센서창 청소 방법을 설명해줘,unique_all
+3,635,PC,type=8,0,2FWFZE,제품 외관 청소하는 법 알려죠,unique_all
+4,758,PC,type=1,0,2RPXIF,필터 교체 주기 좀 알려죠,unique_all
+5,759,PC,type=3,0,2SBVZA,A1 필터 관리 어떻게 해,unique_all
+6,789,PC,type=6,0,2VTJUL,장애물 감지 센서가 더러워졌는데 어떻게 해야 해,unique_all
+7,1230,PC,type=7,0,4KBWCA,전원 꽂는 곳 어떻게 닦으면 돼?,unique_all
+8,776,PC,type=8,0,2UGJUB,제품 외관 관리하는 법이 궁금해,fill_duplicate
+9,970,PC,type=4,0,3MZVZF,센서창 관리하는 법이 궁금해,fill_duplicate
+10,1098,PC,type=1,0,3ZBDRF,필터 교체는 얼마마다 하면 돼,fill_duplicate
+1,10,PG,,0,0AUYXL,고정 청정 온 다음으로 센서 감도를 민감으로 바꿔줄래,fill_empty
+2,24,PG,,0,0BWRJQ,청정 켜봐 이어서 음성을 남자로 전환해줄래,fill_empty
+3,28,PG,,0,0CEMNU,고정 공기 청정 실행해줘 이어서 밝기를 2로 조정해줘,fill_empty
+4,69,PG,,0,0FFTCF,고정 청정 온 그리고 공기질 상태 표시 작동 중인지 알려줘,fill_empty
+5,75,PG,,0,0FQPUP,고정 공기 청정 실행해줘 그 다음에 프라이버시 상태 확인해줘,fill_empty
+6,85,PG,,0,0GJEHI,고정 공기 청정 가동 시작해줘 그러고 나서 하이나무 남자로 설정해주세요,fill_empty
+7,89,PG,,0,0GNSLV,고정 공청 기능 켜줘 월요일 카이로 날씨 알려줘,fill_empty
+8,103,PG,,0,0HFNAV,청정 켜봐 그리고 매너모드 켜줘,fill_empty
+9,111,PG,,0,0IFMPP,고정 청정 온 일요일 미세먼지 농도 어때,fill_empty
+10,133,PG,,0,0KGFNC,고정 공기 청정 가동 시작해줘 그러고 나서 센서 민감도 상태 알려주세요,fill_empty
+1,10,QD,type=2,1,0AUYXL,고정 청정 온 다음으로 센서 감도를 민감으로 바꿔줄래,unique_all
+2,18,QD,type=1,0,0BNEWO,감지 감도 보통으로 맞출래,unique_all
+3,178,QD,type=0,1,0NZBLE,고정 공청 기능 켜줘 감지 민감도를 낮게 조정할 수 있어,unique_all
+4,204,QD,type=-1,0,0QCTAD,감지 감도 레벨을 바꿔줄래요,unique_all
+5,133,QD,get=True,1,0KGFNC,고정 공기 청정 가동 시작해줘 그러고 나서 센서 민감도 상태 알려주세요,unique_all
+6,203,QD,get=True,0,0PZUGL,센서 민감도를 낮춰주세요,fill_duplicate
+7,441,QD,get=True,0,1NHXXY,센서 민감도 낮음으로 되어있니,fill_duplicate
+8,601,QD,type=0,1,2CSIMI,새로 산 옷이 너무 마음에 들어 매일 입고 다니고 있어 또 감지 감도를 낮게 설정해줘,fill_duplicate
+9,611,QD,type=0,1,2EGZUB,고정 공기 청정 실행해줘 그 다음에 감지 감도를 낮게 설정해줘,fill_duplicate
+10,815,QD,get=True,0,2XLOMA,센서 민감도 낮음 단계에요,fill_duplicate
+1,1,QT,get=True,0,0AHOUT,음성인식 켜져있어,unique_all
+2,53,QT,enable=True,0,0EERGG,음성인식 기능 활성화 해줘,unique_all
+3,413,QT,enable=False,0,1JWAVZ,음성인식 중지해줘,unique_all
+4,310,QT,enable=True,0,1ALWIP,듣기 모드 시작해 그리고 새로 시작한 취미가 너무 재미있어서 시간 가는 줄 모르겠어,fill_duplicate
+5,400,QT,get=True,1,1IZFOD,고정 공기 청정 가동 시작해줘 나무 현재 상태 확인해줘,fill_duplicate
+6,471,QT,get=True,1,1QIHEA,고정 공기 청정 실행해줘 그 후에 듣기 기능 활성화됐나요,fill_duplicate
+7,556,QT,enable=True,1,1YEGLO,고정 공기 청정 실행해줘 음성 인식 기능 켜줘,fill_duplicate
+8,574,QT,get=True,0,1ZYOPX,음성인식 기능 켜져있어,fill_duplicate
+9,903,QT,enable=False,0,3FYWBC,음성 인지 시스템 종료해 그러고 나서 책을 다 읽었는데 이제 무슨 책을 읽어야 할지 고민이네,fill_duplicate
+10,951,QT,get=True,0,3KUSZH,음성 인식이 작동되어있나요 또 이번 달은 너무 바빠서 친구들 만날 시간이 없었어,fill_duplicate
+1,155,SB,type=4,0,0MFXSK,공기청정기의 구성을 설명해줄래.,unique_all
+2,156,SB,type=2,0,0MGPDE,어떤 필터를 사용해,unique_all
+3,532,SB,type=5,0,1VJDSL,내 개인정보는 안전하게 보관되는 거지,unique_all
+4,589,SB,type=3,0,2BGZNQ,공기청정기 최대 소음 수준을 알고 싶어.,unique_all
+5,2061,SB,type=1,0,7ELTZO,인증 정보를 알려줘,unique_all
+6,298,SB,type=2,0,0ZLZRE,어떤 필터를 사야해,fill_duplicate
+7,644,SB,type=3,0,2GTCZA,공청기의 최대 소음을 알려줘.,fill_duplicate
+8,686,SB,type=3,0,2KDOAE,최대 소음은 어느 정도야?,fill_duplicate
+9,851,SB,type=5,0,3AJSPY,내 기기에 대한 정보를 알고 싶어,fill_duplicate
+10,1020,SB,type=4,0,3RLDST,공기청정기의 구성 요소를 나열해줄 수 있어?,fill_duplicate
+1,69,SC,get=True,1,0FFTCF,고정 청정 온 그리고 공기질 상태 표시 작동 중인지 알려줘,unique_all
+2,230,SC,enable=True,1,0RWIAP,고정 공기 청정 실행해줘 그 후에 엘이디 공기질 상태 표시 기능 작동,unique_all
+3,604,SC,enable=False,0,2DFLTX,공기질 표시 엘이디 꺼줘,unique_all
+4,94,SC,get=True,1,0GXMKD,새로운 요리법 배웠어 그리고 공기질 상태 표시 켜져있어,fill_duplicate
+5,395,SC,get=True,0,1IPTEI,공기질 엘이디 작동 중이야,fill_duplicate
+6,665,SC,enable=False,1,2IJLJR,충전하러 복귀 다음으로 공기질 상태 표시 작동 정지해,fill_duplicate
+7,732,SC,enable=False,0,2PSEOI,공기질 상태 엘이디 꺼줘,fill_duplicate
+8,794,SC,enable=False,0,2VZMQG,공기질 아이 표시 기능 해제해줘 이어서 디저트 먹고 싶은데 뭐가 좋을까,fill_duplicate
+9,957,SC,enable=True,1,3LCODL,충전하러 복귀 그 다음에 공기질 상태 표시 켜줘,fill_duplicate
+10,1145,SC,get=True,0,4DFJRD,공기질 상태 표시 엘이디 작동중이야,fill_duplicate
+1,296,SV,type=3,0,0ZJUFU,나이트 모드 작동 중이니?,unique_all
+2,332,SV,type=5,0,1CPEIB,오늘 날짜 알려줘.,unique_all
+3,444,SV,type=4,0,1NLRDQ,와이파이 켜 있는지 알고 싶어.,unique_all
+4,452,SV,type=2,0,1OFDBM,매너모드 켜진 상태인가?,unique_all
+5,1162,SV,type=1,0,4EGHBA,시계가 몇 시야?,unique_all
+6,341,SV,type=3,0,1DNDVT,나이트 모드 켜져있니?,fill_duplicate
+7,429,SV,type=5,0,1MEUOZ,오늘 며칠이야?,fill_duplicate
+8,456,SV,type=2,0,1OMLTA,매너모드 지금 켜져있어?,fill_duplicate
+9,482,SV,type=2,0,1QWUXS,매너모드 켜진 상태야?,fill_duplicate
+10,708,SV,type=5,0,2NVEXM,몇 월 며칠인지 알려줘.,fill_duplicate
+1,565,UJ,,0,1YWLXO,스크린에서 필터 상태 보여주세요.,fill_empty
+2,596,UJ,,1,2CADJZ,오늘 하루는 정말 길었어 이제 쉬고 싶다 그 다음에 필터 상태 알려주세요,fill_empty
+3,729,UJ,,0,2PMAEQ,그동안 필터를 얼마나 소진했어?,fill_empty
+4,932,UJ,,0,3IXHOF,필터 상태를 스크린에 보여주세요.,fill_empty
+5,1205,UJ,,1,4HRDVS,유튜버나 인플루언서 중에 꾸준히 보는 사람 있어 그 다음에 현재 필터 사용량을 보여줄 수 있어,fill_empty
+6,1683,UJ,,1,5ZXHNU,청정 켜봐 그 다음에 현재 필터 사용량을 보여줄 수 있어,fill_empty
+7,1928,UJ,,0,6TPGXL,스크린에 필터 상태 보여줄래?,fill_empty
+8,2197,UJ,,0,7RFIRE,에이원 필터 잔여량이 얼마나 남았는지 확인해주세요 그 다음에 친구가 보내준 선물이 정말 마음에 들어 오랜만에 웃었어,fill_empty
+9,2294,UJ,,0,7YOAZB,지금 필터의 수명이 어떻게 되나요 그 다음에 새로운 취미를 찾고 싶은데 뭐가 좋을지 모르겠어,fill_empty
+10,2637,UJ,,0,9FJLYJ,스크린에 필터 상태 표시해주세요.,fill_empty
+1,80,UY,,0,0GCNJQ,화면에 있는 에러코드를 설명해줘,fill_empty
+2,602,UY,,0,2DBFFZ,지금 화면에 뜬 에러코드는 왜 생긴거에요,fill_empty
+3,1168,UY,,0,4EZOHW,이 에러코드가 뜨면 어떡해,fill_empty
+4,1267,UY,,0,4NVZND,F01 에러코드의 의미가 무엇인지 알려줄 수 있어?,fill_empty
+5,2545,UY,,0,8VZIOM,이건 무슨 에러코드야,fill_empty
+6,80,UY,,0,0GCNJQ,화면에 있는 에러코드를 설명해줘,pad_repeat
+7,80,UY,,0,0GCNJQ,화면에 있는 에러코드를 설명해줘,pad_repeat
+8,80,UY,,0,0GCNJQ,화면에 있는 에러코드를 설명해줘,pad_repeat
+9,80,UY,,0,0GCNJQ,화면에 있는 에러코드를 설명해줘,pad_repeat
+10,80,UY,,0,0GCNJQ,화면에 있는 에러코드를 설명해줘,pad_repeat
+1,55,WN,get=True,0,0EKBGS,엘이디 밝기가 몇프로야,unique_all
+2,9,WN,brightness=1,1,0ASWQQ,이제 그만 복귀해 밝기를 일로 조정해줘,unique_all
+3,28,WN,brightness=2,1,0CEMNU,고정 공기 청정 실행해줘 이어서 밝기를 2로 조정해줘,unique_all
+4,30,WN,brightness=4,1,0CIGVC,처음 위치로 돌아가주면 좋겠어 엘이디를 팔십프로로 바꿔줘,unique_all
+5,134,WN,brightness=3,1,0KGRNT,고정 공청 기능 켜줘 그 다음에 엘씨디 조도를 삼단계로 맞춰줄래,unique_all
+6,169,WN,brightness=0,1,0NFKHG,고정 공청 기능 켜줘 그 다음에 엘이디 조명 꺼줘,unique_all
+7,207,WN,brightness=5,0,0QHSEE,엘이디 밝기 최대로 해줘,unique_all
+8,592,WN,brightness=-1,0,2BPVUT,밝기 조절해줄 수 있어?,unique_all
+9,41,WN,brightness=4,1,0DCNQW,이제 그만 복귀해 그리고 화면 밝기를 4단계로 조정해줄래,fill_duplicate
+10,70,WN,get=True,0,0FHSYX,지금 밝기 몇단계야,fill_duplicate
+1,576,XO,,1,2AAUWC,고정 공청 기능 켜줘 그리고 오류 히스토리 확인해줘,fill_empty
+2,1251,XO,,0,4MHMDR,오류 기록을 보여줘,fill_empty
+3,1469,XO,,1,5GQDHT,고정 공기 청정 가동 시작해줘 그리고 에러 띄워줘,fill_empty
+4,1745,XO,,1,6EIVPF,가볍게 웃을 수 있는 영화 추천해 줄래 이어서 에러 내역 보여줘,fill_empty
+5,1801,XO,,0,6IZHTS,에러 내역 표시해줘,fill_empty
+6,1976,XO,,1,6XPOYF,일본어로 고마워는 어떻게 말해 이어서 오류 목록 조회해줘,fill_empty
+7,2136,XO,,0,7MMWKQ,에러 이력 표시해줄래,fill_empty
+8,2275,XO,,0,7WSOUI,에러 이력 확인해줘,fill_empty
+9,2448,XO,,0,8MKPXB,에러 내역 보여줘,fill_empty
+10,2749,XO,,0,9PNSOP,에러 기록 알려줘 이어서 저녁으로 뭘 먹을지 아직도 고민 중이야 뭘 먹을까,fill_empty
+1,286,YA,move=2,0,0YIMIY,운행 다시 시작해.,unique_all
+2,609,YA,move=1,1,2DZZSI,이번 주말에 새로운 식당을 찾아가볼까 고민 중이야 그러고 나서 이동 잠시 일시 정지해줘,unique_all
+3,772,YA,move=0,0,2TSRCQ,이동 멈춰줘.,unique_all
+4,835,YA,move=2,0,2ZGHDX,멈춘 주행 빨리 다시 켜봐.,fill_duplicate
+5,964,YA,move=1,0,3MLCEF,드라이브를 잠시 멈춰줘.,fill_duplicate
+6,1004,YA,move=1,0,3PYFKF,드라이브 잠깐 일시 정지해.,fill_duplicate
+7,1294,YA,move=2,0,4PTBZK,운행 빨리 다시 틀어.,fill_duplicate
+8,1352,YA,move=0,0,4VOYIE,이동 정지해줘.,fill_duplicate
+9,1393,YA,move=2,1,5AEMBU,고정 청정 온 그러고 나서 청정 기능 재시작해줘,fill_duplicate
+10,1584,YA,move=0,1,5RACAO,다음 주에 중요한 미팅이 있어서 준비를 철저히 해야 해 다음으로 이동 멈춰줘,fill_duplicate
+1,29,ZV,volume=0,0,0CGIRU,음량을 영으로 설정해줘,unique_all
+2,54,ZV,volume=2,0,0EIZRQ,효과음을 이단계로 설정해줘,unique_all
+3,63,ZV,volume=1,0,0EZKGQ,볼륨 일로 해줘,unique_all
+4,71,ZV,volume=5,1,0FILTG,이제 그만 복귀해 효과음을 5단계로 바꿔줘,unique_all
+5,135,ZV,volume=4,0,0KOGIY,소리 볼륨을 사로 맞춰줘 그리고 이번 주에 할 일이 많아서 큰일이야,unique_all
+6,161,ZV,get=True,1,0MRFDI,지금 뭐 하고 있어 이어서 효과음 볼륨이 현재 몇 퍼인지 알고 싶어요,unique_all
+7,188,ZV,volume=3,0,0OYVXQ,볼륨 삼으로 해줘,unique_all
+8,285,ZV,volume=-1,0,0YHYDL,기본 수준으로 오디오 설정을 해주세요,unique_all
+9,148,ZV,volume=5,0,0LVBFV,미디음 오로 맞춰 또 아 맛있는 거 먹고 싶은걸,fill_duplicate
+10,258,ZV,volume=1,0,0VPLJC,터치음을 이십퍼로 설정해줘 그 다음에 주말에 만날래,fill_duplicate
+1,103,ZX,enable=True,1,0HFNAV,청정 켜봐 그리고 매너모드 켜줘,unique_all
+2,882,ZX,enable=False,0,3DWZDI,매너모드 비활성화해줘,unique_all
+3,118,ZX,enable=True,0,0JBLYJ,매너모드 작동시켜줘,fill_duplicate
+4,461,ZX,enable=True,0,1OXMVK,매너모드 활성화해줘,fill_duplicate
+5,595,ZX,enable=True,0,2BZAOF,매너모드 실행해줄래 또 저녁에 산책할 때 조용한 음악을 들으면 기분이 좋아져,fill_duplicate
+6,608,ZX,enable=True,1,2DSSZI,"아, 그만하고 싶다, 이거 또 매너모드 활성화해줘",fill_duplicate
+7,808,ZX,enable=True,1,2XAQDL,고정 공청 기능 켜줘 이어서 매너모드로 설정해주세요,fill_duplicate
+8,819,ZX,enable=True,0,2XSYQE,매너모드 설정해줘,fill_duplicate
+9,984,ZX,enable=False,0,3OCCOX,매너모드 중지해줘,fill_duplicate
+10,988,ZX,enable=False,1,3OOEDG,요즘에는 뉴스 볼 때마다 걱정되는 일이 많아 이어서 매너모드 해제해줘,fill_duplicate

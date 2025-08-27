@@ -1,0 +1,33 @@
+version: 1
+
+# 선택) 실제 함수 스펙 파일이 있으면 유효성 검증에 사용
+# functions_file: assets/convert/function_real_convert.yaml
+
+rules_by_func:
+  mode_on:
+    # dict 방식(간단)
+    AI_Mode:                         { code: BP, enable: 0, type: -1 }
+    Outdoor_Air_Quality_AI_Mode:     { code: BP, enable: 0, type: 0 }
+    Room_Air_Quality_AI_Mode:        { code: BP, enable: 0, type: 1 }
+    All_Air_Quality_AI_Mode: { code: BP, enable: 0, type: 2 }
+    Night_Mode:                      { code: BS, enable: true }
+    Follow_Mode:                     { code: CK }
+    Global_Cleaning_Mode:            { code: EF, action: 1 }
+    Zone_Selection_Mode:             { code: FF, position: "*" }   # -1/임의값 모두 허용
+    Privacy_Mode:                    { code: GN, enable: true }
+    Vital_Sign_Mode:                 { code: GV }
+    Scanning_Mode:                   { code: IH, scan: true }
+    Mute_Mode:                       { code: MV, mute: true }
+    UV_Sterilization_LED:            { code: NN, enable: true }
+    Fixed_Cleaning_Mode:             { code: PG }
+    Voice_Recognition:               { code: QT, enable: true }
+    Air_Quality_Status_LED:          { code: SC, enable: true }
+    Drive_Mode:                      { code: YA, move: 2 }
+    Manner_Mode:                     { code: ZX, enable: true }
+
+  # 나중에 mode_off 같은 다른 치환 함수도 쉽게 추가 가능
+  # mode_off:
+  #   Voice_Recognition: { code: QT, enable: false }
+
+# 참고: 이 버전은 expected_args 없이도 동작.
+# map_args는 when(=여기선 enum 밑 조건들)의 키 순서대로 문자열화됨.
