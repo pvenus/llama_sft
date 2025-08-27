@@ -101,7 +101,7 @@ def build_functions_section(functions):
             args_obj = {pname: "..." for pname, _ in param_items}
         else:
             args_obj = "{}"
-        example = f'{{"name":"{name}","arguments":{args_obj}}}'
+        example = json.dumps({"name":name,"arguments":args_obj})
         lines.append(f"  example: {example}")
     return "\n".join(lines)
 

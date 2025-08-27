@@ -22,7 +22,7 @@ functions:
           - Charging_Mode
           - Mute_Mode
           - Drive_Mode
-          - Voice_Recognition_Mode          -
+          - Voice_Recognition_Mode
   - name: mode_off
     description: Turn a specific mode OFF or pause/resume it.
     args:
