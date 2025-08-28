@@ -1,0 +1,213 @@
+version: 1
+
+# 선택) 실제 함수 스펙 파일이 있으면 유효성 검증에 사용
+# functions_file: assets/convert/function_real_convert.yaml
+
+rules_by_func:
+  mode_on:
+    # dict 방식(간단)
+    AI_Mode:                         { code: BP, enable: 0, type: -1 }
+    Outdoor_Air_Quality_AI_Mode:     { code: BP, enable: 0, type: 0 }
+    Room_Air_Quality_AI_Mode:        { code: BP, enable: 0, type: 1 }
+    All_Air_Quality_AI_Mode:         { code: BP, enable: 0, type: 2 }
+    Night_Mode:                      { code: BS, enable: true }
+    Follow_Mode:                     { code: CK }
+    Charge_Dock_Mode:                { code: KI }
+    Global_Cleaning_Mode:            { code: EF, action: 1 }
+    Zone_Selection_Mode:             { code: FF, position: "*" }   # -1/임의값 모두 허용
+    Privacy_Mode:                    { code: GN, enable: true }
+    Vital_Sign_Mode:                 { code: GV }
+    Scanning_Mode:                   { code: IH, scan: true }
+    Mute_Mode:                       { code: MV, mute: true }
+    UV_Sterilization_LED:            { code: NN, enable: true }
+    Fixed_Cleaning_Mode:             { code: PG }
+    Voice_Recognition:               { code: QT, enable: true }
+    Air_Quality_Status_LED:          { code: SC, enable: true }
+    Drive_Mode:                      { code: YA, move: 2 }
+    Manner_Mode:                     { code: ZX, enable: true }
+
+  # 나중에 mode_off 같은 다른 치환 함수도 쉽게 추가 가능
+  # mode_off:
+  #   Voice_Recognition: { code: QT, enable: false }
+  mode_off:
+    AI_Mode:                         { code: BP, enable: 1, type: -1 }
+    Outdoor_Air_Quality_AI_Mode:     { code: BP, enable: 1, type: 0 }
+    Room_Air_Quality_AI_Mode:        { code: BP, enable: 1, type: 1 }
+    All_Air_Quality_AI_Mode:         { code: BP, enable: 1, type: 2 }
+    Night_Mode:                      { code: BS, enable: false }
+    Ghost_Mode:                      { code: ZX, enable: false }   # 매너 모드
+    Privacy_Mode:                    { code: GN, enable: false }
+    Scanning_Mode:                   { code: IH, scan: false }
+    Mute_Mode:                       { code: MV, mute: false }
+    Voice_Recognition:               { code: QT, enable: false }
+    Air_Quality_Status_LED:          { code: SC, enable: false }
+    UV_Sterilization_LED:            { code: NN, enable: false }
+    Drive_Mode_Pause:                { code: YA, move: 1 }
+    Drive_Mode:                      { code: YA, move: 0 }
+
+  info:
+    Status:
+      - { code: CE }                 # 공기 청정기 상태 안내
+      - { code: BP, get: true }      # AI 모드 상태 정보 안내
+      - { code: ID, get: true }      # 동작 상태 안내
+      - { code: MV, get: true }      # 음소거 모드 - 상태
+      - { code: NK, get: true }      # 풍속 정보 안내
+      - { code: NN, get: true }      # UV 살균 LED - 상태
+      - { code: QD, get: true }      # 센서 감지
+      - { code: QT, get: true }      # 음성인식
+      - { code: SC, get: true }      # 공기질 상태 표시 LED
+      - { code: WN, get: true }      # 밝기 안내
+      - { code: ZV, get: true }      # 음량 안내
+
+    Information:
+      - { code: CS, type: 1 }        # 공기 청정기 정보 안내 - 설치
+      - { code: CS, type: 2 }        # 공기 청정기 정보 안내 - 수량
+      - { code: CS, type: 3 }        # 공기 청정기 정보 안내 - 에어센서
+      - { code: HI, type: 1 }        # 전력 - 소비 전력 안내
+      - { code: HI, type: 2 }        # 전력 - 사용 요금 안내
+      - { code: SB, type: 1 }        # 인증
+      - { code: SB, type: 2 }        # 필터
+      - { code: SB, type: 3 }        # 공기 청정기 소음
+      - { code: SB, type: 4 }        # 공기 청정기 구성
+      - { code: SB, type: 5 }        # 개인정보/기기정보
+      - { code: SV, type: 1 }        # 시간
+      - { code: SV, type: 2 }        # 매너모드
+      - { code: SV, type: 3 }        # 나이트모드
+      - { code: SV, type: 4 }        # 인터넷
+      - { code: SV, type: 5 }        # 날짜
+      - { code: JS, type: 1 }        # 가이드 - 매너 모드
+      - { code: JS, type: 2 }        # 가이드 - 프라이버시 모드
+      - { code: JS, type: 3 }        # 가이드 - 나이트 모드
+      - { code: JS, type: 4 }        # 가이드 - 나무 보이스
+      - { code: JS, type: 5 }        # 가이드 - 온도 단위
+      - { code: JS, type: 6 }        # 가이드 - UV LED
+      - { code: JS, type: 7 }        # 가이드 - 상단 화면
+      - { code: JS, type: 8 }        # 가이드 - 언어
+      - { code: JS, type: 9 }        # 가이드 - 센서 민감도
+      - { code: JS, type: 10 }        # 가이드 - AI 모드
+      - { code: XO }                 # 에러 내역
+      - { code: UY }                 # 에러코드
+
+    Precautions:
+      - { code: DW, type: 1 }        # 어린이
+      - { code: DW, type: 2 }        # 충전
+      - { code: DW, type: 3 }        # 설치
+      - { code: DW, type: 4 }        # 사용
+
+    Features:
+      - { code: EN, type: 1 }        # 공기 청정기
+      - { code: EN, type: 2 }        # preview
+      - { code: EN, type: 3 }        # 청정 기능
+      - { code: EN, type: 4 }        # 웰컴
+      - { code: EN, type: 5 }        # 웨이크 업
+      - { code: EN, type: 6 }        # 릴렉스 모드
+      - { code: EN, type: 7 }        # 바이탈 사인
+
+    Settings:
+      - { code: EW, get: true }      # 온도 단위 안내
+      - { code: GQ, get: true }      # 음성 안내
+      - { code: HG, get: true }      # 테마 안내
+      - { code: IH, get: true }      # 스캐닝 설정 안내
+
+    Battery:
+      - { code: JJ }                 # 배터리
+      - { code: KP, type: 1 }        # 충전 소요 시간
+      - { code: KP, type: 2 }        # 충전 불가 상태
+
+    Air_Quality:
+      - { code: IO, timeframe: 0, location: "*" }  # 현재
+      - { code: IO, timeframe: 1, location: "*" }  # 내일
+      - { code: IO, timeframe: 2, location: "*" }  # 주말
+      - { code: IO, timeframe: 3, location: "*" }  # 월
+      - { code: IO, timeframe: 4, location: "*" }  # 화
+      - { code: IO, timeframe: 5, location: "*" }  # 수
+      - { code: IO, timeframe: 6, location: "*" }  # 목
+      - { code: IO, timeframe: 7, location: "*" }  # 금
+      - { code: IO, timeframe: 8, location: "*" }  # 토
+      - { code: IO, timeframe: 9, location: "*" }  # 일
+      - { code: HW, type: 1 }        # 미세먼지
+      - { code: HW, type: 2 }        # 초미세먼지
+      - { code: HW, type: 3 }        # 유기화합물
+      - { code: HW, type: 4 }        # 질소화합물
+      - { code: HW, type: 5 }        # 프롬알데히드
+      - { code: HW, type: 6 }        # 이산화탄소
+
+    Weather:
+      - { code: MO, timeframe: 0, location: "*" }  # 현재
+      - { code: MO, timeframe: 1, location: "*" }  # 내일
+      - { code: MO, timeframe: 2, location: "*" }  # 주말
+      - { code: MO, timeframe: 3, location: "*" }  # 월
+      - { code: MO, timeframe: 4, location: "*" }  # 화
+      - { code: MO, timeframe: 5, location: "*" }  # 수
+      - { code: MO, timeframe: 6, location: "*" }  # 목
+      - { code: MO, timeframe: 7, location: "*" }  # 금
+      - { code: MO, timeframe: 8, location: "*" }  # 토
+      - { code: MO, timeframe: 9, location: "*" }  # 일
+
+    Machine_Cleaning:
+      - { code: PC, type: 1 }        # 필터교체
+      - { code: PC, type: 2 }        # (미정 placeholder)
+      - { code: PC, type: 3 }        # AI필터
+      - { code: PC, type: 4 }        # 센서창
+      - { code: PC, type: 5 }        # 라이다센서
+      - { code: PC, type: 6 }        # 장애물감지센서
+      - { code: PC, type: 7 }        # 전원부
+      - { code: PC, type: 8 }        # 외관
+      - { code: UJ }                 # 필터상태
+
+    Personal_Info:
+      - { code: GN, get: true }      # 프라이버시 설정 안내
+
+  swap_env:
+    Theme: { code: HG, theme: -1 }      # 테마 - 변경
+    Temperature_Unit: { code: EW, type: -1 }       # 온도 단위 - 변경(토글)
+    Voice: { code: GQ, gender: -1 }     # 음성 - 변경(남/여 토글)
+    Brightness: { code: WN, brightness: -1 } # 밝기 - 변경(토글)
+    Volume: { code: ZV, volume: -1 }     # 음량 - 변경(토글)
+
+  set_env:
+    Temperature_Unit:
+      - { code: EW, type: 0 }            # 섭씨
+      - { code: EW, type: 1 }            # 화씨
+
+    Direction:
+      - { code: FR }        # 방향 - 유저 (raw_args 없음 → 상수값으로 보정)
+
+    Voice:
+      - { code: GQ, gender: 1 }          # 여성
+      - { code: GQ, gender: 2 }          # 남성
+
+    Language:
+      - { code: HS, type: -1 }          #기본(언어 미지정)
+      - { code: HS, type: 1 }           #한국어
+      - { code: HS, type: 2 }           #영어
+
+    Theme:
+      - { code: HG, theme: 0 }           # 기본
+      - { code: HG, theme: 2 }           # 실내 공기질
+
+    Fan_Speed:
+      - { code: NK, speed: 0 }           # 자동
+      - { code: NK, speed: 1 }           # 약풍
+      - { code: NK, speed: 2 }           # 중풍
+      - { code: NK, speed: 3 }           # 강풍
+      - { code: NK, speed: 4 }           # 터보
+      - { code: NK, speed: -1 }          # 기본/최소/줄이기/높이기 (동일 시그널)
+
+    Brightness:
+      - { code: WN, brightness: "*" }    # 0~5 아무 값 (와일드카드)
+
+    Volume:
+      - { code: ZV, volume: "*" }        # 0~5 아무 값 (와일드카드)
+
+    Sensor:
+      - { code: QD, type: -1 }           # 미지정
+      - { code: QD, type: 0 }            # 낮게
+      - { code: QD, type: 1 }            # 보통
+      - { code: QD, type: 2 }            # 민감
+
+  talk:
+    Default: { code: MR }             # 잡담/인식불가 → 자연어 응답
+
+# 참고: 이 버전은 expected_args 없이도 동작.
+# map_args는 when(=여기선 enum 밑 조건들)의 키 순서대로 문자열화됨.

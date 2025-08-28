@@ -1,0 +1,441 @@
+﻿func,raw_args,map_func,map_enum,query,map_args
+BP,get=True,info,Status,청정 켜봐 또 공간별 누적 대기질 정보 연동 작동 중인가요,get=True
+BP,"enable=0, type=2",mode_on,All_Air_Quality_AI_Mode,지금 에이아이 모드 둘 다 작동시켜 주세요,"enable=0, type=2"
+BP,"enable=0, type=0",mode_on,Outdoor_Air_Quality_AI_Mode,에이아이 모드에서 실외 대기질 정보 연동 켜주세요,"enable=0, type=0"
+BP,"enable=1, type=1",mode_off,Room_Air_Quality_AI_Mode,오랜만에 부모님과 시간을 보내려고 계획 중이야 그리고 에이아이 모드에서 공간별 누적 공기질 정보 연동 꺼주세요,"enable=1, type=1"
+BP,"enable=0, type=1",mode_on,Room_Air_Quality_AI_Mode,오늘은 무슨 일을 해야 할지 모르겠어 그냥 쉬고 싶어 그 다음에 에이아이 모드의 공간별 공기질 데이터 연동 상태로 바꿔줘,"enable=0, type=1"
+BP,"enable=1, type=0",mode_off,Outdoor_Air_Quality_AI_Mode,실외 공기질 정보 연결 설정을 꺼줄래요 그러고 나서 다음 주말에 부모님과 시간을 보낼까 생각 중이야,"enable=1, type=0"
+BP,"enable=1, type=2",mode_off,All_Air_Quality_AI_Mode,고정 공청 기능 켜줘 그리고 혹시 에이아이 모드 동시에 꺼주실 수 있나요,"enable=1, type=2"
+BP,"enable=0, type=-1",mode_on,AI_Mode,당장 에이아이 모드 온 하도록 도와줄거지,"enable=0, type=-1"
+BP,"enable=1, type=-1",mode_off,AI_Mode,바로 에이아이 기능 종료,"enable=1, type=-1"
+BP,"enable=0, type=1",mode_on,Room_Air_Quality_AI_Mode,고정 공청 기능 켜줘 그리고 공간별 공기질 이력 연동 설정을 켜줄래요,"enable=0, type=1"
+BS,enable=True,mode_on,Night_Mode,고정 공기 청정 가동 시작해줘 그 다음에 나이트 모드 시작할래,enable=True
+BS,enable=False,mode_off,Night_Mode,고정 공청 기능 켜줘 그러고 나서 나이트 모드 비활성화해줘,enable=False
+BS,enable=True,mode_on,Night_Mode,고스트 모드 설정해주세요 그러고 나서 오늘 하루는 그냥 아무것도 안 하고 싶어,enable=True
+BS,enable=True,mode_on,Night_Mode,어두운 모드로 바꿔줘,enable=True
+BS,enable=False,mode_off,Night_Mode,고스트 모드 종료해주세요 그리고 주말에 뭐 할지 아직 정하지 못했어 그냥 집에 있을까 생각 중이야,enable=False
+BS,enable=True,mode_on,Night_Mode,고스트 모드 켜줘,enable=True
+BS,enable=True,mode_on,Night_Mode,고스트 모드 실행해줘,enable=True
+BS,enable=False,mode_off,Night_Mode,고정 청정 온 또 방해 금지 모드 중단할게,enable=False
+BS,enable=False,mode_off,Night_Mode,고스트 모드 중지해줘,enable=False
+BS,enable=False,mode_off,Night_Mode,이번에 새로 나온 스마트폰이 정말 좋다는데 살까 말까 고민이네 그리고 나이트 모드 꺼줘,enable=False
+CE,,info,Status,공기청정 소요시간이 얼마였어 그리고 내일은 조금 더 부지런하게 보내야겠어 할 일이 많아,
+CE,,info,Status,내일 중요한 발표가 있는데 너무 긴장 돼 잘해야 할 텐데 그리고 청정 결과 보고서 보여줘,
+CE,,info,Status,청정 리포트 보여줘,
+CE,,info,Status,청정 상태 보고서 보여줘,
+CE,,info,Status,쳥정 리포트 보고싶어,
+CE,,info,Status,고정 청정 온 이어서 청정 결과 미세먼지 농도 알려줘,
+CE,,info,Status,청정 결과 확인할래,
+CE,,info,Status,청정 결과 알려줘,
+CE,,info,Status,청정 결과 미세먼지 농도 알려줘 그리고 이번 주말에는 오랜만에 영화를 보러 가려고 해,
+CE,,info,Status,고정 공기 청정 가동 시작해줘 그러고 나서 공기청정 언제 끝났니,
+CK,,mode_on,Follow_Mode,내 뒤를 따라와 그 다음에 이번 주말에는 가족들이랑 시간을 보내기로 했어,
+CK,,mode_on,Follow_Mode,고정 공기 청정 실행해줘 그러고 나서 팔로미,
+CK,,mode_on,Follow_Mode,나 따라올래,
+CK,,mode_on,Follow_Mode,고정 공청 기능 켜줘 그러고 나서 팔로미,
+CK,,mode_on,Follow_Mode,내일 아침에 일찍 일어나서 운동을 해볼까 생각 중이야 그 다음에 팔로미,
+CK,,mode_on,Follow_Mode,다음 주에는 더 열심히 일해야겠어 할 일이 많아 그 다음에 저를 향해 이동해주실래요,
+CK,,mode_on,Follow_Mode,나 따라와줘요,
+CK,,mode_on,Follow_Mode,청정 켜봐 그리고 여기로 따라와주세요,
+CK,,mode_on,Follow_Mode,나를 따라와 줄래?,
+CK,,mode_on,Follow_Mode,나 따라와,
+CS,type=1,info,Information,일반적으로 기기 설치 어디다가 하는 게 좋아,type=1
+CS,type=2,info,Information,공기청정기 몇 대 정도 있어야 가장 좋을까요?,type=2
+CS,type=3,info,Information,에어 센서 대체 어디에 두는 게 좋을까요,type=3
+CS,type=2,info,Information,이 공간에 공기청정기 몇 대 정도 둬야할까?,type=2
+CS,type=2,info,Information,이 공기청정기를 몇 대 두는 게 좋을지 잘 모르겠어.,type=2
+CS,type=3,info,Information,에어 센서 놓기에 가장 쾌적한 곳이 어디라 생각하니,type=3
+CS,type=2,info,Information,공기청정기 몇 대가 있는 게 제일 이상적이야?,type=2
+CS,type=1,info,Information,이 기기 어디에 설치하면 돼,type=1
+CS,type=1,info,Information,이 기기 어디에다가 설치하면 되는거야,type=1
+CS,type=1,info,Information,공기청정기 설치 위치로 어디가 좋을까,type=1
+DW,type=1,info,Precautions,어린이가 주의해야 하는 사항을 알려죠,type=1
+DW,type=4,info,Precautions,이 기계 사용 시 어떤 거 조심해야 해,type=4
+DW,type=3,info,Precautions,공기청정기 설치 시 주의사항만 알려줘.,type=3
+DW,type=2,info,Precautions,충전할 때에는 뭘 조심해야해,type=2
+DW,type=3,info,Precautions,공기청정기 설치 방법에서 주의할 점 있어?,type=3
+DW,type=4,info,Precautions,공기청정기 사용할 때 주의할 점 간단히 알려줘,type=4
+DW,type=4,info,Precautions,이 기계를 사용할 때 주의해야 할 사항은 무엇인가요?,type=4
+DW,type=4,info,Precautions,이 제품 작동 시 조심해야 할 거 뭐가 있어?,type=4
+DW,type=2,info,Precautions,충전 중에 내가 조심해야 할 게 있어,type=2
+DW,type=3,info,Precautions,공기청정기 설치 시 주의해야 할 거 뭐가 있어?,type=3
+EF,action=1,mode_on,Global_Cleaning_Mode,이 음악 들어봤어 그 후에 전체 공간 청정 해줘,action=1
+EF,action=1,mode_on,Global_Cleaning_Mode,충전하러 복귀 그 다음에 전체 공간 청정 해줘,action=1
+EF,action=1,mode_on,Global_Cleaning_Mode,전체 공간 공기청정 해줘,action=1
+EF,action=1,mode_on,Global_Cleaning_Mode,이제 그만 복귀해 또 전체 이동 공기청정 할래,action=1
+EF,action=1,mode_on,Global_Cleaning_Mode,전체 공간 청정해줘,action=1
+EF,action=1,mode_on,Global_Cleaning_Mode,고정 공청 기능 켜줘 전체 구역 청정 부탁할게,action=1
+EF,action=1,mode_on,Global_Cleaning_Mode,고정 공기 청정 가동 시작해줘 그리고 전체 공간 청정 해줘,action=1
+EF,action=1,mode_on,Global_Cleaning_Mode,전체 공간 공기 청정 시작해,action=1
+EF,action=1,mode_on,Global_Cleaning_Mode,넌 무슨 음식을 좋아해 그 후에 전체 구역 청정 부탁할게,action=1
+EF,action=1,mode_on,Global_Cleaning_Mode,모든 방 청소 시작해줘,action=1
+EN,type=4,info,Features,웰컴 기능이 뭐야,type=4
+EN,type=6,info,Features,릴렉스 모드의 특징에 대해 알려주세요,type=6
+EN,type=2,info,Features,넌 무슨 기능이 있어?,type=2
+EN,type=5,info,Features,웨이크업 기능에 대해서 설명해줄래,type=5
+EN,type=1,info,Features,당신의 소개를 들려주세요.,type=1
+EN,type=7,info,Features,바이탈 사인 기능에 대한 설명이 필요해.,type=7
+EN,type=3,info,Features,어떤 청정 기능이 탑재되어 있나요,type=3
+EN,type=2,info,Features,넌 뭘 할 수 있어?,type=2
+EN,type=6,info,Features,릴렉스 모드에 대해 간단히 설명해줘,type=6
+EN,type=6,info,Features,릴렉스 모드가 무엇을 하는지 궁금해요,type=6
+EW,type=1,set_env,Temperature_Unit,온도 단위 화씨로 바꿔줄래,type=1
+EW,type=0,set_env,Temperature_Unit,섭씨 단위가 편해요,type=0
+EW,type=-1,swap_env,Temperature_Unit,온도 단위 바꾸고 싶어,type=-1
+EW,get=True,info,Settings,사용되는 온도 표시를 말씀해주세요,get=True
+EW,get=True,info,Settings,현재 온도 표시는 화씨입니까 그리고 주말에 뭘 할지 아직 못 정했는데 그냥 영화나 볼까 생각 중이야,get=True
+EW,type=1,set_env,Temperature_Unit,온도 단위를 화씨로 변경해주세요,type=1
+EW,type=0,set_env,Temperature_Unit,온도를 섭씨로 변경할 수 있어 다음으로 새로 나온 책을 읽고 있는데 너무 흥미진진해서 시간 가는 줄 몰라,type=0
+EW,type=0,set_env,Temperature_Unit,고정 청정 온 그 후에 온도를 섭씨로 변경할 수 있어,type=0
+EW,type=1,set_env,Temperature_Unit,온도를 화씨로 변경할 수 있어 그러고 나서 저녁으로 뭐 먹을까 치킨 아니면 피자,type=1
+EW,type=1,set_env,Temperature_Unit,온도 단위를 화씨로 바꿔줘요,type=1
+FF,position=가든,mode_on,Zone_Selection_Mode,고정 청정 온 그 후에 가든으로 가서 청정해 줘,position=가든
+FF,"position=""방재실""",mode_on,Zone_Selection_Mode,방재실에서 청정해줘,"position=""방재실"""
+FF,"position=""2층홀""",mode_on,Zone_Selection_Mode,2층홀에서 즉시 청정 시스템 작동해주실래요,"position=""2층홀"""
+FF,"position=""발표장""",mode_on,Zone_Selection_Mode,발표장에서 청정 진행해줄래요,"position=""발표장"""
+FF,"position=""유아부실""",mode_on,Zone_Selection_Mode,유아부실 공기청정 동작 시작해주세요,"position=""유아부실"""
+FF,"position=""드링크룸""",mode_on,Zone_Selection_Mode,드링크룸에서 청정 바로 해줘,"position=""드링크룸"""
+FF,"position=""동물원방""",mode_on,Zone_Selection_Mode,동물원방 공기청정 작동해주세요,"position=""동물원방"""
+FF,"position=""스타리움관""",mode_on,Zone_Selection_Mode,스타리움관 공기청정 진행해줘,"position=""스타리움관"""
+FF,"position=""입구옆자리""",mode_on,Zone_Selection_Mode,입구옆자리에서 공기청정해보시면 감사해요,"position=""입구옆자리"""
+FF,"position=""마이크로필름실""",mode_on,Zone_Selection_Mode,마이크로필름실 청정 진행 시작해,"position=""마이크로필름실"""
+FR,,set_env,Direction,나 쪽으로 돌려줄래?,
+FR,,set_env,Direction,오늘 하루가 너무 바빴어 이제 좀 쉬고 싶어 그 후에 제 방향으로 돌려주실래요,
+FR,,set_env,Direction,저를 향해 봐주세요 그 후에 이번 주에는 운동을 좀 더 열심히 해야겠어 체력이 필요해,
+FR,,set_env,Direction,나 쪽으로 돌려주겠니?,
+FR,,set_env,Direction,나 쪽으로 돌려줄 수 있어?,
+FR,,set_env,Direction,고정 공청 기능 켜줘 이어서 제 방향으로 돌려주실래요,
+FR,,set_env,Direction,이쪽으로 틀어줄 수 있어 그 후에 내일은 아침 일찍 일어나서 하루를 길게 써볼까 생각 중이야,
+FR,,set_env,Direction,나를 바라봐줄래?,
+FR,,set_env,Direction,고정 공기 청정 가동 시작해줘 그리고 룩앳미,
+FR,,set_env,Direction,나 좀 봐줄래?,
+GN,get=True,info,Personal_Info,고정 공기 청정 실행해줘 그 다음에 프라이버시 상태 확인해줘,get=True
+GN,enable=True,mode_on,Privacy_Mode,고정 청정 온 또 프라이버시 설정 활성화해줄 수 있어,enable=True
+GN,enable=False,mode_off,Privacy_Mode,프라이버시 모드 중지해줘,enable=False
+GN,enable=True,mode_on,Privacy_Mode,프라이버시 모드 작동시켜줘,enable=True
+GN,get=True,info,Personal_Info,지금 프라이버시 기능 켜놨나요,get=True
+GN,get=True,info,Personal_Info,고정 청정 온 지금 프라이버시 모드 상태가 어떻게 돼,get=True
+GN,enable=False,mode_off,Privacy_Mode,고정 청정 온 그리고 프라이버시 기능 꺼줘,enable=False
+GN,enable=True,mode_on,Privacy_Mode,프라이버시 설정해줘,enable=True
+GN,get=True,info,Personal_Info,현재 프라이버시가 어떤 상태입니까 그 다음에 다음 주에 중요한 발표가 있는데 준비가 잘 될지 걱정 돼,get=True
+GN,enable=True,mode_on,Privacy_Mode,프라이버시 모드 켜줘,enable=True
+GQ,gender=2,set_env,Voice,청정 켜봐 이어서 음성을 남자로 전환해줄래,gender=2
+GQ,get=True,info,Settings,고정 공기 청정 실행해줘 다음으로 목소리 설정이 어떻게 되어있나요,get=True
+GQ,gender=1,set_env,Voice,목소리 여성으로 설정해줘,gender=1
+GQ,gender=-1,swap_env,Voice,다른 성별의 목소리로 변경해 주세요.,gender=-1
+GQ,gender=2,set_env,Voice,고정 공기 청정 가동 시작해줘 그러고 나서 하이나무 남자로 설정해주세요,gender=2
+GQ,get=True,info,Settings,나무 음성 성별 상태 알려줘,get=True
+GQ,get=True,info,Settings,나무 음성 성별 알려줘,get=True
+GQ,gender=-1,swap_env,Voice,목소리 성별 바꿀래요,gender=-1
+GQ,gender=2,set_env,Voice,목소리 남성으로 바꿔줘,gender=2
+GQ,gender=-1,swap_env,Voice,성별을 다른 목소리로 설정해 주세요.,gender=-1
+GV,,mode_on,Vital_Sign_Mode,바이탈 사인 측정을 시작해주세요.,
+GV,,mode_on,Vital_Sign_Mode,고정 청정 온 다음으로 혈압 상태를 체크해주실래요,
+GV,,mode_on,Vital_Sign_Mode,산소포화도 확인하고 싶어요 다음으로 다음 주말에는 부모님과 시간을 보내기로 했어,
+GV,,mode_on,Vital_Sign_Mode,오늘 저녁은 무슨 메뉴로 할지 고민 중이야 다음으로 바이탈 사인 체크해주세요,
+GV,,mode_on,Vital_Sign_Mode,고정 공청 기능 켜줘 혈압 상태를 체크해주실래요,
+GV,,mode_on,Vital_Sign_Mode,맥박 수치 측정하고 싶어.,
+GV,,mode_on,Vital_Sign_Mode,맥박수 측정하고 알려줄래?,
+GV,,mode_on,Vital_Sign_Mode,혈압 상태를 체크해주실래요 다음으로 이번 주말에는 캠핑을 가기로 했는데 기대 돼,
+GV,,mode_on,Vital_Sign_Mode,맥박 수치 확인해주시겠어요?,
+GV,,mode_on,Vital_Sign_Mode,다음 주에 있을 중요한 발표를 준비 중이야 다음으로 스트레스 지수 측정해줘,
+HG,theme=2,set_env,Theme,테마를 실내 공기질로 설정해줘,theme=2
+HG,theme=0,set_env,Theme,이번 주말에는 뭘 할까 새로운 계획을 세워봐야겠어 또 화면 기본으로 설정해줘,theme=0
+HG,get=True,info,Settings,대기화면이 기본 테마로 설정됐어,get=True
+HG,theme=-1,swap_env,Theme,대기화면 바꿔볼래요,theme=-1
+HG,theme=2,set_env,Theme,이번 주에는 운동을 조금 더 열심히 해야겠어 이어서 실내 공기질 테마로 화면 설정해줘,theme=2
+HG,get=True,info,Settings,고정 청정 온 이어서 대기화면이 실내 공기질 테마인가요,get=True
+HG,theme=2,set_env,Theme,테마를 상세 공기질로 변경해주실래요 이어서 새로 나온 영화가 기대 돼 이번 주말에 보러 갈까 생각 중이야,theme=2
+HG,theme=0,set_env,Theme,청정 켜봐 기본 테마로 대기화면 설정해주세요,theme=0
+HG,theme=2,set_env,Theme,고정 공기 청정 실행해줘 테마를 상세 공기질로 변경해주실래요,theme=2
+HG,theme=0,set_env,Theme,기본으로 설정해줄래,theme=0
+HI,type=2,info,Information,전기세가 얼마나 나오는지 계산해줘,type=2
+HI,type=1,info,Information,이 제품은 소비 전력이 얼마나 돼,type=1
+HI,type=2,info,Information,공청기 사용시 예상되는 전기 요금,type=2
+HI,type=1,info,Information,이 공청기의 소비 전력을 알고 싶어,type=1
+HI,type=1,info,Information,얼마나 전기를 많이 먹어,type=1
+HI,type=2,info,Information,전기 요금이 많이 나올까,type=2
+HI,type=1,info,Information,이거 전기 얼마나 써,type=1
+HI,type=2,info,Information,하루에 전기세가 얼마나 나올까,type=2
+HI,type=2,info,Information,이 공청기 전기세가 얼마나 돼,type=2
+HI,type=2,info,Information,전기세가 얼마나 나오는지 계산해줘,type=2
+HS,type=1,set_env,Language,기기 언어 한국어로 바꿔줘,type=1
+HS,type=2,set_env,Language,영어로 기기 언어 설정해줘,type=2
+HS,type=-1,set_env,Language,언어 바꿔줘,type=-1
+HS,type=2,set_env,Language,영어로 설정해 그러고 나서 새 앨범 들어봤어,type=2
+HS,type=1,set_env,Language,한국어로 기기 언어 설정해줘,type=1
+HS,type=2,set_env,Language,드럼 배우고 싶은데 어디서 시작하지 그러고 나서 기기 언어 영어로 바꿔줄래,type=2
+HS,type=2,set_env,Language,청정 켜봐 그리고 기기 언어 영어로 바꿔줄래,type=2
+HS,type=2,set_env,Language,영어로 기기 언어 바꿔줘,type=2
+HS,type=1,set_env,Language,처음 위치로 돌아가주면 좋겠어 그 다음에 기기 언어 설정 한국어로 바꿔줘,type=1
+HS,type=2,set_env,Language,처음 위치로 돌아가주면 좋겠어 그 다음에 언어 영어로 맞춰,type=2
+HW,type=3,info,Air_Quality,유기화합물은 어떤 거야,type=3
+HW,type=1,info,Air_Quality,미세먼지는 왜 건강에 나쁜가요?,type=1
+HW,type=2,info,Air_Quality,초미세먼지는 무슨 뜻인가요?,type=2
+HW,type=4,info,Air_Quality,질소산화물이란 무엇입니까,type=4
+HW,type=6,info,Air_Quality,이산화탄소가 뭔지 말해줘,type=6
+HW,type=5,info,Air_Quality,포름알데히드가 무엇인지 말해줘,type=5
+HW,type=3,info,Air_Quality,유기화합물이 뭐예요,type=3
+HW,type=3,info,Air_Quality,유기화합물이란 무엇을 의미합니까,type=3
+HW,type=2,info,Air_Quality,초미세먼지란 무엇을 의미합니까,type=2
+HW,type=1,info,Air_Quality,미세먼지가 무슨 의미야,type=1
+ID,get=True,info,Status,공기송전기는 실행하고 있을까요?,get=True
+ID,get=True,info,Status,공기청정 모드 실행 중이신가요?,get=True
+ID,get=True,info,Status,고정 공청 기능 켜줘 다음으로 공기청정 작동 중인가요,get=True
+ID,get=True,info,Status,어디로 가는 중인지 말해주실래요 그리고 이번 주말에는 집에서 푹 쉬면서 시간을 보내려고 해,get=True
+ID,get=True,info,Status,공기청정 기능 작동하고 있나요?,get=True
+ID,get=True,info,Status,공기청정 모드 실행하고 있니?,get=True
+ID,get=True,info,Status,고정 공기 청정 실행해줘 이어서 지금 어디서 청정하고 있는지 알려줄 수 있어,get=True
+ID,get=True,info,Status,현재 뭐하고 있나요 그리고 내일 아침에는 일찍 일어나서 운동을 할 계획이야,get=True
+ID,get=True,info,Status,이번 주말에는 오랜만에 친구들과 만나서 저녁을 먹기로 했어 그리고 지금 충전 중인지 확인해줘,get=True
+ID,get=True,info,Status,현재 공기청정기가 작동 중인지 알려줘.,get=True
+IH,get=True,info,Settings,스캐닝 청정중이야,get=True
+IH,scan=True,mode_on,Scanning_Mode,고정 청정 온 이어서 스캐닝 청정 시작하세요,scan=True
+IH,scan=False,mode_off,Scanning_Mode,스캐닝 공기청정 종료,scan=False
+IH,get=True,info,Settings,스캐닝 청정 하고있어,get=True
+IH,scan=True,mode_on,Scanning_Mode,스캐닝 청정 시작하세요 그리고 이 식당 가볼까,scan=True
+IH,get=True,info,Settings,이제 그만 복귀해 다음으로 스캐닝 청정 상태 좀 알려줘,get=True
+IH,scan=False,mode_off,Scanning_Mode,요즘 재미있는 책 있어 또 스캐닝 공기청정 꺼라,scan=False
+IH,scan=False,mode_off,Scanning_Mode,스캐닝 기능 비활성화 해줘 또 주말엔 보통 뭐해,scan=False
+IH,get=True,info,Settings,스캐닝 청정 켜져있어,get=True
+IH,get=True,info,Settings,스캐닝 청정 지금 꺼져 있나요 이어서 이번 주말에 계획 있어,get=True
+IO,"timeframe=9, location=빈",info,Air_Quality,일요일 빈 대기질을 화면에 보여줘 이어서 새로 나온 노래가 되게 좋더라 계속 반복해서 듣고 있어,"timeframe=9, location=빈"
+IO,"timeframe=1, location=뉴욕",info,Air_Quality,고정 공기 청정 가동 시작해줘 그 후에 내일 뉴욕 미세먼지 어때,"timeframe=1, location=뉴욕"
+IO,"timeframe=4, location=두바이",info,Air_Quality,화요일 두바이 공기질 걱정해야 할까 그리고 시간 관리 방법 공유해줄래,"timeframe=4, location=두바이"
+IO,"timeframe=6, location=광진구",info,Air_Quality,목요일 광진구 공기질 걱정해야 할까 그 후에 다음 달에 친구랑 여행 갈 계획 세우고 있어,"timeframe=6, location=광진구"
+IO,"timeframe=0, location=하노이",info,Air_Quality,처음 위치로 돌아가주면 좋겠어 그러고 나서 현재 하노이 공기질 알려주세요,"timeframe=0, location=하노이"
+IO,"timeframe=1, location=""리마""",info,Air_Quality,내일 리마 미세먼지 때문에 마스크 필요할까,"timeframe=1, location=""리마"""
+IO,"timeframe=0, location=""홍콩""",info,Air_Quality,지금 홍콩 피엠이쩜오 때문에 외출하기 괜찮아,"timeframe=0, location=""홍콩"""
+IO,"timeframe=0, location=""뉴델리""",info,Air_Quality,현재 뉴델리 초미세먼지 농도 몇이야,"timeframe=0, location=""뉴델리"""
+IO,"timeframe=1, location=""몬트리올""",info,Air_Quality,내일 몬트리올 공기질 괜찮아,"timeframe=1, location=""몬트리올"""
+IO,"timeframe=0, location=""센프란시스코""",info,Air_Quality,오늘 센프란시스코 미세먼지 농도는 얼마야,"timeframe=0, location=""센프란시스코"""
+JJ,,info,Battery,배터리 잔량이 얼마인지 확인해줘,
+JJ,,info,Battery,고정 공기 청정 실행해줘 그리고 배터리 몇 퍼센트야,
+JJ,,info,Battery,배터리 상태 알려줘,
+JJ,,info,Battery,충전하러 복귀 이어서 배터리 상태 알려줘,
+JJ,,info,Battery,이번에 새로 배운 취미 있어 그리고 충전량 얼마야,
+JJ,,info,Battery,고정 공기 청정 가동 시작해줘 그리고 배터리 잔량 확인해줘,
+JJ,,info,Battery,배터리 얼마나 남았어,
+JJ,,info,Battery,고정 청정 온 다음으로 충전량 얼마야,
+JJ,,info,Battery,클래식 음악 들으면 마음이 편해져 그리고 배터리 몇 퍼센트야,
+JJ,,info,Battery,배터리 잔량 확인해줘 그리고 피아노 연습 많이 했어,
+JS,type=8,info,Information,설정이 가능한 언어 종류 뭐야,type=8
+JS,type=7,info,Information,상단 화면에 대해 설명해 줘,type=7
+JS,type=9,info,Information,센서의 민감도를 조정하는 이유는 무엇인가요?,type=9
+JS,type=1,info,Information,매너모드는 무슨 기능이야,type=1
+JS,type=6,info,Information,유브이 엘이디는 어떤 기능이야,type=6
+JS,type=2,info,Information,프라이버시 모드는 어떤 기능이야,type=2
+JS,type=3,info,Information,나이트 모드는 뭐야,type=3
+JS,type=4,info,Information,나무 보이스는 뭐야,type=4
+JS,type=5,info,Information,온도 단위 변경을 위한 메뉴는 어디에 있어?,type=5
+JS,type=10,info,Information,에이아이 모드에 대해 설명해 줘,type=10
+KI,,mode_on,Charge_Dock_Mode,이제 그만 복귀해 밝기를 일로 조정해줘,
+KI,,mode_on,Charge_Dock_Mode,처음 위치로 돌아가주면 좋겠어 엘이디를 팔십프로로 바꿔줘,
+KI,,mode_on,Charge_Dock_Mode,이제 그만 복귀해 그리고 화면 밝기를 4단계로 조정해줄래,
+KI,,mode_on,Charge_Dock_Mode,충전하러 복귀 이어서 음소거 되어있나요,
+KI,,mode_on,Charge_Dock_Mode,이제 그만 복귀해 효과음을 5단계로 바꿔줘,
+KI,,mode_on,Charge_Dock_Mode,충전하러 복귀 그 다음에 월요일 공기질 상태 알려줘,
+KI,,mode_on,Charge_Dock_Mode,스테이션 위치로 복귀하세요 그리고 일요일 미세먼지 정보 보여줘,
+KI,,mode_on,Charge_Dock_Mode,처음 위치로 돌아가주면 좋겠어 그리고 유부이 에릴디 작동 중이야,
+KI,,mode_on,Charge_Dock_Mode,충전하러 복귀 다음으로 주말 공기질 지수를 화면에 보여줘,
+KI,,mode_on,Charge_Dock_Mode,처음 위치로 돌아가주면 좋겠어 그 다음에 일요일 공기질 상태 알려줘,
+KP,type=1,info,Battery,완충하기까지 얼마나 시간이 소요 돼,type=1
+KP,type=2,info,Battery,갑자기 충전이 안되는데 어떡하지,type=2
+KP,type=2,info,Battery,지금 충전이 안되기 시작해,type=2
+KP,type=1,info,Battery,이 제품의 충전 시간은 몇 시간이야,type=1
+KP,type=1,info,Battery,완충하려면 얼마나 걸려,type=1
+KP,type=1,info,Battery,완충까지 걸리는 시간을 알려줘,type=1
+KP,type=2,info,Battery,충전이 하나도 안 됐어,type=2
+KP,type=2,info,Battery,충전이 안되는데 어떡해,type=2
+KP,type=1,info,Battery,제품 충전 시간을 알려죠,type=1
+KP,type=1,info,Battery,완충하기까지 얼마나 시간이 소요 돼,type=1
+MO,"timeframe=1, location=도쿄",info,Weather,내일 도쿄 날씨 비 와 다음으로 새로 나온 게임이 재미있어 보이던데 언제 한번 해봐야겠어,"timeframe=1, location=도쿄"
+MO,"timeframe=1, location=베이징",info,Weather,베이징의 내일 날씨 정보 표시해줄래 다음으로 오늘은 좀 일찍 잠자리에 들어야겠어 내일 할 일이 많거든,"timeframe=1, location=베이징"
+MO,"timeframe=6, location=""선양""",info,Weather,목요일 선양 날씨 비 와,"timeframe=6, location=""선양"""
+MO,"timeframe=1, location=""송도""",info,Weather,내일 송도 날씨 상황 어때,"timeframe=1, location=""송도"""
+MO,"timeframe=3, location=""여수""",info,Weather,월요일 여수 날씨 따뜻하게 입어야 할까,"timeframe=3, location=""여수"""
+MO,"timeframe=7, location=""사이판""",info,Weather,금요일 사이판 날씨 알려주세요,"timeframe=7, location=""사이판"""
+MO,"timeframe=9, location=""벤쿠버""",info,Weather,일요일 벤쿠버 날씨 어때,"timeframe=9, location=""벤쿠버"""
+MO,"timeframe=9, location=""밀드라""",info,Weather,밀드라 일요일 날씨 어때요,"timeframe=9, location=""밀드라"""
+MO,"timeframe=7, location=""미슐콜츠""",info,Weather,미슐콜츠의 금요일 날씨 정보 표시해줄래,"timeframe=7, location=""미슐콜츠"""
+MO,"timeframe=5, location=""부에노스아이레스""",info,Weather,수요일 부에노스아이레스 날씨가 어떤가요,"timeframe=5, location=""부에노스아이레스"""
+MR,,talk,Default,저는 음악을 듣는 걸 좋아해요,
+MR,,talk,Default,이 책 정말 재밌어,
+MR,,talk,Default,다음 달에 있을 콘서트를 기대하고 있어 정말 재밌을 것 같아,
+MR,,talk,Default,제주도 여행 가봤어,
+MR,,talk,Default,새로 시작한 취미가 너무 재미있어서 시간 가는 줄 모르겠어,
+MR,,talk,Default,이번 달은 너무 바빠서 친구들 만날 시간이 없었어,
+MR,,talk,Default,오늘 저녁은 뭘 먹을지 고민 중이야 배는 고픈데 딱히 생각나는 게 없어,
+MR,,talk,Default,요즘 읽고 있는 책이 정말 흥미로워,
+MR,,talk,Default,새로운 가방을 사고 싶은데 어떤 게 좋을까 고민 중이야,
+MR,,talk,Default,요즘 스트레스를 너무 많이 받아서 운동으로 풀려고 해,
+MV,get=True,info,Status,충전하러 복귀 이어서 음소거 되어있나요,get=True
+MV,mute=True,mode_on,Mute_Mode,음소거 기능 활성화를 원해요 그리고 이번에 새로 나온 영화 본 사람 있어,mute=True
+MV,mute=False,mode_off,Mute_Mode,음소거 해제해줘,mute=False
+MV,mute=False,mode_off,Mute_Mode,음소거 취소해줘,mute=False
+MV,mute=False,mode_off,Mute_Mode,지금 음소거 모드 해제해줘 그 후에 이 영화 명장면이지,mute=False
+MV,get=True,info,Status,고정 공기 청정 실행해줘 또 음소거 상태 알려줘,get=True
+MV,get=True,info,Status,음소거 기능 켜져있어,get=True
+MV,get=True,info,Status,고정 공기 청정 가동 시작해줘 그리고 음소거 상태 알려줘,get=True
+MV,get=True,info,Status,스테이션 위치로 복귀하세요 또 음소거 아닌 상태야,get=True
+MV,mute=False,mode_off,Mute_Mode,음소거 꺼줘,mute=False
+NK,speed=3,set_env,Fan_Speed,풍량 강풍으로 바꿔줘,speed=3
+NK,speed=0,set_env,Fan_Speed,내일 중요한 미팅 있어 이어서 바람 강도 자동으로 맞춰줘,speed=0
+NK,speed=4,set_env,Fan_Speed,이 영화 예고편 봤어 다음으로 풍량을 터보로 바꿔줘,speed=4
+NK,speed=2,set_env,Fan_Speed,풍속 중풍으로 조정해줘 그 후에 오늘 하루 어땠어,speed=2
+NK,speed=1,set_env,Fan_Speed,약풍으로 바꿔줘,speed=1
+NK,speed=-1,set_env,Fan_Speed,풍량을 조금 줄여주세요,speed=-1
+NK,get=True,info,Status,커피 마실래 그러고 나서 풍속 몇으로 맞춰져 있는지 확인해줘,get=True
+NK,speed=-1,set_env,Fan_Speed,풍량을 낮춰주세요,speed=-1
+NK,speed=4,set_env,Fan_Speed,팬 풍냥 터보 세기로 해줘 다음으로 오늘 뭔가 할 게 많아,speed=4
+NK,speed=1,set_env,Fan_Speed,약한 바람으로 해줘,speed=1
+NN,get=True,info,Status,처음 위치로 돌아가주면 좋겠어 그리고 유부이 에릴디 작동 중이야,get=True
+NN,enable=True,mode_on,UV_Sterilization_LED,유부이 살균 에릴디 실행해줘 그 후에 오늘 저녁은 샐러드로 가볍게 먹을까,enable=True
+NN,enable=False,mode_off,UV_Sterilization_LED,충전 위치로 되돌아가 또 유뷔 엘리디 작동 정지해,enable=False
+NN,enable=True,mode_on,UV_Sterilization_LED,유브이 살균 엘이디 좀 켜줘,enable=True
+NN,enable=True,mode_on,UV_Sterilization_LED,빵집에서 맛있는 빵 사왔어 그 후에 유뷔 살균 엘이디 기능 시작,enable=True
+NN,enable=True,mode_on,UV_Sterilization_LED,고정 청정 온 또 유비이 에리디 빛 켜주라,enable=True
+NN,get=True,info,Status,고정 공기 청정 실행해줘 그러고 나서 유브이 살균 엘이디 기능 켜져 있나요,get=True
+NN,get=True,info,Status,유비이 살균 에릴디 기능 상태 확인해줘 다음으로 비행기 표 예약했어,get=True
+NN,enable=False,mode_off,UV_Sterilization_LED,이번 주말에 근교로 드라이브 갈래 그 다음에 유뷔 엘리디 작동 정지해,enable=False
+NN,enable=True,mode_on,UV_Sterilization_LED,유비이 에리디 빛 켜주라 그 후에 아이스크림 먹으러 가자,enable=True
+PC,type=5,info,Machine_Cleaning,라이다 센서 관리하는 법이 궁금해,type=5
+PC,type=4,info,Machine_Cleaning,센서창 청소 방법을 설명해줘,type=4
+PC,type=8,info,Machine_Cleaning,제품 외관 청소하는 법 알려죠,type=8
+PC,type=1,info,Machine_Cleaning,필터 교체 주기 좀 알려죠,type=1
+PC,type=3,info,Machine_Cleaning,A1 필터 관리 어떻게 해,type=3
+PC,type=6,info,Machine_Cleaning,장애물 감지 센서가 더러워졌는데 어떻게 해야 해,type=6
+PC,type=7,info,Machine_Cleaning,전원 꽂는 곳 어떻게 닦으면 돼?,type=7
+PC,type=8,info,Machine_Cleaning,제품 외관 관리하는 법이 궁금해,type=8
+PC,type=4,info,Machine_Cleaning,센서창 관리하는 법이 궁금해,type=4
+PC,type=1,info,Machine_Cleaning,필터 교체는 얼마마다 하면 돼,type=1
+PG,,mode_on,Fixed_Cleaning_Mode,고정 청정 온 다음으로 센서 감도를 민감으로 바꿔줄래,
+PG,,mode_on,Fixed_Cleaning_Mode,청정 켜봐 이어서 음성을 남자로 전환해줄래,
+PG,,mode_on,Fixed_Cleaning_Mode,고정 공기 청정 실행해줘 이어서 밝기를 2로 조정해줘,
+PG,,mode_on,Fixed_Cleaning_Mode,고정 청정 온 그리고 공기질 상태 표시 작동 중인지 알려줘,
+PG,,mode_on,Fixed_Cleaning_Mode,고정 공기 청정 실행해줘 그 다음에 프라이버시 상태 확인해줘,
+PG,,mode_on,Fixed_Cleaning_Mode,고정 공기 청정 가동 시작해줘 그러고 나서 하이나무 남자로 설정해주세요,
+PG,,mode_on,Fixed_Cleaning_Mode,고정 공청 기능 켜줘 월요일 카이로 날씨 알려줘,
+PG,,mode_on,Fixed_Cleaning_Mode,청정 켜봐 그리고 매너모드 켜줘,
+PG,,mode_on,Fixed_Cleaning_Mode,고정 청정 온 일요일 미세먼지 농도 어때,
+PG,,mode_on,Fixed_Cleaning_Mode,고정 공기 청정 가동 시작해줘 그러고 나서 센서 민감도 상태 알려주세요,
+QD,type=2,set_env,Sensor,고정 청정 온 다음으로 센서 감도를 민감으로 바꿔줄래,type=2
+QD,type=1,set_env,Sensor,감지 감도 보통으로 맞출래,type=1
+QD,type=0,set_env,Sensor,고정 공청 기능 켜줘 감지 민감도를 낮게 조정할 수 있어,type=0
+QD,type=-1,set_env,Sensor,감지 감도 레벨을 바꿔줄래요,type=-1
+QD,get=True,info,Status,고정 공기 청정 가동 시작해줘 그러고 나서 센서 민감도 상태 알려주세요,get=True
+QD,get=True,info,Status,센서 민감도를 낮춰주세요,get=True
+QD,get=True,info,Status,센서 민감도 낮음으로 되어있니,get=True
+QD,type=0,set_env,Sensor,새로 산 옷이 너무 마음에 들어 매일 입고 다니고 있어 또 감지 감도를 낮게 설정해줘,type=0
+QD,type=0,set_env,Sensor,고정 공기 청정 실행해줘 그 다음에 감지 감도를 낮게 설정해줘,type=0
+QD,get=True,info,Status,센서 민감도 낮음 단계에요,get=True
+QT,get=True,info,Status,음성인식 켜져있어,get=True
+QT,enable=True,mode_on,Voice_Recognition,음성인식 기능 활성화 해줘,enable=True
+QT,enable=False,mode_off,Voice_Recognition,음성인식 중지해줘,enable=False
+QT,enable=True,mode_on,Voice_Recognition,듣기 모드 시작해 그리고 새로 시작한 취미가 너무 재미있어서 시간 가는 줄 모르겠어,enable=True
+QT,get=True,info,Status,고정 공기 청정 가동 시작해줘 나무 현재 상태 확인해줘,get=True
+QT,get=True,info,Status,고정 공기 청정 실행해줘 그 후에 듣기 기능 활성화됐나요,get=True
+QT,enable=True,mode_on,Voice_Recognition,고정 공기 청정 실행해줘 음성 인식 기능 켜줘,enable=True
+QT,get=True,info,Status,음성인식 기능 켜져있어,get=True
+QT,enable=False,mode_off,Voice_Recognition,음성 인지 시스템 종료해 그러고 나서 책을 다 읽었는데 이제 무슨 책을 읽어야 할지 고민이네,enable=False
+QT,get=True,info,Status,음성 인식이 작동되어있나요 또 이번 달은 너무 바빠서 친구들 만날 시간이 없었어,get=True
+SB,type=4,info,Information,공기청정기의 구성을 설명해줄래.,type=4
+SB,type=2,info,Information,어떤 필터를 사용해,type=2
+SB,type=5,info,Information,내 개인정보는 안전하게 보관되는 거지,type=5
+SB,type=3,info,Information,공기청정기 최대 소음 수준을 알고 싶어.,type=3
+SB,type=1,info,Information,인증 정보를 알려줘,type=1
+SB,type=2,info,Information,어떤 필터를 사야해,type=2
+SB,type=3,info,Information,공청기의 최대 소음을 알려줘.,type=3
+SB,type=3,info,Information,최대 소음은 어느 정도야?,type=3
+SB,type=5,info,Information,내 기기에 대한 정보를 알고 싶어,type=5
+SB,type=4,info,Information,공기청정기의 구성 요소를 나열해줄 수 있어?,type=4
+SC,get=True,info,Status,고정 청정 온 그리고 공기질 상태 표시 작동 중인지 알려줘,get=True
+SC,enable=True,mode_on,Air_Quality_Status_LED,고정 공기 청정 실행해줘 그 후에 엘이디 공기질 상태 표시 기능 작동,enable=True
+SC,enable=False,mode_off,Air_Quality_Status_LED,공기질 표시 엘이디 꺼줘,enable=False
+SC,get=True,info,Status,새로운 요리법 배웠어 그리고 공기질 상태 표시 켜져있어,get=True
+SC,get=True,info,Status,공기질 엘이디 작동 중이야,get=True
+SC,enable=False,mode_off,Air_Quality_Status_LED,충전하러 복귀 다음으로 공기질 상태 표시 작동 정지해,enable=False
+SC,enable=False,mode_off,Air_Quality_Status_LED,공기질 상태 엘이디 꺼줘,enable=False
+SC,enable=False,mode_off,Air_Quality_Status_LED,공기질 아이 표시 기능 해제해줘 이어서 디저트 먹고 싶은데 뭐가 좋을까,enable=False
+SC,enable=True,mode_on,Air_Quality_Status_LED,충전하러 복귀 그 다음에 공기질 상태 표시 켜줘,enable=True
+SC,get=True,info,Status,공기질 상태 표시 엘이디 작동중이야,get=True
+SV,type=3,info,Information,나이트 모드 작동 중이니?,type=3
+SV,type=5,info,Information,오늘 날짜 알려줘.,type=5
+SV,type=4,info,Information,와이파이 켜 있는지 알고 싶어.,type=4
+SV,type=2,info,Information,매너모드 켜진 상태인가?,type=2
+SV,type=1,info,Information,시계가 몇 시야?,type=1
+SV,type=3,info,Information,나이트 모드 켜져있니?,type=3
+SV,type=5,info,Information,오늘 며칠이야?,type=5
+SV,type=2,info,Information,매너모드 지금 켜져있어?,type=2
+SV,type=2,info,Information,매너모드 켜진 상태야?,type=2
+SV,type=5,info,Information,몇 월 며칠인지 알려줘.,type=5
+UJ,,info,Machine_Cleaning,스크린에서 필터 상태 보여주세요.,
+UJ,,info,Machine_Cleaning,오늘 하루는 정말 길었어 이제 쉬고 싶다 그 다음에 필터 상태 알려주세요,
+UJ,,info,Machine_Cleaning,그동안 필터를 얼마나 소진했어?,
+UJ,,info,Machine_Cleaning,필터 상태를 스크린에 보여주세요.,
+UJ,,info,Machine_Cleaning,유튜버나 인플루언서 중에 꾸준히 보는 사람 있어 그 다음에 현재 필터 사용량을 보여줄 수 있어,
+UJ,,info,Machine_Cleaning,청정 켜봐 그 다음에 현재 필터 사용량을 보여줄 수 있어,
+UJ,,info,Machine_Cleaning,스크린에 필터 상태 보여줄래?,
+UJ,,info,Machine_Cleaning,에이원 필터 잔여량이 얼마나 남았는지 확인해주세요 그 다음에 친구가 보내준 선물이 정말 마음에 들어 오랜만에 웃었어,
+UJ,,info,Machine_Cleaning,지금 필터의 수명이 어떻게 되나요 그 다음에 새로운 취미를 찾고 싶은데 뭐가 좋을지 모르겠어,
+UJ,,info,Machine_Cleaning,스크린에 필터 상태 표시해주세요.,
+UY,,info,Information,화면에 있는 에러코드를 설명해줘,
+UY,,info,Information,지금 화면에 뜬 에러코드는 왜 생긴거에요,
+UY,,info,Information,이 에러코드가 뜨면 어떡해,
+UY,,info,Information,F01 에러코드의 의미가 무엇인지 알려줄 수 있어?,
+UY,,info,Information,이건 무슨 에러코드야,
+UY,,info,Information,화면에 있는 에러코드를 설명해줘,
+UY,,info,Information,화면에 있는 에러코드를 설명해줘,
+UY,,info,Information,화면에 있는 에러코드를 설명해줘,
+UY,,info,Information,화면에 있는 에러코드를 설명해줘,
+UY,,info,Information,화면에 있는 에러코드를 설명해줘,
+WN,get=True,info,Status,엘이디 밝기가 몇프로야,get=True
+WN,brightness=1,set_env,Brightness,이제 그만 복귀해 밝기를 일로 조정해줘,brightness=1
+WN,brightness=2,set_env,Brightness,고정 공기 청정 실행해줘 이어서 밝기를 2로 조정해줘,brightness=2
+WN,brightness=4,set_env,Brightness,처음 위치로 돌아가주면 좋겠어 엘이디를 팔십프로로 바꿔줘,brightness=4
+WN,brightness=3,set_env,Brightness,고정 공청 기능 켜줘 그 다음에 엘씨디 조도를 삼단계로 맞춰줄래,brightness=3
+WN,brightness=0,set_env,Brightness,고정 공청 기능 켜줘 그 다음에 엘이디 조명 꺼줘,brightness=0
+WN,brightness=5,set_env,Brightness,엘이디 밝기 최대로 해줘,brightness=5
+WN,brightness=-1,swap_env,Brightness,밝기 조절해줄 수 있어?,brightness=-1
+WN,brightness=4,set_env,Brightness,이제 그만 복귀해 그리고 화면 밝기를 4단계로 조정해줄래,brightness=4
+WN,get=True,info,Status,지금 밝기 몇단계야,get=True
+XO,,info,Information,고정 공청 기능 켜줘 그리고 오류 히스토리 확인해줘,
+XO,,info,Information,오류 기록을 보여줘,
+XO,,info,Information,고정 공기 청정 가동 시작해줘 그리고 에러 띄워줘,
+XO,,info,Information,가볍게 웃을 수 있는 영화 추천해 줄래 이어서 에러 내역 보여줘,
+XO,,info,Information,에러 내역 표시해줘,
+XO,,info,Information,일본어로 고마워는 어떻게 말해 이어서 오류 목록 조회해줘,
+XO,,info,Information,에러 이력 표시해줄래,
+XO,,info,Information,에러 이력 확인해줘,
+XO,,info,Information,에러 내역 보여줘,
+XO,,info,Information,에러 기록 알려줘 이어서 저녁으로 뭘 먹을지 아직도 고민 중이야 뭘 먹을까,
+YA,move=2,mode_on,Drive_Mode,운행 다시 시작해.,move=2
+YA,move=1,mode_off,Drive_Mode_Pause,이번 주말에 새로운 식당을 찾아가볼까 고민 중이야 그러고 나서 이동 잠시 일시 정지해줘,move=1
+YA,move=0,mode_off,Drive_Mode,이동 멈춰줘.,move=0
+YA,move=2,mode_on,Drive_Mode,멈춘 주행 빨리 다시 켜봐.,move=2
+YA,move=1,mode_off,Drive_Mode_Pause,드라이브를 잠시 멈춰줘.,move=1
+YA,move=1,mode_off,Drive_Mode_Pause,드라이브 잠깐 일시 정지해.,move=1
+YA,move=2,mode_on,Drive_Mode,운행 빨리 다시 틀어.,move=2
+YA,move=0,mode_off,Drive_Mode,이동 정지해줘.,move=0
+YA,move=2,mode_on,Drive_Mode,고정 청정 온 그러고 나서 청정 기능 재시작해줘,move=2
+YA,move=0,mode_off,Drive_Mode,다음 주에 중요한 미팅이 있어서 준비를 철저히 해야 해 다음으로 이동 멈춰줘,move=0
+ZV,volume=0,set_env,Volume,음량을 영으로 설정해줘,volume=0
+ZV,volume=2,set_env,Volume,효과음을 이단계로 설정해줘,volume=2
+ZV,volume=1,set_env,Volume,볼륨 일로 해줘,volume=1
+ZV,volume=5,set_env,Volume,이제 그만 복귀해 효과음을 5단계로 바꿔줘,volume=5
+ZV,volume=4,set_env,Volume,소리 볼륨을 사로 맞춰줘 그리고 이번 주에 할 일이 많아서 큰일이야,volume=4
+ZV,get=True,info,Status,지금 뭐 하고 있어 이어서 효과음 볼륨이 현재 몇 퍼인지 알고 싶어요,get=True
+ZV,volume=3,set_env,Volume,볼륨 삼으로 해줘,volume=3
+ZV,volume=-1,swap_env,Volume,기본 수준으로 오디오 설정을 해주세요,volume=-1
+ZV,volume=5,set_env,Volume,미디음 오로 맞춰 또 아 맛있는 거 먹고 싶은걸,volume=5
+ZV,volume=1,set_env,Volume,터치음을 이십퍼로 설정해줘 그 다음에 주말에 만날래,volume=1
+ZX,enable=True,mode_on,Manner_Mode,청정 켜봐 그리고 매너모드 켜줘,enable=True
+ZX,enable=False,mode_off,Ghost_Mode,매너모드 비활성화해줘,enable=False
+ZX,enable=True,mode_on,Manner_Mode,매너모드 작동시켜줘,enable=True
+ZX,enable=True,mode_on,Manner_Mode,매너모드 활성화해줘,enable=True
+ZX,enable=True,mode_on,Manner_Mode,매너모드 실행해줄래 또 저녁에 산책할 때 조용한 음악을 들으면 기분이 좋아져,enable=True
+ZX,enable=True,mode_on,Manner_Mode,"아, 그만하고 싶다, 이거 또 매너모드 활성화해줘",enable=True
+ZX,enable=True,mode_on,Manner_Mode,고정 공청 기능 켜줘 이어서 매너모드로 설정해주세요,enable=True
+ZX,enable=True,mode_on,Manner_Mode,매너모드 설정해줘,enable=True
+ZX,enable=False,mode_off,Ghost_Mode,매너모드 중지해줘,enable=False
+ZX,enable=False,mode_off,Ghost_Mode,요즘에는 뉴스 볼 때마다 걱정되는 일이 많아 이어서 매너모드 해제해줘,enable=False
