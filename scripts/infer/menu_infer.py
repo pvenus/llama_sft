@@ -1,11 +1,11 @@
 from __future__ import annotations
 import time
 import pandas as pd  # used inside Streamlit table rendering
-import json
 import re
 from pathlib import Path
 import os
-import csv
+import csv, json
+from typing import List, Dict, Any, Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from collections import deque, defaultdict
@@ -47,38 +47,95 @@ def _read_jsonl_head(path: str, limit: int = 300) -> list[dict]:
                 pass
     return out
 
-# --- Read test_user_message.csv and normalize to [{"message":..., "expected":...}] ---
-def _read_msg_csv(path: str) -> list[dict]:
+# --- Read test message file and normalize to [{"message":..., "expected":...}] ---
+def _read_msg_file(path: str) -> List[Dict[str, str]]:
     """
-    Read test_user_message.csv and normalize to a list of dicts:
-      {"message": <Query text>, "expected": <LLM Output>}
-    Expected headers (case-sensitive preferred, case-insensitive fallback):
-      - "Query(한글)" or "Query"
-      - "LLM Output" or "expected"
-    Rows with empty Query are skipped.
+    Read (CSV or JSONL) and normalize to:
+      {"message": <text>, "expected": <LLM Output>}
+    지원:
+      - CSV 헤더: "Query(한글)"|"Query"|"query"|"MESSAGE"|"message"
+                 + "LLM Output"|"expected"|"assistant"|"EXPECT"|"Expect"
+      - JSONL 라인:
+          {"message":"...", "expected":"..."}            # 권장
+        또는 {"messages":[{"role":"user","content":"..."}], "assistant":"..."}
+        또는 {"calls":[...]} → expected로 간주(문자열 JSON으로 변환)
     """
     p = Path(path)
     if not p.exists():
         return []
-    out: list[dict] = []
-    with p.open("r", encoding="utf-8") as rf:
+    suf = p.suffix.lower()
+    if suf in {".jsonl", ".json"}:
+        return _read_msg_jsonl_internal(p)
+    return _read_msg_csv_internal(p)
+
+# ---- 내부 구현 (변경 없음) ----
+_MSG_CAND = ["message","Message","query","Query(한글)","Query","MESSAGE"]
+_EXP_CAND = ["expected","Expected","LLM Output","assistant","EXPECT","Expect"]
+
+def _pick_col(headers: List[str], cands: List[str]) -> str:
+    lower = {h.lower(): h for h in headers}
+    for c in cands:
+        if c.lower() in lower:
+            return lower[c.lower()]
+    # 못 찾으면 첫 후보를 그대로 반환(값이 비면 스킵됨)
+    return cands[0]
+
+def _read_msg_csv_internal(p: Path) -> List[Dict[str, str]]:
+    out: List[Dict[str, str]] = []
+    with p.open("r", encoding="utf-8-sig", newline="") as rf:
         reader = csv.DictReader(rf)
+        headers = reader.fieldnames or []
+        mcol = _pick_col(headers, _MSG_CAND)
+        ecol = _pick_col(headers, _EXP_CAND)
         for row in reader:
-            # Header fallbacks
-            msg = (row.get("Query(한글)")
-                   or row.get("Query")
-                   or row.get("query")
-                   or row.get("MESSAGE")
-                   or row.get("message")
-                   or "").strip()
-            expected = (row.get("LLM Output")
-                        or row.get("expected")
-                        or row.get("EXPECT")
-                        or row.get("Expect")
-                        or "").strip()
+            msg = (row.get(mcol) or "").strip()
+            exp = (row.get(ecol) or "").strip()
             if not msg:
                 continue
-            out.append({"message": msg, "expected": expected})
+            out.append({"message": msg, "expected": exp})
+    return out
+
+def _read_msg_jsonl_internal(p: Path) -> List[Dict[str, str]]:
+    out: List[Dict[str, str]] = []
+    with p.open("r", encoding="utf-8") as rf:
+        for line in rf:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except Exception:
+                continue
+
+            # message 추출
+            msg: Optional[str] = None
+            if isinstance(obj.get("message"), str):
+                msg = obj["message"]
+            elif isinstance(obj.get("messages"), list) and obj["messages"]:
+                for m in obj["messages"]:
+                    if isinstance(m, dict) and m.get("role") == "user" and isinstance(m.get("content"), str):
+                        msg = m["content"]; break
+                if msg is None:
+                    m0 = obj["messages"][0]
+                    if isinstance(m0, dict) and isinstance(m0.get("content"), str):
+                        msg = m0["content"]
+
+            # expected 추출 → 문자열로 표준화(공백 최소화)
+            exp_val: Any = obj.get("expected")
+            if exp_val is None and "assistant" in obj:
+                exp_val = obj["assistant"]
+            if exp_val is None and "calls" in obj:
+                exp_val = {"calls": obj["calls"]}
+
+            if isinstance(exp_val, (dict, list)):
+                expected = json.dumps(exp_val, ensure_ascii=False, separators=(',', ':'))
+            elif isinstance(exp_val, str):
+                expected = exp_val.strip()
+            else:
+                expected = ""
+
+            if msg:
+                out.append({"message": msg.strip(), "expected": expected})
     return out
 
 # Default static system prompt (since SPEC is removed)
@@ -374,15 +431,15 @@ def render(
         max_rows_keep = st.number_input("Max table rows kept", min_value=50, max_value=5000, value=500, step=50, help="Older rows will be dropped from view to save memory.")
 
     st.markdown("---")
-    st.subheader("Batch Inference (sys_prompt.jsonl × test_user_message.csv)")
+    st.subheader("Batch Inference (sys_prompt.jsonl × test_convert_msg.jsonl)")
 
     colb1, colb2, colb3 = st.columns([5, 5, 1])
     with colb1:
         sys_path = st.text_input("sys_prompt.jsonl 경로", value="assets/prompt/sys_prompt.jsonl",
                                  key="sys_jsonl_path")
     with colb2:
-        msg_path = st.text_input("test_user_message.csv 경로", value="assets/prompt/test_user_message.csv",
-                                 key="msg_csv_path")
+        msg_path = st.text_input("test_convert_msg.jsonl 경로", value="assets/prompt/test_convert_msg.jsonl",
+                                 key="msg_jsonl_path")
     run_batch = st.button("Batch Infer", type="primary", key="btn_batch_infer")
 
 
@@ -391,11 +448,11 @@ def render(
         try:
             # 1) 데이터 로드
             sys_list = _read_jsonl(sys_path)  # 기대: [{"prompt":"..."}] * N
-            msg_list = _read_msg_csv(msg_path)  # 기대: [{"message":"..." , "expected":"..."}] * M
+            msg_list = _read_msg_file(msg_path)  # 기대: [{"message":"..." , "expected":"..."}] * M
             if not sys_list:
                 st.error("sys_prompt.jsonl에서 항목을 찾지 못했습니다. (빈 파일 또는 경로 확인)")
             if not msg_list:
-                st.error("test_user_message.csv에서 항목을 찾지 못했습니다. (빈 파일 또는 경로 확인)")
+                st.error("test_convert_msg.jsonl에서 항목을 찾지 못했습니다. (빈 파일 또는 경로 확인)")
 
             cols = [
                 "name_match",
