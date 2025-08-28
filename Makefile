@@ -61,6 +61,22 @@ clean:
 	-@rm -rf .venv 2>/dev/null || rmdir /S /Q .venv 2>nul
 	-@rm -f requirements-linux.txt requirements-mac.txt requirements-win.txt 2>/dev/null || del /Q requirements-*.txt 2>nul
 
+# === 변환 & JSONL 생성 ===
+# === convert → test JSONL 경로 변수 (필요시 override 가능) ===
+IN_CSV    ?= assets/convert/func_samples_10.csv
+OUT_CSV   ?= assets/convert/func_samples_10.converted.csv
+RULES     ?= assets/convert/function_rules.yaml
+OUT_JSONL ?= assets/prompt/test_convert_msg.jsonl
+
+convert_raw:
+	"$(PY)" -m scripts.convert.function_converter --in "$(IN_CSV)" --out "$(OUT_CSV)" --config "$(RULES)" --verbose
+
+convert_msg:
+	"$(PY)" -m scripts.convert.function_converter --from-converted "$(OUT_CSV)" --emit-test-jsonl "$(OUT_JSONL)" --verbose
+
+convert_raw_msg:
+	"$(PY)" -m scripts.convert.function_converter --in "$(IN_CSV)" --out "$(OUT_CSV)" --config "$(RULES)" --emit-test-jsonl "$(OUT_JSONL)" --verbose
+
 all:
 	$(MAKE) venv
 	$(MAKE) lock

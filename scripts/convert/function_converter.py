@@ -43,8 +43,8 @@ from typing import Any, Dict, List, Optional
 # =============================
 # 공통 유틸
 # =============================
-_BOOL_TRUE = {"true", "t", "yes", "y", "1"}
-_BOOL_FALSE = {"false", "f", "no", "n", "0"}
+_BOOL_TRUE = {"true", "TRUE"}
+_BOOL_FALSE = {"false", "FALSE"}
 
 def _to_bool(s: str) -> Optional[bool]:
     t = (s or "").strip().lower()

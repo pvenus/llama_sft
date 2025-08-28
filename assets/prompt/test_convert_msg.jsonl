@@ -1,13 +1,13 @@
 {"message":"청정 켜봐 또 공간별 누적 대기질 정보 연동 작동 중인가요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"BP\",\"get\":true}}"}
-{"message":"지금 에이아이 모드 둘 다 작동시켜 주세요","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":false,\"type\":2}}"}
-{"message":"에이아이 모드에서 실외 대기질 정보 연동 켜주세요","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":false,\"type\":false}}"}
-{"message":"오랜만에 부모님과 시간을 보내려고 계획 중이야 그리고 에이아이 모드에서 공간별 누적 공기질 정보 연동 꺼주세요","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"BP\",\"enable\":true,\"type\":true}}"}
-{"message":"오늘은 무슨 일을 해야 할지 모르겠어 그냥 쉬고 싶어 그 다음에 에이아이 모드의 공간별 공기질 데이터 연동 상태로 바꿔줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":false,\"type\":true}}"}
-{"message":"실외 공기질 정보 연결 설정을 꺼줄래요 그러고 나서 다음 주말에 부모님과 시간을 보낼까 생각 중이야","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"BP\",\"enable\":true,\"type\":false}}"}
-{"message":"고정 공청 기능 켜줘 그리고 혹시 에이아이 모드 동시에 꺼주실 수 있나요","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"BP\",\"enable\":true,\"type\":2}}"}
-{"message":"당장 에이아이 모드 온 하도록 도와줄거지","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":false,\"type\":-1}}"}
-{"message":"바로 에이아이 기능 종료","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"BP\",\"enable\":true,\"type\":-1}}"}
-{"message":"고정 공청 기능 켜줘 그리고 공간별 공기질 이력 연동 설정을 켜줄래요","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":false,\"type\":true}}"}
+{"message":"지금 에이아이 모드 둘 다 작동시켜 주세요","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":0,\"type\":2}}"}
+{"message":"에이아이 모드에서 실외 대기질 정보 연동 켜주세요","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":0,\"type\":0}}"}
+{"message":"오랜만에 부모님과 시간을 보내려고 계획 중이야 그리고 에이아이 모드에서 공간별 누적 공기질 정보 연동 꺼주세요","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"BP\",\"enable\":1,\"type\":1}}"}
+{"message":"오늘은 무슨 일을 해야 할지 모르겠어 그냥 쉬고 싶어 그 다음에 에이아이 모드의 공간별 공기질 데이터 연동 상태로 바꿔줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":0,\"type\":1}}"}
+{"message":"실외 공기질 정보 연결 설정을 꺼줄래요 그러고 나서 다음 주말에 부모님과 시간을 보낼까 생각 중이야","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"BP\",\"enable\":1,\"type\":0}}"}
+{"message":"고정 공청 기능 켜줘 그리고 혹시 에이아이 모드 동시에 꺼주실 수 있나요","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"BP\",\"enable\":1,\"type\":2}}"}
+{"message":"당장 에이아이 모드 온 하도록 도와줄거지","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":0,\"type\":-1}}"}
+{"message":"바로 에이아이 기능 종료","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"BP\",\"enable\":1,\"type\":-1}}"}
+{"message":"고정 공청 기능 켜줘 그리고 공간별 공기질 이력 연동 설정을 켜줄래요","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BP\",\"enable\":0,\"type\":1}}"}
 {"message":"고정 공기 청정 가동 시작해줘 그 다음에 나이트 모드 시작할래","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BS\",\"enable\":true}}"}
 {"message":"고정 공청 기능 켜줘 그러고 나서 나이트 모드 비활성화해줘","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"BS\",\"enable\":false}}"}
 {"message":"고스트 모드 설정해주세요 그러고 나서 오늘 하루는 그냥 아무것도 안 하고 싶어","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"BS\",\"enable\":true}}"}
@@ -38,17 +38,17 @@
 {"message":"청정 켜봐 그리고 여기로 따라와주세요","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"CK\"}}"}
 {"message":"나를 따라와 줄래?","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"CK\"}}"}
 {"message":"나 따라와","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"CK\"}}"}
-{"message":"일반적으로 기기 설치 어디다가 하는 게 좋아","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":true}}"}
+{"message":"일반적으로 기기 설치 어디다가 하는 게 좋아","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":1}}"}
 {"message":"공기청정기 몇 대 정도 있어야 가장 좋을까요?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":2}}"}
 {"message":"에어 센서 대체 어디에 두는 게 좋을까요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":3}}"}
 {"message":"이 공간에 공기청정기 몇 대 정도 둬야할까?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":2}}"}
 {"message":"이 공기청정기를 몇 대 두는 게 좋을지 잘 모르겠어.","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":2}}"}
 {"message":"에어 센서 놓기에 가장 쾌적한 곳이 어디라 생각하니","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":3}}"}
 {"message":"공기청정기 몇 대가 있는 게 제일 이상적이야?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":2}}"}
-{"message":"이 기기 어디에 설치하면 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":true}}"}
-{"message":"이 기기 어디에다가 설치하면 되는거야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":true}}"}
-{"message":"공기청정기 설치 위치로 어디가 좋을까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":true}}"}
-{"message":"어린이가 주의해야 하는 사항을 알려죠","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"DW\",\"type\":true}}"}
+{"message":"이 기기 어디에 설치하면 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":1}}"}
+{"message":"이 기기 어디에다가 설치하면 되는거야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":1}}"}
+{"message":"공기청정기 설치 위치로 어디가 좋을까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"CS\",\"type\":1}}"}
+{"message":"어린이가 주의해야 하는 사항을 알려죠","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"DW\",\"type\":1}}"}
 {"message":"이 기계 사용 시 어떤 거 조심해야 해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"DW\",\"type\":4}}"}
 {"message":"공기청정기 설치 시 주의사항만 알려줘.","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"DW\",\"type\":3}}"}
 {"message":"충전할 때에는 뭘 조심해야해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"DW\",\"type\":2}}"}
@@ -58,36 +58,36 @@
 {"message":"이 제품 작동 시 조심해야 할 거 뭐가 있어?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"DW\",\"type\":4}}"}
 {"message":"충전 중에 내가 조심해야 할 게 있어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"DW\",\"type\":2}}"}
 {"message":"공기청정기 설치 시 주의해야 할 거 뭐가 있어?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"DW\",\"type\":3}}"}
-{"message":"이 음악 들어봤어 그 후에 전체 공간 청정 해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
-{"message":"충전하러 복귀 그 다음에 전체 공간 청정 해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
-{"message":"전체 공간 공기청정 해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
-{"message":"이제 그만 복귀해 또 전체 이동 공기청정 할래","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
-{"message":"전체 공간 청정해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
-{"message":"고정 공청 기능 켜줘 전체 구역 청정 부탁할게","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
-{"message":"고정 공기 청정 가동 시작해줘 그리고 전체 공간 청정 해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
-{"message":"전체 공간 공기 청정 시작해","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
-{"message":"넌 무슨 음식을 좋아해 그 후에 전체 구역 청정 부탁할게","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
-{"message":"모든 방 청소 시작해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":true}}"}
+{"message":"이 음악 들어봤어 그 후에 전체 공간 청정 해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
+{"message":"충전하러 복귀 그 다음에 전체 공간 청정 해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
+{"message":"전체 공간 공기청정 해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
+{"message":"이제 그만 복귀해 또 전체 이동 공기청정 할래","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
+{"message":"전체 공간 청정해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
+{"message":"고정 공청 기능 켜줘 전체 구역 청정 부탁할게","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
+{"message":"고정 공기 청정 가동 시작해줘 그리고 전체 공간 청정 해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
+{"message":"전체 공간 공기 청정 시작해","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
+{"message":"넌 무슨 음식을 좋아해 그 후에 전체 구역 청정 부탁할게","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
+{"message":"모든 방 청소 시작해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"EF\",\"action\":1}}"}
 {"message":"웰컴 기능이 뭐야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":4}}"}
 {"message":"릴렉스 모드의 특징에 대해 알려주세요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":6}}"}
 {"message":"넌 무슨 기능이 있어?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":2}}"}
 {"message":"웨이크업 기능에 대해서 설명해줄래","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":5}}"}
-{"message":"당신의 소개를 들려주세요.","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":true}}"}
+{"message":"당신의 소개를 들려주세요.","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":1}}"}
 {"message":"바이탈 사인 기능에 대한 설명이 필요해.","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":7}}"}
 {"message":"어떤 청정 기능이 탑재되어 있나요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":3}}"}
 {"message":"넌 뭘 할 수 있어?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":2}}"}
 {"message":"릴렉스 모드에 대해 간단히 설명해줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":6}}"}
 {"message":"릴렉스 모드가 무엇을 하는지 궁금해요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EN\",\"type\":6}}"}
-{"message":"온도 단위 화씨로 바꿔줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":true}}"}
-{"message":"섭씨 단위가 편해요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":false}}"}
+{"message":"온도 단위 화씨로 바꿔줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":1}}"}
+{"message":"섭씨 단위가 편해요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":0}}"}
 {"message":"온도 단위 바꾸고 싶어","expected":"{\"name\":\"swap_env\",\"arguments\":{\"code\":\"EW\",\"type\":-1}}"}
 {"message":"사용되는 온도 표시를 말씀해주세요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EW\",\"get\":true}}"}
 {"message":"현재 온도 표시는 화씨입니까 그리고 주말에 뭘 할지 아직 못 정했는데 그냥 영화나 볼까 생각 중이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"EW\",\"get\":true}}"}
-{"message":"온도 단위를 화씨로 변경해주세요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":true}}"}
-{"message":"온도를 섭씨로 변경할 수 있어 다음으로 새로 나온 책을 읽고 있는데 너무 흥미진진해서 시간 가는 줄 몰라","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":false}}"}
-{"message":"고정 청정 온 그 후에 온도를 섭씨로 변경할 수 있어","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":false}}"}
-{"message":"온도를 화씨로 변경할 수 있어 그러고 나서 저녁으로 뭐 먹을까 치킨 아니면 피자","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":true}}"}
-{"message":"온도 단위를 화씨로 바꿔줘요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":true}}"}
+{"message":"온도 단위를 화씨로 변경해주세요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":1}}"}
+{"message":"온도를 섭씨로 변경할 수 있어 다음으로 새로 나온 책을 읽고 있는데 너무 흥미진진해서 시간 가는 줄 몰라","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":0}}"}
+{"message":"고정 청정 온 그 후에 온도를 섭씨로 변경할 수 있어","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":0}}"}
+{"message":"온도를 화씨로 변경할 수 있어 그러고 나서 저녁으로 뭐 먹을까 치킨 아니면 피자","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":1}}"}
+{"message":"온도 단위를 화씨로 바꿔줘요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"EW\",\"type\":1}}"}
 {"message":"고정 청정 온 그 후에 가든으로 가서 청정해 줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"FF\",\"position\":\"가든\"}}"}
 {"message":"방재실에서 청정해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"FF\",\"position\":\"\\\"방재실\\\"\"}}"}
 {"message":"2층홀에서 즉시 청정 시스템 작동해주실래요","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"FF\",\"position\":\"\\\"2층홀\\\"\"}}"}
@@ -120,7 +120,7 @@
 {"message":"프라이버시 모드 켜줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"GN\",\"enable\":true}}"}
 {"message":"청정 켜봐 이어서 음성을 남자로 전환해줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"GQ\",\"gender\":2}}"}
 {"message":"고정 공기 청정 실행해줘 다음으로 목소리 설정이 어떻게 되어있나요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"GQ\",\"get\":true}}"}
-{"message":"목소리 여성으로 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"GQ\",\"gender\":true}}"}
+{"message":"목소리 여성으로 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"GQ\",\"gender\":1}}"}
 {"message":"다른 성별의 목소리로 변경해 주세요.","expected":"{\"name\":\"swap_env\",\"arguments\":{\"code\":\"GQ\",\"gender\":-1}}"}
 {"message":"고정 공기 청정 가동 시작해줘 그러고 나서 하이나무 남자로 설정해주세요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"GQ\",\"gender\":2}}"}
 {"message":"나무 음성 성별 상태 알려줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"GQ\",\"get\":true}}"}
@@ -139,37 +139,37 @@
 {"message":"맥박 수치 확인해주시겠어요?","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"GV\"}}"}
 {"message":"다음 주에 있을 중요한 발표를 준비 중이야 다음으로 스트레스 지수 측정해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"GV\"}}"}
 {"message":"테마를 실내 공기질로 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":2}}"}
-{"message":"이번 주말에는 뭘 할까 새로운 계획을 세워봐야겠어 또 화면 기본으로 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":false}}"}
+{"message":"이번 주말에는 뭘 할까 새로운 계획을 세워봐야겠어 또 화면 기본으로 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":0}}"}
 {"message":"대기화면이 기본 테마로 설정됐어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HG\",\"get\":true}}"}
 {"message":"대기화면 바꿔볼래요","expected":"{\"name\":\"swap_env\",\"arguments\":{\"code\":\"HG\",\"theme\":-1}}"}
 {"message":"이번 주에는 운동을 조금 더 열심히 해야겠어 이어서 실내 공기질 테마로 화면 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":2}}"}
 {"message":"고정 청정 온 이어서 대기화면이 실내 공기질 테마인가요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HG\",\"get\":true}}"}
 {"message":"테마를 상세 공기질로 변경해주실래요 이어서 새로 나온 영화가 기대 돼 이번 주말에 보러 갈까 생각 중이야","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":2}}"}
-{"message":"청정 켜봐 기본 테마로 대기화면 설정해주세요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":false}}"}
+{"message":"청정 켜봐 기본 테마로 대기화면 설정해주세요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":0}}"}
 {"message":"고정 공기 청정 실행해줘 테마를 상세 공기질로 변경해주실래요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":2}}"}
-{"message":"기본으로 설정해줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":false}}"}
+{"message":"기본으로 설정해줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HG\",\"theme\":0}}"}
 {"message":"전기세가 얼마나 나오는지 계산해줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":2}}"}
-{"message":"이 제품은 소비 전력이 얼마나 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":true}}"}
+{"message":"이 제품은 소비 전력이 얼마나 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":1}}"}
 {"message":"공청기 사용시 예상되는 전기 요금","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":2}}"}
-{"message":"이 공청기의 소비 전력을 알고 싶어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":true}}"}
-{"message":"얼마나 전기를 많이 먹어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":true}}"}
+{"message":"이 공청기의 소비 전력을 알고 싶어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":1}}"}
+{"message":"얼마나 전기를 많이 먹어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":1}}"}
 {"message":"전기 요금이 많이 나올까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":2}}"}
-{"message":"이거 전기 얼마나 써","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":true}}"}
+{"message":"이거 전기 얼마나 써","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":1}}"}
 {"message":"하루에 전기세가 얼마나 나올까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":2}}"}
 {"message":"이 공청기 전기세가 얼마나 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":2}}"}
 {"message":"전기세가 얼마나 나오는지 계산해줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HI\",\"type\":2}}"}
-{"message":"기기 언어 한국어로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":true}}"}
+{"message":"기기 언어 한국어로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":1}}"}
 {"message":"영어로 기기 언어 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":2}}"}
 {"message":"언어 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":-1}}"}
 {"message":"영어로 설정해 그러고 나서 새 앨범 들어봤어","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":2}}"}
-{"message":"한국어로 기기 언어 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":true}}"}
+{"message":"한국어로 기기 언어 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":1}}"}
 {"message":"드럼 배우고 싶은데 어디서 시작하지 그러고 나서 기기 언어 영어로 바꿔줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":2}}"}
 {"message":"청정 켜봐 그리고 기기 언어 영어로 바꿔줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":2}}"}
 {"message":"영어로 기기 언어 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":2}}"}
-{"message":"처음 위치로 돌아가주면 좋겠어 그 다음에 기기 언어 설정 한국어로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":true}}"}
+{"message":"처음 위치로 돌아가주면 좋겠어 그 다음에 기기 언어 설정 한국어로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":1}}"}
 {"message":"처음 위치로 돌아가주면 좋겠어 그 다음에 언어 영어로 맞춰","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"HS\",\"type\":2}}"}
 {"message":"유기화합물은 어떤 거야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":3}}"}
-{"message":"미세먼지는 왜 건강에 나쁜가요?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":true}}"}
+{"message":"미세먼지는 왜 건강에 나쁜가요?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":1}}"}
 {"message":"초미세먼지는 무슨 뜻인가요?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":2}}"}
 {"message":"질소산화물이란 무엇입니까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":4}}"}
 {"message":"이산화탄소가 뭔지 말해줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":6}}"}
@@ -177,7 +177,7 @@
 {"message":"유기화합물이 뭐예요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":3}}"}
 {"message":"유기화합물이란 무엇을 의미합니까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":3}}"}
 {"message":"초미세먼지란 무엇을 의미합니까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":2}}"}
-{"message":"미세먼지가 무슨 의미야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":true}}"}
+{"message":"미세먼지가 무슨 의미야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"HW\",\"type\":1}}"}
 {"message":"공기송전기는 실행하고 있을까요?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"ID\",\"get\":true}}"}
 {"message":"공기청정 모드 실행 중이신가요?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"ID\",\"get\":true}}"}
 {"message":"고정 공청 기능 켜줘 다음으로 공기청정 작동 중인가요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"ID\",\"get\":true}}"}
@@ -199,15 +199,15 @@
 {"message":"스캐닝 청정 켜져있어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IH\",\"get\":true}}"}
 {"message":"스캐닝 청정 지금 꺼져 있나요 이어서 이번 주말에 계획 있어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IH\",\"get\":true}}"}
 {"message":"일요일 빈 대기질을 화면에 보여줘 이어서 새로 나온 노래가 되게 좋더라 계속 반복해서 듣고 있어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":9,\"location\":\"빈\"}}"}
-{"message":"고정 공기 청정 가동 시작해줘 그 후에 내일 뉴욕 미세먼지 어때","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":true,\"location\":\"뉴욕\"}}"}
+{"message":"고정 공기 청정 가동 시작해줘 그 후에 내일 뉴욕 미세먼지 어때","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":1,\"location\":\"뉴욕\"}}"}
 {"message":"화요일 두바이 공기질 걱정해야 할까 그리고 시간 관리 방법 공유해줄래","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":4,\"location\":\"두바이\"}}"}
 {"message":"목요일 광진구 공기질 걱정해야 할까 그 후에 다음 달에 친구랑 여행 갈 계획 세우고 있어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":6,\"location\":\"광진구\"}}"}
-{"message":"처음 위치로 돌아가주면 좋겠어 그러고 나서 현재 하노이 공기질 알려주세요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":false,\"location\":\"하노이\"}}"}
-{"message":"내일 리마 미세먼지 때문에 마스크 필요할까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":true,\"location\":\"\\\"리마\\\"\"}}"}
-{"message":"지금 홍콩 피엠이쩜오 때문에 외출하기 괜찮아","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":false,\"location\":\"\\\"홍콩\\\"\"}}"}
-{"message":"현재 뉴델리 초미세먼지 농도 몇이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":false,\"location\":\"\\\"뉴델리\\\"\"}}"}
-{"message":"내일 몬트리올 공기질 괜찮아","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":true,\"location\":\"\\\"몬트리올\\\"\"}}"}
-{"message":"오늘 센프란시스코 미세먼지 농도는 얼마야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":false,\"location\":\"\\\"센프란시스코\\\"\"}}"}
+{"message":"처음 위치로 돌아가주면 좋겠어 그러고 나서 현재 하노이 공기질 알려주세요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":0,\"location\":\"하노이\"}}"}
+{"message":"내일 리마 미세먼지 때문에 마스크 필요할까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":1,\"location\":\"\\\"리마\\\"\"}}"}
+{"message":"지금 홍콩 피엠이쩜오 때문에 외출하기 괜찮아","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":0,\"location\":\"\\\"홍콩\\\"\"}}"}
+{"message":"현재 뉴델리 초미세먼지 농도 몇이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":0,\"location\":\"\\\"뉴델리\\\"\"}}"}
+{"message":"내일 몬트리올 공기질 괜찮아","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":1,\"location\":\"\\\"몬트리올\\\"\"}}"}
+{"message":"오늘 센프란시스코 미세먼지 농도는 얼마야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"IO\",\"timeframe\":0,\"location\":\"\\\"센프란시스코\\\"\"}}"}
 {"message":"배터리 잔량이 얼마인지 확인해줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JJ\"}}"}
 {"message":"고정 공기 청정 실행해줘 그리고 배터리 몇 퍼센트야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JJ\"}}"}
 {"message":"배터리 상태 알려줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JJ\"}}"}
@@ -221,7 +221,7 @@
 {"message":"설정이 가능한 언어 종류 뭐야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JS\",\"type\":8}}"}
 {"message":"상단 화면에 대해 설명해 줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JS\",\"type\":7}}"}
 {"message":"센서의 민감도를 조정하는 이유는 무엇인가요?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JS\",\"type\":9}}"}
-{"message":"매너모드는 무슨 기능이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JS\",\"type\":true}}"}
+{"message":"매너모드는 무슨 기능이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JS\",\"type\":1}}"}
 {"message":"유브이 엘이디는 어떤 기능이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JS\",\"type\":6}}"}
 {"message":"프라이버시 모드는 어떤 기능이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JS\",\"type\":2}}"}
 {"message":"나이트 모드는 뭐야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"JS\",\"type\":3}}"}
@@ -238,20 +238,20 @@
 {"message":"처음 위치로 돌아가주면 좋겠어 그리고 유부이 에릴디 작동 중이야","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"KI\"}}"}
 {"message":"충전하러 복귀 다음으로 주말 공기질 지수를 화면에 보여줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"KI\"}}"}
 {"message":"처음 위치로 돌아가주면 좋겠어 그 다음에 일요일 공기질 상태 알려줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"KI\"}}"}
-{"message":"완충하기까지 얼마나 시간이 소요 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":true}}"}
+{"message":"완충하기까지 얼마나 시간이 소요 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":1}}"}
 {"message":"갑자기 충전이 안되는데 어떡하지","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":2}}"}
 {"message":"지금 충전이 안되기 시작해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":2}}"}
-{"message":"이 제품의 충전 시간은 몇 시간이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":true}}"}
-{"message":"완충하려면 얼마나 걸려","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":true}}"}
-{"message":"완충까지 걸리는 시간을 알려줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":true}}"}
+{"message":"이 제품의 충전 시간은 몇 시간이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":1}}"}
+{"message":"완충하려면 얼마나 걸려","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":1}}"}
+{"message":"완충까지 걸리는 시간을 알려줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":1}}"}
 {"message":"충전이 하나도 안 됐어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":2}}"}
 {"message":"충전이 안되는데 어떡해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":2}}"}
-{"message":"제품 충전 시간을 알려죠","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":true}}"}
-{"message":"완충하기까지 얼마나 시간이 소요 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":true}}"}
-{"message":"내일 도쿄 날씨 비 와 다음으로 새로 나온 게임이 재미있어 보이던데 언제 한번 해봐야겠어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":true,\"location\":\"도쿄\"}}"}
-{"message":"베이징의 내일 날씨 정보 표시해줄래 다음으로 오늘은 좀 일찍 잠자리에 들어야겠어 내일 할 일이 많거든","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":true,\"location\":\"베이징\"}}"}
+{"message":"제품 충전 시간을 알려죠","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":1}}"}
+{"message":"완충하기까지 얼마나 시간이 소요 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"KP\",\"type\":1}}"}
+{"message":"내일 도쿄 날씨 비 와 다음으로 새로 나온 게임이 재미있어 보이던데 언제 한번 해봐야겠어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":1,\"location\":\"도쿄\"}}"}
+{"message":"베이징의 내일 날씨 정보 표시해줄래 다음으로 오늘은 좀 일찍 잠자리에 들어야겠어 내일 할 일이 많거든","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":1,\"location\":\"베이징\"}}"}
 {"message":"목요일 선양 날씨 비 와","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":6,\"location\":\"\\\"선양\\\"\"}}"}
-{"message":"내일 송도 날씨 상황 어때","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":true,\"location\":\"\\\"송도\\\"\"}}"}
+{"message":"내일 송도 날씨 상황 어때","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":1,\"location\":\"\\\"송도\\\"\"}}"}
 {"message":"월요일 여수 날씨 따뜻하게 입어야 할까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":3,\"location\":\"\\\"여수\\\"\"}}"}
 {"message":"금요일 사이판 날씨 알려주세요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":7,\"location\":\"\\\"사이판\\\"\"}}"}
 {"message":"일요일 벤쿠버 날씨 어때","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MO\",\"timeframe\":9,\"location\":\"\\\"벤쿠버\\\"\"}}"}
@@ -279,15 +279,15 @@
 {"message":"스테이션 위치로 복귀하세요 또 음소거 아닌 상태야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"MV\",\"get\":true}}"}
 {"message":"음소거 꺼줘","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"MV\",\"mute\":false}}"}
 {"message":"풍량 강풍으로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":3}}"}
-{"message":"내일 중요한 미팅 있어 이어서 바람 강도 자동으로 맞춰줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":false}}"}
+{"message":"내일 중요한 미팅 있어 이어서 바람 강도 자동으로 맞춰줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":0}}"}
 {"message":"이 영화 예고편 봤어 다음으로 풍량을 터보로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":4}}"}
 {"message":"풍속 중풍으로 조정해줘 그 후에 오늘 하루 어땠어","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":2}}"}
-{"message":"약풍으로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":true}}"}
+{"message":"약풍으로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":1}}"}
 {"message":"풍량을 조금 줄여주세요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":-1}}"}
 {"message":"커피 마실래 그러고 나서 풍속 몇으로 맞춰져 있는지 확인해줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"NK\",\"get\":true}}"}
 {"message":"풍량을 낮춰주세요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":-1}}"}
 {"message":"팬 풍냥 터보 세기로 해줘 다음으로 오늘 뭔가 할 게 많아","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":4}}"}
-{"message":"약한 바람으로 해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":true}}"}
+{"message":"약한 바람으로 해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"NK\",\"speed\":1}}"}
 {"message":"처음 위치로 돌아가주면 좋겠어 그리고 유부이 에릴디 작동 중이야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"NN\",\"get\":true}}"}
 {"message":"유부이 살균 에릴디 실행해줘 그 후에 오늘 저녁은 샐러드로 가볍게 먹을까","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"NN\",\"enable\":true}}"}
 {"message":"충전 위치로 되돌아가 또 유뷔 엘리디 작동 정지해","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"NN\",\"enable\":false}}"}
@@ -301,13 +301,13 @@
 {"message":"라이다 센서 관리하는 법이 궁금해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":5}}"}
 {"message":"센서창 청소 방법을 설명해줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":4}}"}
 {"message":"제품 외관 청소하는 법 알려죠","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":8}}"}
-{"message":"필터 교체 주기 좀 알려죠","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":true}}"}
+{"message":"필터 교체 주기 좀 알려죠","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":1}}"}
 {"message":"A1 필터 관리 어떻게 해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":3}}"}
 {"message":"장애물 감지 센서가 더러워졌는데 어떻게 해야 해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":6}}"}
 {"message":"전원 꽂는 곳 어떻게 닦으면 돼?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":7}}"}
 {"message":"제품 외관 관리하는 법이 궁금해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":8}}"}
 {"message":"센서창 관리하는 법이 궁금해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":4}}"}
-{"message":"필터 교체는 얼마마다 하면 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":true}}"}
+{"message":"필터 교체는 얼마마다 하면 돼","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"PC\",\"type\":1}}"}
 {"message":"고정 청정 온 다음으로 센서 감도를 민감으로 바꿔줄래","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"PG\"}}"}
 {"message":"청정 켜봐 이어서 음성을 남자로 전환해줄래","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"PG\"}}"}
 {"message":"고정 공기 청정 실행해줘 이어서 밝기를 2로 조정해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"PG\"}}"}
@@ -319,14 +319,14 @@
 {"message":"고정 청정 온 일요일 미세먼지 농도 어때","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"PG\"}}"}
 {"message":"고정 공기 청정 가동 시작해줘 그러고 나서 센서 민감도 상태 알려주세요","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"PG\"}}"}
 {"message":"고정 청정 온 다음으로 센서 감도를 민감으로 바꿔줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":2}}"}
-{"message":"감지 감도 보통으로 맞출래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":true}}"}
-{"message":"고정 공청 기능 켜줘 감지 민감도를 낮게 조정할 수 있어","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":false}}"}
+{"message":"감지 감도 보통으로 맞출래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":1}}"}
+{"message":"고정 공청 기능 켜줘 감지 민감도를 낮게 조정할 수 있어","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":0}}"}
 {"message":"감지 감도 레벨을 바꿔줄래요","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":-1}}"}
 {"message":"고정 공기 청정 가동 시작해줘 그러고 나서 센서 민감도 상태 알려주세요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"QD\",\"get\":true}}"}
 {"message":"센서 민감도를 낮춰주세요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"QD\",\"get\":true}}"}
 {"message":"센서 민감도 낮음으로 되어있니","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"QD\",\"get\":true}}"}
-{"message":"새로 산 옷이 너무 마음에 들어 매일 입고 다니고 있어 또 감지 감도를 낮게 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":false}}"}
-{"message":"고정 공기 청정 실행해줘 그 다음에 감지 감도를 낮게 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":false}}"}
+{"message":"새로 산 옷이 너무 마음에 들어 매일 입고 다니고 있어 또 감지 감도를 낮게 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":0}}"}
+{"message":"고정 공기 청정 실행해줘 그 다음에 감지 감도를 낮게 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"QD\",\"type\":0}}"}
 {"message":"센서 민감도 낮음 단계에요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"QD\",\"get\":true}}"}
 {"message":"음성인식 켜져있어","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"QT\",\"get\":true}}"}
 {"message":"음성인식 기능 활성화 해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"QT\",\"enable\":true}}"}
@@ -342,7 +342,7 @@
 {"message":"어떤 필터를 사용해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SB\",\"type\":2}}"}
 {"message":"내 개인정보는 안전하게 보관되는 거지","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SB\",\"type\":5}}"}
 {"message":"공기청정기 최대 소음 수준을 알고 싶어.","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SB\",\"type\":3}}"}
-{"message":"인증 정보를 알려줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SB\",\"type\":true}}"}
+{"message":"인증 정보를 알려줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SB\",\"type\":1}}"}
 {"message":"어떤 필터를 사야해","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SB\",\"type\":2}}"}
 {"message":"공청기의 최대 소음을 알려줘.","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SB\",\"type\":3}}"}
 {"message":"최대 소음은 어느 정도야?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SB\",\"type\":3}}"}
@@ -362,7 +362,7 @@
 {"message":"오늘 날짜 알려줘.","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SV\",\"type\":5}}"}
 {"message":"와이파이 켜 있는지 알고 싶어.","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SV\",\"type\":4}}"}
 {"message":"매너모드 켜진 상태인가?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SV\",\"type\":2}}"}
-{"message":"시계가 몇 시야?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SV\",\"type\":true}}"}
+{"message":"시계가 몇 시야?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SV\",\"type\":1}}"}
 {"message":"나이트 모드 켜져있니?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SV\",\"type\":3}}"}
 {"message":"오늘 며칠이야?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SV\",\"type\":5}}"}
 {"message":"매너모드 지금 켜져있어?","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"SV\",\"type\":2}}"}
@@ -389,11 +389,11 @@
 {"message":"화면에 있는 에러코드를 설명해줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"UY\"}}"}
 {"message":"화면에 있는 에러코드를 설명해줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"UY\"}}"}
 {"message":"엘이디 밝기가 몇프로야","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"WN\",\"get\":true}}"}
-{"message":"이제 그만 복귀해 밝기를 일로 조정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":true}}"}
+{"message":"이제 그만 복귀해 밝기를 일로 조정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":1}}"}
 {"message":"고정 공기 청정 실행해줘 이어서 밝기를 2로 조정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":2}}"}
 {"message":"처음 위치로 돌아가주면 좋겠어 엘이디를 팔십프로로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":4}}"}
 {"message":"고정 공청 기능 켜줘 그 다음에 엘씨디 조도를 삼단계로 맞춰줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":3}}"}
-{"message":"고정 공청 기능 켜줘 그 다음에 엘이디 조명 꺼줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":false}}"}
+{"message":"고정 공청 기능 켜줘 그 다음에 엘이디 조명 꺼줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":0}}"}
 {"message":"엘이디 밝기 최대로 해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":5}}"}
 {"message":"밝기 조절해줄 수 있어?","expected":"{\"name\":\"swap_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":-1}}"}
 {"message":"이제 그만 복귀해 그리고 화면 밝기를 4단계로 조정해줄래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"WN\",\"brightness\":4}}"}
@@ -409,25 +409,25 @@
 {"message":"에러 내역 보여줘","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"XO\"}}"}
 {"message":"에러 기록 알려줘 이어서 저녁으로 뭘 먹을지 아직도 고민 중이야 뭘 먹을까","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"XO\"}}"}
 {"message":"운행 다시 시작해.","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"YA\",\"move\":2}}"}
-{"message":"이번 주말에 새로운 식당을 찾아가볼까 고민 중이야 그러고 나서 이동 잠시 일시 정지해줘","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":true}}"}
-{"message":"이동 멈춰줘.","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":false}}"}
+{"message":"이번 주말에 새로운 식당을 찾아가볼까 고민 중이야 그러고 나서 이동 잠시 일시 정지해줘","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":1}}"}
+{"message":"이동 멈춰줘.","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":0}}"}
 {"message":"멈춘 주행 빨리 다시 켜봐.","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"YA\",\"move\":2}}"}
-{"message":"드라이브를 잠시 멈춰줘.","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":true}}"}
-{"message":"드라이브 잠깐 일시 정지해.","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":true}}"}
+{"message":"드라이브를 잠시 멈춰줘.","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":1}}"}
+{"message":"드라이브 잠깐 일시 정지해.","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":1}}"}
 {"message":"운행 빨리 다시 틀어.","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"YA\",\"move\":2}}"}
-{"message":"이동 정지해줘.","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":false}}"}
+{"message":"이동 정지해줘.","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":0}}"}
 {"message":"고정 청정 온 그러고 나서 청정 기능 재시작해줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"YA\",\"move\":2}}"}
-{"message":"다음 주에 중요한 미팅이 있어서 준비를 철저히 해야 해 다음으로 이동 멈춰줘","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":false}}"}
-{"message":"음량을 영으로 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":false}}"}
+{"message":"다음 주에 중요한 미팅이 있어서 준비를 철저히 해야 해 다음으로 이동 멈춰줘","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"YA\",\"move\":0}}"}
+{"message":"음량을 영으로 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":0}}"}
 {"message":"효과음을 이단계로 설정해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":2}}"}
-{"message":"볼륨 일로 해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":true}}"}
+{"message":"볼륨 일로 해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":1}}"}
 {"message":"이제 그만 복귀해 효과음을 5단계로 바꿔줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":5}}"}
 {"message":"소리 볼륨을 사로 맞춰줘 그리고 이번 주에 할 일이 많아서 큰일이야","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":4}}"}
 {"message":"지금 뭐 하고 있어 이어서 효과음 볼륨이 현재 몇 퍼인지 알고 싶어요","expected":"{\"name\":\"info\",\"arguments\":{\"code\":\"ZV\",\"get\":true}}"}
 {"message":"볼륨 삼으로 해줘","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":3}}"}
 {"message":"기본 수준으로 오디오 설정을 해주세요","expected":"{\"name\":\"swap_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":-1}}"}
 {"message":"미디음 오로 맞춰 또 아 맛있는 거 먹고 싶은걸","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":5}}"}
-{"message":"터치음을 이십퍼로 설정해줘 그 다음에 주말에 만날래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":true}}"}
+{"message":"터치음을 이십퍼로 설정해줘 그 다음에 주말에 만날래","expected":"{\"name\":\"set_env\",\"arguments\":{\"code\":\"ZV\",\"volume\":1}}"}
 {"message":"청정 켜봐 그리고 매너모드 켜줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"ZX\",\"enable\":true}}"}
 {"message":"매너모드 비활성화해줘","expected":"{\"name\":\"mode_off\",\"arguments\":{\"code\":\"ZX\",\"enable\":false}}"}
 {"message":"매너모드 작동시켜줘","expected":"{\"name\":\"mode_on\",\"arguments\":{\"code\":\"ZX\",\"enable\":true}}"}
