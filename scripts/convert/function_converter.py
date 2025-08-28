@@ -267,7 +267,7 @@ def emit_test_jsonl_from_converted(
         for row in reader:
             message = (row.get("query") or row.get("Query") or row.get("Query(한글)") or "").strip()
             map_func = (row.get("map_func") or "").strip()
-            map_args_text = (row.get("map_args") or "").strip()
+            map_args_text = (row.get("raw_args") or "").strip()
 
             # 🔽 추가: 원본 func(code) 가져오기
             func_code = (row.get("func") or row.get("code") or "").strip()
