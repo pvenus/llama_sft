@@ -1,28 +1,18 @@
 functions:
   - name: mode_on
-    description: Turn a specific mode ON (start/enable the selected operating mode).
+    description: Turn a specific **mode** ON (start/enable).
     args:
       - name: mode
         type: string
         description: Select which mode to enable.
         enum:
           - AI_Mode
+          - 에이아이모드
           - Outdoor_Air_Quality_AI_Mode
           - Room_Air_Quality_AI_Mode
           - Night_Mode
-          - Ghost_Mode
           - Fixed_Mode
           - Follow_Mode
-          - Global_Cleaning_Mode
-          - Zone_Selection_Mode
-          - Privacy_Mode
-          - Vital_Sign_Mode
-          - Scanning_Mode
-          - Return_Home_Mode
-          - Charging_Mode
-          - Mute_Mode
-          - Drive_Mode
-          - Voice_Recognition_Mode
   - name: mode_off
     description: Turn a specific mode OFF or pause/resume it.
     args:
@@ -31,22 +21,12 @@ functions:
         description: Select which mode to disable or pause/resume.
         enum:
           - AI_Mode
+          - 에이아이모드
           - Outdoor_Air_Quality_AI_Mode
           - Room_Air_Quality_AI_Mode
           - Night_Mode
-          - Ghost_Mode
           - Fixed_Mode
           - Follow_Mode
-          - Global_Cleaning_Mode
-          - Zone_Selection_Mode
-          - Privacy_Mode
-          - Vital_Sign_Mode
-          - Scanning_Mode
-          - Return_Home
-          - Charging
-          - Mute_Mode
-          - Drive_Mode
-          - Voice_Recognition
       - name: pause
         type: boolean
         description: If provided, pause (true) or unpause (false) the selected mode instead of fully turning it off.
@@ -108,6 +88,6 @@ functions:
   - name: talk
     description: Send a free-form natural language message response (small talk or informational text) without controlling the device.
     args:
-      - name: message
+      - name: request
         type: string
         description: Plain text message to present to the user.

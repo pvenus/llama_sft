@@ -140,7 +140,18 @@ def _read_msg_jsonl_internal(p: Path) -> List[Dict[str, str]]:
 
 # Default static system prompt (since SPEC is removed)
 def build_prompt(sys_text: str, user_text: str) -> str:
-    return f"{sys_text}, User:{user_text}, Assistant: " + '{"name":'
+    # Llama 3.2 chat formatting with explicit role sections
+    # System block -> User block -> Assistant header. We keep the JSON priming
+    # so downstream logic that expects a continuation starting after '{"name":'
+    # continues to work.
+    return (
+        "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n"
+        f"{sys_text}\n"
+        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
+        f"{user_text}\n"
+        "<|eot_id|><|start_header_id|>content<|end_header_id|>\n"
+        '{"name":'
+    )
 
 # --- Import runners from package (no local caching) ---
 try:
@@ -165,6 +176,34 @@ def parse_json(text: str):
 
 def _undouble_quotes(s: str) -> str:
     return s.replace('""', '"') if s.count('""') > s.count('"')//2 else s
+
+# (legacy) Triple-brace collapse helper (kept for compatibility if used elsewhere).
+# NOTE: We no longer call this unconditionally; we only apply it after the first parse attempt fails.
+def _collapse_triple_braces(s: str) -> str:
+    if not isinstance(s, str):
+        return s
+    return s.replace("}}}", "}}")
+
+# Try to decode, and only apply triple-brace fix after the first failure
+def _decode_with_triple_brace_fix(s: str):
+    """
+    Try to decode either the new function-call format or legacy JSON.
+    If the first attempt fails and the text contains '}}}', retry after collapsing to '}}'.
+    Returns (name, args, used_text).
+    """
+    if not isinstance(s, str):
+        return (None, None, s or "")
+    # First attempt
+    name, args = decode_call_any(s)
+    if name:
+        return name, args, s
+    # Retry after fixing triple braces once
+    if "}}}" in s:
+        fixed = _collapse_triple_braces(s)
+        name2, args2 = decode_call_any(fixed)
+        if name2:
+            return name2, args2, fixed
+    return None, None, s
 
 # --- helpers for <function_XX>(arg=val) format ---
 def _coerce_scalar(v: str):
@@ -251,13 +290,16 @@ def decode_call_any(s: str):
 def _finalize_pred_continuation(cont: str):
     """
     cont: model continuation that starts right after '{"name":'
-    Try a few candidate closures to build a valid single-object JSON:
-    {"name":<cont>}
-    {"name":<cont>}}
-    {"name":<trimmed_cont>}}
+    Goal:
+      - Prefer to complete a valid single-object JSON: {"name":<cont>}
+      - Specifically, trim right after the JSON 'arguments' section and the closing '}' that follows it.
+      - If the closing '}' after arguments is missing, add it.
     Returns (obj, used_text) where obj is parsed dict or None.
     """
+    # 1) sanitize (⚠️ 기존 코드의 `_undou...le_quotes` 오타를 `_undouble_quotes`로 교체)
     cont = _undouble_quotes(cont.strip())
+
+    # 2) quick attempts
     candidates = [
         '{"name":' + cont,
         '{"name":' + cont + "}",
@@ -268,7 +310,225 @@ def _finalize_pred_continuation(cont: str):
             return json.loads(c), c
         except Exception:
             continue
-    # Heuristic: if we can find the first occurrence of '}}', cut there and close once
+
+    # 3) Targeted trim around "arguments": find the arguments object closing '}', then the next '}' (outer)
+    def _find_matching_brace(s: str, start_idx: int) -> int:
+        """
+        Find the index of the matching '}' for the '{' at start_idx.
+        Ignores braces inside strings and handles escapes.
+        Returns -1 if not found.
+        """
+        depth = 0
+        in_str = False
+        esc = False
+        for i in range(start_idx, len(s)):
+            ch = s[i]
+            if in_str:
+                if esc:
+                    esc = False
+                elif ch == '\\':
+                    esc = True
+                elif ch == '"':
+                    in_str = False
+                continue
+            else:
+                if ch == '"':
+                    in_str = True
+                elif ch == '{':
+                    depth += 1
+                elif ch == '}':
+                    depth -= 1
+                    if depth == 0:
+                        return i
+        return -1
+
+    def _fix_arguments_subjson(arg_obj_text: str) -> str:
+        """
+        Heuristically repair a broken JSON object text for "arguments".
+        - Trim leading spaces inside quoted values like: "key": "  value" -> "key": "value"
+        - Replace hard newlines inside an open string with a single space
+        - If the number of double-quotes is odd (unbalanced), append a closing quote just before the final '}'.
+        Returns repaired text (still an object string starting with '{' and ending with '}').
+        """
+        if not isinstance(arg_obj_text, str) or len(arg_obj_text) < 2:
+            return arg_obj_text
+
+        s = arg_obj_text
+
+        # 1) Normalize CR/LF within likely string contexts by replacing raw newlines between quotes with a space.
+        #    We keep it simple: collapse any newline directly followed by non-quote text until the next quote.
+        s = s.replace("\r\n", "\n")
+        # Prevent accidental breakage of JSON by removing newlines that are likely inside a string value.
+        # This is heuristic but safe for our truncated 'detail' case.
+        s = re.sub(r'(":\s*")\s*\n+\s*', r'\1', s)     # newline right after an opening value quote
+        s = re.sub(r'\s*\n+\s*(")', r' \1', s)         # newline right before a closing quote
+
+        # 2) Trim leading spaces inside quoted values: "key": "  value" -> "key": "value"
+        s = re.sub(r'(":\s*")\s+', r'\1', s)
+
+        # 3) If quotes are unbalanced (odd count), append a closing quote just before the final '}'
+        #    to handle cases like:  "detail": " ... 까지로 끊겨도
+        if s.count('"') % 2 == 1:
+            # insert one quote before the last '}' (if present)
+            rpos = s.rfind('}')
+            if rpos != -1:
+                s = s[:rpos] + '"' + s[rpos:]
+
+        return s
+
+    def _try_json_variants_from_cont(base_cont: str):
+        """
+        Try to build valid JSON by appending/repairing closers after the continuation.
+        User-specified normalization sequence:
+          - 정상: arguments 뒤에 "}}" 가 있으면 기존 시도에서 잡힘.
+          - 비정상 보정:
+            1) arguments 뒤에 '}' 하나만 있는 경우 → '}}' 로 보정
+            2) 실패 시 → '}}' 추가
+            3) 실패 시 → '"}}' 추가
+            4) 실패 시 → 마지막 한 글자 삭제 후 '"}}' 추가
+        각 시도는
+          A) 그대로
+          B) 끝에 외부용 '}' 1개 추가
+          C) 끝 공백/콤마 제거 후 '}' 추가
+        를 순차적으로 시도.
+        """
+        # --- Normalize cases ending with triple braces '}}}' (or more) ---
+        # If the continuation ends with '}}}' we collapse to exactly '}}' so that
+        # the outer object can close cleanly. Also, if '}}}' appears anywhere,
+        # prepare a "front-only" variant that keeps content up to the first '}}}'
+        # and replaces it with '}}' to enable partial parsing from the beginning.
+        base_norm = base_cont
+        # Collapse any run of 3+ closing braces at the very end to exactly '}}'
+        m_tail = re.search(r'\}\}\}+\s*$', base_norm)
+        if m_tail:
+            base_norm = base_norm[:m_tail.start()] + '}}'
+
+        # If '}}}' occurs inside the string (not necessarily at the end),
+        # create a head-only variant up to the first '}}}' and normalize to '}}'.
+        head_only = None
+        if '}}}' in base_norm:
+            head_only = base_norm.split('}}}', 1)[0] + '}}'
+
+        variants = []
+        # Prefer head-only normalized variant first if available
+        if head_only:
+            variants.append(head_only)
+        # Then the fully normalized base
+        variants.append(base_norm)
+        # Original as-is (in case the above normalization was over-eager)
+        variants.append(base_cont)
+        # Common auto-closing attempts
+        variants.append(base_norm + "}")
+        variants.append(base_norm + "}}")
+        variants.append(base_norm + '"}}')
+        if base_norm:
+            variants.append(base_norm[:-1] + '"}}')
+
+        # De-duplicate while preserving order
+        _seen = set()
+        variants = [v for v in variants if not (v in _seen or _seen.add(v))]
+
+        for v in variants:
+            # try without extra outer brace first
+            cand = '{"name":' + v
+            try:
+                return json.loads(cand), cand
+            except Exception:
+                pass
+
+            # try with one outer brace
+            cand2 = '{"name":' + v + "}"
+            try:
+                return json.loads(cand2), cand2
+            except Exception:
+                pass
+
+            # try with rstrip of trailing comma/space then one outer brace
+            cand3 = '{"name":' + v.rstrip(", ") + "}"
+            try:
+                return json.loads(cand3), cand3
+            except Exception:
+                pass
+
+        return None, None
+        """
+        Heuristically repair a broken JSON object text for "arguments".
+        - Trim leading spaces inside quoted values like: "key": "  value" -> "key": "value"
+        - Replace hard newlines inside an open string with a single space
+        - If the number of double-quotes is odd (unbalanced), append a closing quote just before the final '}'.
+        Returns repaired text (still an object string starting with '{' and ending with '}').
+        """
+        if not isinstance(arg_obj_text, str) or len(arg_obj_text) < 2:
+            return arg_obj_text
+
+        s = arg_obj_text
+
+        # 1) Normalize CR/LF within likely string contexts by replacing raw newlines between quotes with a space.
+        #    We keep it simple: collapse any newline directly followed by non-quote text until the next quote.
+        s = s.replace("\r\n", "\n")
+        # Prevent accidental breakage of JSON by removing newlines that are likely inside a string value.
+        # This is heuristic but safe for our truncated 'detail' case.
+        s = re.sub(r'(":\s*")\s*\n+\s*', r'\1', s)     # newline right after an opening value quote
+        s = re.sub(r'\s*\n+\s*(")', r' \1', s)         # newline right before a closing quote
+
+        # 2) Trim leading spaces inside quoted values: "key": "  value" -> "key": "value"
+        s = re.sub(r'(":\s*")\s+', r'\1', s)
+
+        # 3) If quotes are unbalanced (odd count), append a closing quote just before the final '}'
+        #    to handle cases like:  "detail": " ... 까지로 끊겨도
+        if s.count('"') % 2 == 1:
+            # insert one quote before the last '}' (if present)
+            rpos = s.rfind('}')
+            if rpos != -1:
+                s = s[:rpos] + '"' + s[rpos:]
+
+        return s
+
+    # Find "arguments" (supports "arguments" or 'arguments')
+    m = re.search(r'["\']arguments["\']\s*:\s*{', cont)
+    if m:
+        brace_open = cont.find('{', m.end() - 1)  # the '{' just after "arguments":
+        if brace_open != -1:
+            brace_close = _find_matching_brace(cont, brace_open)
+            if brace_close != -1:
+                # Extract the arguments object slice and try to heuristically fix common truncations:
+                # e.g., {"arguments":{"data":" 청정 결과 보고서","detail":" 청정 결과 보고서는 발표의 중요성에 따라
+                args_slice = cont[brace_open:brace_close + 1]
+                fixed_args_slice = _fix_arguments_subjson(args_slice)
+
+                # Rebuild 'cont' with the fixed arguments object
+                cont = cont[:brace_open] + fixed_args_slice + cont[brace_close + 1:]
+
+                # Recompute close index because 'cont' may have changed length
+                brace_close = brace_open + len(fixed_args_slice) - 1
+
+                # After arguments object, trim everything after the first consecutive '}}'
+                after_args = cont[brace_close + 1:]
+                # 1) Prefer the first literal '}}' as the boundary (outer close right after inner close)
+                jj = after_args.find('}}')
+                if jj != -1:
+                    # Keep content up to and including the first '}}' and drop any trailing garbage
+                    trunc = cont[:brace_close + 1] + after_args[:jj + 2]
+                else:
+                    # 2) If only a single '}' exists, add one more to complete the object
+                    j1 = after_args.find('}')
+                    if j1 != -1:
+                        trunc = cont[:brace_close + 1] + after_args[:j1 + 1] + '}'
+                    else:
+                        # 3) Neither '}}' nor '}' found -> force a proper close
+                        trunc = cont[:brace_close + 1] + '}}'
+                cand = '{"name":' + trunc
+                try:
+                    return json.loads(cand), cand
+                except Exception:
+                    # Try without trailing commas/spaces and ensure one final brace
+                    cand2 = '{"name":' + trunc.rstrip(", ") + "}"
+                    try:
+                        return json.loads(cand2), cand2
+                    except Exception:
+                        pass
+
+    # 4) Fallback: cut at first '}}' and close once
     i = cont.find("}}")
     if i != -1:
         cand = '{"name":' + cont[:i+2]
@@ -276,6 +536,13 @@ def _finalize_pred_continuation(cont: str):
             return json.loads(cand), cand
         except Exception:
             pass
+
+    # 4-bis) User-specified normalization heuristics on the tail after "arguments"
+    obj, used = _try_json_variants_from_cont(cont)
+    if obj is not None:
+        return obj, used
+
+    # 5) Last resort: return partially formed variant
     return None, '{"name":' + cont
 
 def _infer_once(sys_text:str, user_text: str, model: str, adapters: str | None, max_tokens: int, allow_fallback: bool, runner_index: int) -> dict:
@@ -287,22 +554,25 @@ def _infer_once(sys_text:str, user_text: str, model: str, adapters: str | None, 
     raw = get_runner(model, adapters, index=runner_index).generate(prompt, max_tokens=max_tokens)
     pred_txt = raw.strip()
 
-    # Prefer new '<function_XX>(...)' format; fallback to legacy JSON; then heuristic JSON completion
-    fname, fargs = decode_call_any(pred_txt)
+    # Prefer new '<function_XX>(...)' format; if that fails, try triple-brace fix once,
+    # then fallback to legacy JSON completion heuristics.
+    fname, fargs, pred_txt_used = _decode_with_triple_brace_fix(pred_txt)
     used_fallback = False
     if fname:
         pred = {"name": fname, "arguments": fargs or {}}
+        final_pred_text = pred_txt_used
     else:
-        pred, _used = _finalize_pred_continuation(pred_txt)
+        pred, _used = _finalize_pred_continuation(pred_txt_used)
+        final_pred_text = pred_txt_used
         if ((not pred) or (not isinstance(pred, dict)) or ("name" not in pred)) and allow_fallback:
             fb = fallback_route_ko(user_text)
             if fb:
                 pred = {"name": fb, "arguments": {}}
-                pred_txt = json.dumps(pred, ensure_ascii=False)
+                final_pred_text = json.dumps(pred, ensure_ascii=False)
                 used_fallback = True
     return {
         "pred": pred,
-        "pred_text": pred_txt,
+        "pred_text": final_pred_text,
         "raw": raw,
         "source": ("fallback" if used_fallback else "model"),
     }
@@ -404,6 +674,36 @@ def _args_equal(a, b) -> bool:
         if str(va) != str(vb):
             return False
     return True
+
+def _arrow_safe_df(df: pd.DataFrame, force_str_cols: Optional[list[str]] = None) -> pd.DataFrame:
+    """
+    Coerce problematic/mixed-type columns to strings so Streamlit -> Arrow conversion won't fail.
+    Only columns in force_str_cols are coerced; if None, all object dtype columns are coerced.
+    """
+    if df is None:
+        return df
+    df2 = df.copy()
+    if force_str_cols is None:
+        force_str_cols = [c for c in df2.columns if str(df2[c].dtype) == "object"]
+    for c in force_str_cols:
+        if c not in df2.columns:
+            continue
+        def _to_str(v):
+            if v is None:
+                return ""
+            # Keep simple scalars as string; JSON-encode dict/list for readability.
+            if isinstance(v, (dict, list)):
+                try:
+                    return json.dumps(v, ensure_ascii=False)
+                except Exception:
+                    return str(v)
+            return str(v)
+        try:
+            df2[c] = df2[c].map(_to_str)
+        except Exception:
+            # As a last resort
+            df2[c] = df2[c].astype("string")
+    return df2
 
 def render(
     st,
@@ -547,7 +847,21 @@ def render(
                             row_full = dict(row_min)
                             row_full["pred_text"] = row.get("pred_text")
                             df_view = pd.DataFrame(list(df_buffer))
-                        table_ph.dataframe(df_view, use_container_width=True)
+                        # Arrow-safe render (avoid mixed bool/int/object columns)
+                        df_render = _arrow_safe_df(
+                            df_view,
+                            force_str_cols=[
+                                "pred_args",
+                                "expected_args",
+                                "pred_text",
+                                "sys_prompt",
+                                "user_message",
+                                "source",
+                                "pred_name",
+                                "expected_name",
+                            ],
+                        )
+                        table_ph.dataframe(df_render, use_container_width=True)
 
                     done += 1
                     prog.progress(min(1.0, done / max(1, total)))
@@ -572,6 +886,7 @@ def render(
                         "sys message",
                         "detail",
                     ])
+                    summary_df = _arrow_safe_df(summary_df, force_str_cols=["sys message", "detail"])
                     with summary_ph:
                         st.markdown("---")
                         st.subheader("Summary by sys message")
@@ -583,6 +898,19 @@ def render(
                                 det = details_by_key.get(key_label, [])
                                 if det:
                                     det_df = pd.DataFrame(det)
+                                    det_df = _arrow_safe_df(
+                                        det_df,
+                                        force_str_cols=[
+                                            "ts",
+                                            "user",
+                                            "expected_name",
+                                            "expected_args",
+                                            "pred_name",
+                                            "pred_args",
+                                            "pred_text",
+                                            "source",
+                                        ],
+                                    )
                                     st.dataframe(det_df, use_container_width=True)
                                 else:
                                     st.write("No details.")
@@ -642,14 +970,14 @@ def _iter_infer_rows_batched(index: int, s_prompt: str, msg_list: list[dict], mo
         # Parse each output and yield rows
         for (user_text, expected_raw), raw in zip(chunk, outputs):
             pred_txt = (raw or "").strip()
-            out = {"pred_text": pred_txt, "source": "model"}
+            # Try normal parse, then retry once with triple-brace collapse on failure.
+            fname, fargs, pred_txt_used = _decode_with_triple_brace_fix(pred_txt)
+            out = {"pred_text": pred_txt_used, "source": "model"}
 
-            # Prefer new '<function_XX>(...)' format; fallback to legacy JSON; then heuristic JSON completion
-            fname, fargs = decode_call_any(pred_txt)
             if fname:
                 pred = {"name": fname, "arguments": fargs or {}}
             else:
-                pred, _used = _finalize_pred_continuation(pred_txt)
+                pred, _used = _finalize_pred_continuation(pred_txt_used)
 
             if ((not pred) or (not isinstance(pred, dict)) or ("name" not in pred)) and allow_fb:
                 fb = fallback_route_ko(user_text)

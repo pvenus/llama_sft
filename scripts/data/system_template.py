@@ -71,7 +71,7 @@ def build_functions_section(functions):
     lines = []
     # Global output format
     lines.append("Output JSON format (fixed):")
-    lines.append("  { name: string, arguments: { ... } }")
+    lines.append("  { name: \"...\", arguments: { ... } }")
     lines.append("  # Return JSON only. No extra text.")
     lines.append("")
     # Functions
@@ -87,37 +87,56 @@ def build_functions_section(functions):
         if param_items:
             lines.append("  arguments (object):")
             for pname, pinfo in param_items:
-                ptype = pinfo.get("type", "string")
-                constraints = []
-                for k in ("enum", "minimum", "maximum", "min", "max", "pattern"):
-                    if k in pinfo:
-                        constraints.append(f"{k}={pinfo[k]}")
-                hint = f"type={ptype}" + (f" ({', '.join(constraints)})" if constraints else "")
-                lines.append(f"    - {pname}: {hint}")
+                # Build a human-friendly constraint hint
+                hint_parts = []
+                # ENUM: join with "/" (no spaces) e.g., A/B/C
+                if isinstance(pinfo.get("enum"), (list, tuple)):
+                    enum_vals = [str(v) for v in pinfo["enum"]]
+                    hint_parts.append("/".join(enum_vals))
+                # Numeric/text constraints (optional)
+                if "minimum" in pinfo:
+                    hint_parts.append(f"min={pinfo['minimum']}")
+                if "maximum" in pinfo:
+                    hint_parts.append(f"max={pinfo['maximum']}")
+                if "min" in pinfo and "minimum" not in pinfo:
+                    hint_parts.append(f"min={pinfo['min']}")
+                if "max" in pinfo and "maximum" not in pinfo:
+                    hint_parts.append(f"max={pinfo['max']}")
+                if "pattern" in pinfo:
+                    hint_parts.append(f"pattern={pinfo['pattern']}")
+                if hint_parts:
+                    # Two spaces after colon to match the requested style
+                    lines.append(f"    - {pname}:  {' '.join(hint_parts)}")
+                else:
+                    lines.append(f"    - {pname}:")
         else:
             lines.append("  (no parameters)")
         # Example with placeholders (compact JSON)
         if param_items:
             args_obj = {pname: "..." for pname, _ in param_items}
         else:
-            args_obj = "{}"
-        example = json.dumps({"name":name,"arguments":args_obj})
+            args_obj = {}
+        example = json.dumps({"name": name, "arguments": args_obj})
         lines.append(f"  example: {example}")
     return "\n".join(lines)
 
-def compose_preamble(sel_what: str, sel_how: str, sel_format: str) -> str:
+def compose_preamble(sel_what: str, sel_how: str) -> str:
     """
-    Compose a minimal system prompt preamble from WHAT/HOW/FORMAT strings.
-    Order: FORMAT first (structure), then WHAT, then HOW, plus a final guard.
+    Compose a minimal system prompt preamble using fixed output format.
+    FORMAT is now fixed to a single JSON object: {"name": "...", "arguments": { ... }}
+    We no longer accept FORMAT from outside.
+    Order: FORMAT (fixed) → WHAT → HOW → final guard.
     """
     parts = []
-    if sel_format:
-        parts.append(f"FORMAT={sel_format}")
+    # Fixed format block (do not change from external input)
+    parts.append("Output JSON format (fixed):")
+    parts.append("  { \"name\": \"...\", \"arguments\": { ... } }")
+    parts.append("  # Return JSON only. No extra text.")
     if sel_what:
         parts.append(f"WHAT={sel_what}")
     if sel_how:
         parts.append(f"HOW={sel_how}")
-    parts.append("Return only the FORMAT JSON. No extra text.")
+    parts.append("Return only the JSON. No extra text.")
     return "\n".join(parts)
 
 # ... other imports and code ...
@@ -128,18 +147,15 @@ def main():
     st.header("Prompt parts · WHAT / HOW / FORMAT")
     what_path = "assets/prompt/what.json"
     how_path = "assets/prompt/how.json"
-    fmt_path = "assets/prompt/format.json"
 
     if st.button("Load", key="btn_load_parts"):
         try:
             st.session_state["what_list"] = _load_datas_list(what_path)
             st.session_state["how_list"] = _load_datas_list(how_path)
-            st.session_state["fmt_list"] = _load_datas_list(fmt_path)
 
-            # Build full sys_prompt candidates by combining WHAT × HOW × FORMAT
+            # Build full sys_prompt candidates by combining WHAT × HOW with a fixed FORMAT
             whats = st.session_state["what_list"]
             hows = st.session_state["how_list"]
-            fmts = st.session_state["fmt_list"]
 
             # Append hidden, fixed functions section from YAML once
             fixed_yaml = Path("assets/prompt/function_real_convert.yaml")
@@ -151,18 +167,17 @@ def main():
             funcs = spec_yaml.get("functions", [])
             fn_section = build_functions_section(funcs)
 
-            def _mk_label(w: str, h: str, f: str) -> str:
+            def _mk_label(w: str, h: str) -> str:
                 def _short(s, n):
                     return (s[:n] + "…") if len(s) > n else s
-                return f"W:{_short(w, 32)} | H:{_short(h, 32)} | F:{_short(f, 18)}"
+                return f"W:{_short(w, 32)} | H:{_short(h, 32)}"
 
             opts = []
-            for f in fmts:
-                for w in whats:
-                    for h in hows:
-                        preamble = compose_preamble(w, h, f)
-                        full_text = preamble + ("\n\n" + fn_section if fn_section else "")
-                        opts.append({"label": _mk_label(w, h, f), "text": full_text})
+            for w in whats:
+                for h in hows:
+                    preamble = compose_preamble(w, h)
+                    full_text = preamble + ("\n\n" + fn_section if fn_section else "")
+                    opts.append({"label": _mk_label(w, h), "text": full_text})
             st.session_state["sys_prompt_options"] = opts
             st.success(f"Loaded {len(opts)} sys_prompt candidates.")
         except Exception as e:
@@ -170,9 +185,8 @@ def main():
 
     what_list = st.session_state.get("what_list")
     how_list = st.session_state.get("how_list")
-    fmt_list = st.session_state.get("fmt_list")
 
-    if what_list and how_list and fmt_list:
+    if what_list and how_list:
         # Use list-box to select among fully composed sys_prompts
         opts = st.session_state.get("sys_prompt_options", [])
         if not opts:
@@ -184,6 +198,6 @@ def main():
             with st.expander("sys_prompt preview"):
                 st.code(preview, language="text")
     else:
-        st.info("Load WHAT/HOW/FORMAT JSON to enable selection.")
+        st.info("Load WHAT/HOW JSON to enable selection.")
 
     # ... other code ...
