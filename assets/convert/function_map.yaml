@@ -1,0 +1,523 @@
+function_map:
+  function_BP:
+    - when: { enable: 1, type: -1 }
+      new_name: mode_off
+      args: { mode: ai_mode }
+
+    - when: { enable: 1, type: 0 }
+      new_name: mode_off
+      args: { mode: outdoor_air_ai_mode }
+
+    - when: { enable: 1, type: 1 }
+      new_name: mode_off
+      args: { mode: area_air_ai_mode }
+
+    - when: { enable: 1, type: 2 }
+      new_name: mode_off
+      args: { mode: both_air_ai_mode }
+
+    - when: { enable: 0, type: -1 }
+      new_name: mode_on
+      args: { mode: ai_mode }
+
+    - when: { enable: 0, type: 0 }
+      new_name: mode_on
+      args: { mode: outdoor_air_ai_mode }
+
+    - when: { enable: 0, type: 1 }
+      new_name: mode_on
+      args: { mode: area_air_ai_mode }
+
+    - when: { enable: 0, type: 2 }
+      new_name: mode_on
+      args: { mode: both_air_ai_mode }
+
+  function_BS:
+    - when: { enable: true }
+      new_name: mode_on
+      args: { mode: night_mode }
+    - when: { enable: false }
+      new_name: mode_off
+      args: { mode: night_mode }
+
+  function_PG:
+    - when: {}
+      new_name: mode_on
+      args: { mode: fixed_mode }
+
+  function_CK:
+    - when: {}
+      new_name: mode_off
+      args: { mode: follow_mode }
+
+  function_EF:
+    - when: { action: 1 }
+      new_name: mode_on
+      args: { mode: all_area_mode }
+
+  function_FF:
+    - when: { position: "-1" }
+      new_name: mode_on
+      args: { mode: target_area_mode, area_name: none }
+    - when: { position: position }
+      new_name: mode_on
+      args: { mode: target_area_mode, area_name: position }
+
+  function_GV:
+    - when: {}
+      new_name: mode_on
+      args: { mode: vital_sign_mode }
+
+  function_KI:
+    - when: {}
+      new_name: mode_on
+      args: { mode: return_mode }
+
+  function_CE:
+    - when: { type: air_purifier_status }
+      new_name: info
+      args: { type: air_purifier_status }
+
+  function_CS:
+    - when: { type: 1 }
+      new_name: info
+      args: { type: air_purifier_setting }
+    - when: { type: 2 }
+      new_name: info
+      args: { type: air_purifier_amount }
+    - when: { type: 3 }
+      new_name: info
+      args: { type: air_purifier_batch }
+
+  function_DW:
+    - when: { type: 1 }
+      new_name: info
+      args: { type: caution_kids }
+    - when: { type: 2 }
+      new_name: info
+      args: { type: caution_charging }
+    - when: { type: 3 }
+      new_name: info
+      args: { type: caution_setup }
+    - when: { type: 4 }
+      new_name: info
+      args: { type: caution_use }
+
+  function_EN:
+    - when: { type: 1 }
+      new_name: info
+      args: { type: function_air_purifier }
+    - when: { type: 2 }
+      new_name: info
+      args: { type: function_preview }
+    - when: { type: 3 }
+      new_name: info
+      args: { type: function_air_cleaning }
+    - when: { type: 4 }
+      new_name: info
+      args: { type: function_welcome }
+    - when: { type: 5 }
+      new_name: info
+      args: { mode: function_wakeup_mode }
+    - when: { type: 6 }
+      new_name: info
+      args: { type: function_relax_mode }
+    - when: { type: 7 }
+      new_name: info
+      args: { type: function_vital_sign_mode }
+
+  function_GN:
+    - when: { get: true }
+      new_name: info
+      args: { type: value_privacy }
+    - when: { enable: true }
+      new_name: mode_on
+      args: { mode: privacy_mode }
+    - when: { enable: false }
+      new_name: mode_off
+      args: { mode: privacy_mode }
+
+  function_HI:
+    - when: { type: 1 }
+      new_name: info
+      args: { type: value_electric_energy_consumption }
+    - when: { type: 2 }
+      new_name: info
+      args: { type: value_electric_coast }
+
+  function_HS:
+    - when: { type: -1 }
+      new_name: automatic_env
+      args: { mode: language }
+    - when: { type: 1 }
+      new_name: manual_env
+      args: { mode: language_korean }
+    - when: { type: 2 }
+      new_name: manual_env
+      args: { mode: language_english }
+
+  function_HW:
+    - when: { type: 1 }
+      new_name: info
+      args: { type: air_quality_fine_dust }
+    - when: { type: 2 }
+      new_name: info
+      args: { type: air_quality_ultrafine_dust }
+    - when: { type: 3 }
+      new_name: info
+      args: { type: air_quality_voc }
+    - when: { type: 4 }
+      new_name: info
+      args: { type: air_quality_nox }
+    - when: { type: 5 }
+      new_name: info
+      args: { type: air_quality_formaldehyde }
+    - when: { type: 6 }
+      new_name: info
+      args: { type: air_quality_co2 }
+
+  function_ID:
+    - when: { get: true }
+      new_name: info
+      args: { type: value_is_run_air_purifier }
+
+  function_IH:
+    - when: { get: true }
+      new_name: info
+      args: { type: value_scanning_mode }
+    - when: { scan: true }
+      new_name: mode_on
+      args: { mode: scanning_mode }
+    - when: { scan: false }
+      new_name: mode_off
+      args: { mode: scanning_mode }
+
+  function_JJ:
+    - when: {}
+      new_name: info
+      args: { type: value_battery }
+
+  function_ZV:
+    - when: { volume: -1 }
+      new_name: info
+      args: { type: value_volume }
+
+  function_WN:
+    - when: { brightness: -1 }
+      new_name: info
+      args: { type: value_brightness }
+
+  function_QD:
+    - when: { type: -1 }
+      new_name: info
+      args: { type: function_sensor_sensitivity }
+
+  function_SC:
+    - when: { enable: true }
+      new_name: mode_on
+      args: { mode: air_quality_led_mode }
+    - when: { enable: false }
+      new_name: mode_off
+      args: { mode: air_quality_led_mode }
+    - when: { get: true }
+      new_name: info
+      args: { type: air_quality_led }
+
+  function_MO:
+    - when: { timeframe: 3, location: region }
+      new_name: info
+      args: { type: weather_monday }
+    - when: { timeframe: 4, location: region }
+      new_name: info
+      args: { type: weather_tuesday }
+    - when: { timeframe: 5, location: region }
+      new_name: info
+      args: { type: weather_wednesday }
+    - when: { timeframe: 6, location: region }
+      new_name: info
+      args: { type: weather_thursday }
+    - when: { timeframe: 7, location: region }
+      new_name: info
+      args: { type: weather_friday }
+    - when: { timeframe: 8, location: region }
+      new_name: info
+      args: { type: weather_saturday }
+    - when: { timeframe: 9, location: region }
+      new_name: info
+      args: { type: weather_sunday }
+    - when: { timeframe: 1, location: region }
+      new_name: info
+      args: { type: weather_tomorrow }
+    - when: { timeframe: 2, location: region }
+      new_name: info
+      args: { type: weather_weekend }
+    - when: { timeframe: 0, location: region }
+      new_name: info
+      args: { type: weather_today }
+
+  function_IO:
+    - when: { timeframe: 3, location: region }
+      new_name: info
+      args: { type: air_quality_monday }
+    - when: { timeframe: 4, location: region }
+      new_name: info
+      args: { type: air_quality_tuesday }
+    - when: { timeframe: 5, location: region }
+      new_name: info
+      args: { mode: air_quality_wednesday }
+    - when: { timeframe: 6, location: region }
+      new_name: info
+      args: { type: air_quality_thursday }
+    - when: { timeframe: 7, location: region }
+      new_name: info
+      args: { type: air_quality_friday }
+    - when: { timeframe: 8, location: region }
+      new_name: info
+      args: { type: air_quality_saturday }
+    - when: { timeframe: 9, location: region }
+      new_name: info
+      args: { type: air_quality_sunday }
+    - when: { timeframe: 1, location: region }
+      new_name: info
+      args: { type: air_quality_tomorrow }
+    - when: { timeframe: 2, location: region }
+      new_name: info
+      args: { type: air_quality_weekend }
+    - when: { timeframe: 0, location: region }
+      new_name: info
+      args: { type: air_quality_today }
+
+  function_JS:
+    - when: { type: 1 }
+      new_name: info
+      args: { type: function_manner_mode }
+    - when: { type: 2 }
+      new_name: info
+      args: { type: function_privacy_mode }
+    - when: { type: 3 }
+      new_name: info
+      args: { type: function_night_mode }
+    - when: { type: 4 }
+      new_name: info
+      args: { type: function_tree_voice }
+    - when: { type: 5 }
+      new_name: info
+      args: { type: function_temperature_unit }
+    - when: { type: 6 }
+      new_name: info
+      args: { type: function_uv_led }
+    - when: { type: 7 }
+      new_name: info
+      args: { type: function_front_led }
+    - when: { type: 8 }
+      new_name: info
+      args: { type: function_language }
+    - when: { type: 9 }
+      new_name: info
+      args: { type: function_sensor_sensitivity }
+    - when: { type: 10 }
+      new_name: info
+      args: { type: function_ai_mode }
+
+  function_KP:
+    - when: { type: 1 }
+      new_name: info
+      args: { mode: value_charging_time }
+    - when: { type: 2 }
+      new_name: mode_on
+      args: { mode: charging_mode }
+
+  function_MV:
+    - when: { mute: true }
+      new_name: mode_on
+      args: { mode: mute_mode }
+    - when: { mute: false }
+      new_name: mode_off
+      args: { mode: mute_mode }
+
+  function_HG:
+    - when: { theme: -1 }
+      new_name: automatic_env
+      args: { mode: theme }
+    - when: { theme: 2 }
+      new_name: manual_env
+      args: { mode: theme_indoor }
+    - when: { theme: 0 }
+      new_name: manual_env
+      args: { mode: theme_default }
+    - when: { get: true }
+      new_name: info
+      args: { type: value_theme }
+
+  function_EW:
+    - when: { get: true }
+      new_name: info
+      args: { type: value_temperature }
+    - when: { type: -1 }
+      new_name: automatic_env
+      args: { mode: temperature_unit }
+    - when: { type: 0 }
+      new_name: manual_env
+      args: { mode: temperature_celsius }
+    - when: { type: 1 }
+      new_name: manual_env
+      args: { mode: temperature_fahrenheit }
+
+
+  function_GQ:
+    - when: { get: true }
+      new_name: info
+      args: { type: value_voice }
+    - when: { gender: -1 }
+      new_name: automatic_env
+      args: { mode: voice }
+    - when: { gender: 2 }
+      new_name: manual_env
+      args: { mode: voice_male }
+    - when: { gender: 1 }
+      new_name: manual_env
+      args: { mode: voice_female }
+
+  function_FR:
+    - when: {}
+      new_name: manual_env
+      args: { mode: direction_user }
+
+  function_NN:
+    - when: { enable: true }
+      new_name: mode_on
+      args: { mode: uv_led_mode }
+    - when: { enable: false }
+      new_name: mode_off
+      args: { mode: uv_led_mode }
+
+  function_PC:
+    - when: { type: 1 }
+      new_name: info
+      args: { type: cleaning_filter_replacement }
+    - when: { type: 3 }
+      new_name: info
+      args: { type: cleaning_a1_filter_management }
+    - when: { type: 4 }
+      new_name: info
+      args: { type: cleaning_sensor_window }
+    - when: { type: 5 }
+      new_name: info
+      args: { type: cleaning_lidar_sensor }
+    - when: { type: 6 }
+      new_name: info
+      args: { type: cleaning_obstacle_sensor }
+    - when: { type: 7 }
+      new_name: info
+      args: { type: cleaning_power }
+    - when: { type: 8 }
+      new_name: info
+      args: { type: cleaning_product_exterior }
+
+  function_NK:
+    - when: { speed: 3 }
+      new_name: manual_env
+      args: { type: airflow_high }
+    - when: { speed: 0 }
+      new_name: automatic_env
+      args: { type: airflow }
+    - when: { speed: 4 }
+      new_name: manual_env
+      args: { type: airflow_turbo }
+    - when: { speed: 1 }
+      new_name: manual_env
+      args: { type: airflow_medium }
+    - when: { type: 13 }
+      new_name: manual_env
+      args: { type: airflow_low }
+    - when: { get: true }
+      new_name: info
+      args: { type: airflow }
+    - when: { speed: -1 }
+      new_name: automatic_env
+      args: { type: airflow_down }
+
+  function_QT:
+    - when: { get: true }
+      new_name: info
+      args: { type: voice_recognition }
+    - when: { enable: true }
+      new_name: mode_on
+      args: { mode: voice_recognition_mode }
+    - when: { enable: false }
+      new_name: mode_off
+      args: { mode: voice_recognition_mode }
+
+  function_SB:
+    - when: { type: 1 }
+      new_name: info
+      args: { type: security_auth }
+    - when: { type: 2 }
+      new_name: info
+      args: { type: air_purifier_filter }
+    - when: { type: 3 }
+      new_name: info
+      args: { type: air_purifier_noise }
+    - when: { type: 4 }
+      new_name: info
+      args: { type: air_purifier_structure }
+    - when: { type: 5 }
+      new_name: info
+      args: { type: security_personal_information }
+
+  function_SV:
+    - when: { type: 1 }
+      new_name: info
+      args: { type: value_time }
+    - when: { type: 2 }
+      new_name: info
+      args: { type: value_manner_mode }
+    - when: { type: 3 }
+      new_name: info
+      args: { type: value_night_mode }
+    - when: { type: 4 }
+      new_name: info
+      args: { type: value_wifi }
+    - when: { type: 5 }
+      new_name: info
+      args: { type: value_date }
+
+  function_UJ:
+    - when: {}
+      new_name: info
+      args: { type: value_filter }
+
+  function_UV:
+    - when: {}
+      new_name: info
+      args: { type: value_error_code }
+
+  function_XO:
+    - when: {}
+      new_name: info
+      args: { type: value_error_history }
+
+  function_ZX:
+    - when: { enable: true }
+      new_name: mode_on
+      args: { mode: manner_mode }
+    - when: { enable: false }
+      new_name: mode_off
+      args: { mode: manner_mode }
+
+  function_YA:
+    - when: { move: 2 }
+      new_name: mode_on
+      args: { mode: move_mode }
+    - when: { move: 0 }
+      new_name: mode_off
+      args: { mode: move_mode }
+    - when: { move: 1, puase: true }
+      new_name: mode_off
+      args: { mode: move_mode, puase: true }
+
+  # MR: 단순 토크 함수로 매핑
+  function_MR:
+    - when: {}
+      new_name: talk
+      args: {}
