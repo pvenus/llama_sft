@@ -45,7 +45,7 @@ def _load_datas_list(path: str) -> list[str]:
     return out
 
 
-def compose_preamble(sel_what: str, sel_how: str, sel_format: str) -> str:
+def compose_preamble(sel_what: str, sel_how: str, sel_format: str, sel_rule) -> str:
     """Compose a minimal sys_prompt using chosen WHAT/HOW/FORMAT strings.
     Keep tokens low; no markdown fences.
     """
@@ -56,6 +56,8 @@ def compose_preamble(sel_what: str, sel_how: str, sel_format: str) -> str:
         parts.append(f"{sel_how}")
     if sel_format:
         parts.append(f"FORMAT={sel_format}")
+    if sel_rule:
+        parts.append(f"{sel_rule}")
     # Final guard
     parts.append("Return only the FORMAT as valid JSON. No extra text.")
     return "\n".join(parts)
@@ -63,22 +65,25 @@ def compose_preamble(sel_what: str, sel_how: str, sel_format: str) -> str:
 
 def render(st):
     st.markdown("---")
-    st.subheader("Prompt parts · WHAT / HOW / FORMAT")
+    st.subheader("Prompt parts · WHAT / HOW / FORMAT / RULE")
 
     # Paths + loader (main area)
-    colp1, colp2, colp3 = st.columns(3)
+    colp1, colp2, colp3, colp4 = st.columns(4)
     with colp1:
         what_path = st.text_input("WHAT JSON path", value="assets/prompt/prompt_what.json", key="what_path_main")
     with colp2:
         how_path = st.text_input("HOW JSON path", value="assets/prompt/prompt_how.json", key="how_path_main")
     with colp3:
         fmt_path = st.text_input("FORMAT JSON path", value="assets/prompt/prompt_format.json", key="fmt_path_main")
+    with colp4:
+        rule_path = st.text_input("RULE JSON path", value="assets/prompt/prompt_rule.json", key="rule_path_main")
 
     if st.button("Convert", key="btn_convert_parts"):
         try:
             whats = _load_datas_list(what_path)
             hows = _load_datas_list(how_path)
             fmts = _load_datas_list(fmt_path)
+            rules = _load_datas_list(rule_path)
 
             # Fixed function section from YAML (hidden)
             fixed_yaml = Path("assets/prompt/function_real_convert.yaml")
@@ -98,11 +103,12 @@ def render(st):
                 for f in fmts:
                     for w in whats:
                         for h in hows:
-                            preamble = compose_preamble(w, h, f)
-                            full_text = preamble + ("\n\n" + fn_section if fn_section else "")
-                            line = {"prompt": full_text}
-                            wf.write(json.dumps(line, ensure_ascii=False) + "\n")
-                            count += 1
+                            for r in rules:
+                                preamble = compose_preamble(w, h, f, r)
+                                full_text = preamble + ("\n\n" + fn_section if fn_section else "")
+                                line = {"prompt": full_text}
+                                wf.write(json.dumps(line, ensure_ascii=False) + "\n")
+                                count += 1
             st.success(f"Converted and saved {count} prompts → {out_path}")
             # Show table preview of all prompts
             try:

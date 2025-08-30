@@ -1,8 +1,8 @@
 {
   "datas": [
     {
-      "name": "...",
-      "arguments": {"key_name": "..."}
+      "functionName": "...",
+      "arguments": {"key_name": "{\"arg1\": \"...\",\"arg2\": \"...\",\"arg3\": \"...\"}"}
     }
   ]
 }

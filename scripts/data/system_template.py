@@ -71,7 +71,8 @@ def build_functions_section(functions):
     lines = []
     # Global output format
     lines.append("Output JSON format (fixed):")
-    lines.append("  { name: \"...\", arguments: { ... } }")
+    lines.append("  { \"functionName\": \"...\", \"arguments\":{\"arg1\": \"...\",\"arg2\": \"...\",\"arg3\": \"...\"} }")
+    lines.append(" The arguments object must always contain exactly 3 fields.")
     lines.append("  # Return JSON only. No extra text.")
     lines.append("")
     # Functions
@@ -130,7 +131,8 @@ def compose_preamble(sel_what: str, sel_how: str) -> str:
     parts = []
     # Fixed format block (do not change from external input)
     parts.append("Output JSON format (fixed):")
-    parts.append("  { \"name\": \"...\", \"arguments\": { ... } }")
+    parts.append("  { \"functionName\": \"...\", \"arguments\":{\"arg1\": \"...\",\"arg2\": \"...\",\"arg3\": \"...\"} }")
+    parts.append(" The arguments object must always contain exactly 3 fields.")
     parts.append("  # Return JSON only. No extra text.")
     if sel_what:
         parts.append(f"WHAT={sel_what}")

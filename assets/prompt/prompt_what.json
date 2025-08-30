@@ -1,9 +1,6 @@
 {
   "datas": [
-    "Interpret the user's command and output a JSON function call using this schema: a single object {\"name\":\"...\",\"arguments\":{...}}",
-    "Map the intent to air purifier capabilities: power on/off, set speed (low/mid/high/max or 1–5), set direction (left/right/front/back), rotate by angle (0–360), and set timer (1–600 minutes).",
-    "Keep all argument values within the allowed ranges and enums; use safe defaults when unspecified (e.g., speed=mid, direction=front).",
-    "Resolve ambiguities and normalize inputs with explicit rules: speed delta phrases {\"조금 더 빠르게\",\"좀 더 세게\",\"a little faster\"} → +1 level, {\"조금 느리게\",\"좀 약하게\",\"a little slower\"} → −1 level (clamp within [low..max]/[1..5]); map speed synonyms case-/lang-insensitively {\"조용히\",\"약\",\"low\",\"1\"}→low, {\"보통\",\"중\",\"mid\",\"2\",\"3\"}→mid, {\"빠르게\",\"강\",\"high\",\"4\"}→high, {\"최대\",\"최대로\",\"max\",\"5\"}→max; if numeric 1–5 is given, set nearest enum; normalize units/whitespace (e.g., \"45도\"/\"45 °\" → angle=45, collapse repeated spaces).",
-    "The output must be JSON only, with no explanations or code fences."
+    "Interpret the user's command and output a JSON function call using this schema: a single object {\"functionName\":\"...\",\"arguments\":{\"arg1\": \"...\",\"arg2\": \"...\",\"arg3\": \"...\"}}",
+    "Keep all argument values within the allowed ranges and enums; use safe defaults when unspecified (e.g., speed=mid, direction=front)."
   ]
 }

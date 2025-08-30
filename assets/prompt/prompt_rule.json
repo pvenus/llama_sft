@@ -1,0 +1,5 @@
+{
+  "datas": [
+    "RULES= - If the user requests to **enable / turn on / 켜 / 켜다 / 켜주세요 / 시작 / 실행**, always map it to `mode_on`.\n- If the user requests to **disable / turn off / 끄다 / 종료 / 중지 / 일시정지 / pause**, always map it to `mode_off`.\n- Use `info` **only** when the user explicitly asks to \"show\", \"tell me\", \"알려줘\", \"보여줘\", \"확인해줘\", or \"정보\" without requesting enable/disable actions.\n- Prioritize **actions (mode_on / mode_off)** over **information (info)** when both appear in the same command."
+  ]
+}
