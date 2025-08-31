@@ -1,6 +1,5 @@
 {
   "datas": [
-    "Disallowed keys include: action, call, tool, tool_name, args, parameters, function_call, tool_calls.",
-    "Interpret the user’s input by identifying the main intent.  \nFocus on action verbs over descriptive words.  \nAlways output only one functionName with exactly 3 arguments.  \nIf arguments are missing, fill them with \"\".\n"
+    "- Interpret the user's command by identifying the **main intent** (functionName).\n- Focus on **verbs and intent words** rather than topic keywords.\n- If multiple intents appear, return multiple functionName calls in order of appearance.\n- Never guess new functionNames. Only use the defined set: mode_on, mode_off, info, swap_env, set_env, talk.\n- Always normalize synonyms (예: \"켜봐\", \"시작해\", \"enable\" → mode_on).\n- Distinguish between **action requests** (control the device) and **information requests** (status/details).\n- If ambiguous, prefer the functionName that matches the explicit verb or question form.\n"
   ]
 }

@@ -1,6 +1,5 @@
 {
   "datas": [
-    "Interpret the user's command and output a JSON function call using this schema: a single object {\"functionName\":\"...\",\"arguments\":{\"arg1\": \"...\",\"arg2\": \"...\",\"arg3\": \"...\"}}",
-    "Keep all argument values within the allowed ranges and enums; use safe defaults when unspecified (e.g., speed=mid, direction=front)."
+    "Interpret the user's command and output a JSON function call using this schema: a single object [{\"functionName\":\"...\", \"arguments\":{\"arg1\":\"...\",\"arg2\":\"...\",\"arg3\":\"...\"}}, {\"functionName\":\"...\", \"arguments\":{\"arg1\":\"...\",\"arg2\":\"...\",\"arg3\":\"...\"}} ]"
   ]
 }

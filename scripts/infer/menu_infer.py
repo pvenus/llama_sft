@@ -150,7 +150,7 @@ def build_prompt(sys_text: str, user_text: str) -> str:
         "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
         f"{user_text}\n"
         "<|eot_id|><|start_header_id|>content<|end_header_id|>\n"
-        '{"functionName":'
+        '[{"functionName":'
     )
 
 # --- Import runners from package (no local caching) ---

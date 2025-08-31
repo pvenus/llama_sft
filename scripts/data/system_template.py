@@ -71,7 +71,7 @@ def build_functions_section(functions):
     lines = []
     # Global output format
     lines.append("Output JSON format (fixed):")
-    lines.append("  { \"functionName\": \"...\", \"arguments\":{\"arg1\": \"...\",\"arg2\": \"...\",\"arg3\": \"...\"} }")
+    lines.append(" [{\"functionName\":\"...\", \"arguments\":{\"key_name\":\"...\"}}, {\"functionName\":\"...\", \"arguments\":{\"key_name\":\"...\"}} ]")
     lines.append(" The arguments object must always contain exactly 3 fields.")
     lines.append("  # Return JSON only. No extra text.")
     lines.append("")
