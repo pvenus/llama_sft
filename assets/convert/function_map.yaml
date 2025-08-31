@@ -32,6 +32,10 @@ function_map:
       new_name: mode_on
       args: { mode: both_air_ai_mode }
 
+    - when: { get: true }
+      new_name: info
+      args: { type : value_ai_mode }
+
   function_BS:
     - when: { enable: true }
       new_name: mode_on
@@ -59,9 +63,9 @@ function_map:
     - when: { position: "-1" }
       new_name: mode_on
       args: { mode: target_area_mode, area_name: none }
-    - when: { position: position }
+    - when: { position: "*" }
       new_name: mode_on
-      args: { mode: target_area_mode, area_name: position }
+      args: { mode: target_area_mode, area_name: "{position}" }
 
   function_GV:
     - when: {}
@@ -74,7 +78,7 @@ function_map:
       args: { mode: return_mode }
 
   function_CE:
-    - when: { type: air_purifier_status }
+    - when: {}
       new_name: info
       args: { type: air_purifier_status }
 
@@ -198,19 +202,73 @@ function_map:
       args: { type: value_battery }
 
   function_ZV:
-    - when: { volume: -1 }
+    - when: { get: true }
       new_name: info
       args: { type: value_volume }
+    - when: { volume: -1 }
+      new_name: automatic_env
+      args: { type: volume }
+    - when: { volume: 0 }
+      new_name: manual_env
+      args: { type: volume, volume: 0 }
+    - when: { volume: 1 }
+      new_name: manual_env
+      args: { type: volume, volume: 1 }
+    - when: { volume: 2 }
+      new_name: manual_env
+      args: { type: volume, volume: 2 }
+    - when: { volume: 3 }
+      new_name: manual_env
+      args: { type: volume, volume: 3 }
+    - when: { volume: 4 }
+      new_name: manual_env
+      args: { type: volume, volume: 4 }
+    - when: { volume: 5 }
+      new_name: manual_env
+      args: { type: volume, volume: 5 }
 
   function_WN:
-    - when: { brightness: -1 }
+    - when: { get: true }
       new_name: info
       args: { type: value_brightness }
+    - when: { brightness: -1 }
+      new_name: automatic_env
+      args: { type: brightness }
+    - when: { brightness: 0 }
+      new_name: manual_env
+      args: { type: brightness, volume: 0 }
+    - when: { brightness: 1 }
+      new_name: manual_env
+      args: { brightness: brightness, volume: 1 }
+    - when: { brightness: 2 }
+      new_name: manual_env
+      args: { type: brightness, volume: 2 }
+    - when: { brightness: 3 }
+      new_name: manual_env
+      args: { type: brightness, volume: 3 }
+    - when: { brightness: 4 }
+      new_name: manual_env
+      args: { type: brightness, volume: 4 }
+    - when: { brightness: 5 }
+      new_name: manual_env
+      args: { type: brightness, volume: 5 }
 
   function_QD:
-    - when: { type: -1 }
+    - when: { get: true }
       new_name: info
-      args: { type: function_sensor_sensitivity }
+      args: { type: value_sensor_sensitivity }
+    - when: { type: -1 }
+      new_name: automatic_env
+      args: { type: sensor_sensitivity }
+    - when: { type: 0 }
+      new_name: manual_env
+      args: { type: sensor_sensitivity_low }
+    - when: { type: 1 }
+      new_name: manual_env
+      args: { type: sensor_sensitivity_medium }
+    - when: { type: 2 }
+      new_name: manual_env
+      args: { type: sensor_sensitivity_high }
 
   function_SC:
     - when: { enable: true }
@@ -224,68 +282,68 @@ function_map:
       args: { type: air_quality_led }
 
   function_MO:
-    - when: { timeframe: 3, location: region }
+    - when: { timeframe: 3, location: "*" }
       new_name: info
-      args: { type: weather_monday }
-    - when: { timeframe: 4, location: region }
+      args: { type: weather_monday,    region_name: "{location}" }
+    - when: { timeframe: 4, location: "*" }
       new_name: info
-      args: { type: weather_tuesday }
-    - when: { timeframe: 5, location: region }
+      args: { type: weather_tuesday,   region_name: "{location}" }
+    - when: { timeframe: 5, location: "*" }
       new_name: info
-      args: { type: weather_wednesday }
-    - when: { timeframe: 6, location: region }
+      args: { type: weather_wednesday, region_name: "{location}" }
+    - when: { timeframe: 6, location: "*" }
       new_name: info
-      args: { type: weather_thursday }
-    - when: { timeframe: 7, location: region }
+      args: { type: weather_thursday,  region_name: "{location}" }
+    - when: { timeframe: 7, location: "*" }
       new_name: info
-      args: { type: weather_friday }
-    - when: { timeframe: 8, location: region }
+      args: { type: weather_friday,    region_name: "{location}" }
+    - when: { timeframe: 8, location: "*" }
       new_name: info
-      args: { type: weather_saturday }
-    - when: { timeframe: 9, location: region }
+      args: { type: weather_saturday,  region_name: "{location}" }
+    - when: { timeframe: 9, location: "*" }
       new_name: info
-      args: { type: weather_sunday }
-    - when: { timeframe: 1, location: region }
+      args: { type: weather_sunday,    region_name: "{location}" }
+    - when: { timeframe: 1, location: "*" }
       new_name: info
-      args: { type: weather_tomorrow }
-    - when: { timeframe: 2, location: region }
+      args: { type: weather_tomorrow,  region_name: "{location}" }
+    - when: { timeframe: 2, location: "*" }
       new_name: info
-      args: { type: weather_weekend }
-    - when: { timeframe: 0, location: region }
+      args: { type: weather_weekend,   region_name: "{location}" }
+    - when: { timeframe: 0, location: "*" }
       new_name: info
-      args: { type: weather_today }
+      args: { type: weather_today,     region_name: "{location}" }
 
   function_IO:
-    - when: { timeframe: 3, location: region }
+    - when: { timeframe: 3, location: "*" }
       new_name: info
-      args: { type: air_quality_monday }
-    - when: { timeframe: 4, location: region }
+      args: { type: air_quality_monday,    region_name: "{location}" }
+    - when: { timeframe: 4, location: "*" }
       new_name: info
-      args: { type: air_quality_tuesday }
-    - when: { timeframe: 5, location: region }
+      args: { type: air_quality_tuesday,   region_name: "{location}" }
+    - when: { timeframe: 5, location: "*" }
       new_name: info
-      args: { mode: air_quality_wednesday }
-    - when: { timeframe: 6, location: region }
+      args: { type: air_quality_wednesday, region_name: "{location}" }
+    - when: { timeframe: 6, location: "*" }
       new_name: info
-      args: { type: air_quality_thursday }
-    - when: { timeframe: 7, location: region }
+      args: { type: air_quality_thursday,  region_name: "{location}" }
+    - when: { timeframe: 7, location: "*" }
       new_name: info
-      args: { type: air_quality_friday }
-    - when: { timeframe: 8, location: region }
+      args: { type: air_quality_friday,    region_name: "{location}" }
+    - when: { timeframe: 8, location: "*" }
       new_name: info
-      args: { type: air_quality_saturday }
-    - when: { timeframe: 9, location: region }
+      args: { type: air_quality_saturday,  region_name: "{location}" }
+    - when: { timeframe: 9, location: "*" }
       new_name: info
-      args: { type: air_quality_sunday }
-    - when: { timeframe: 1, location: region }
+      args: { type: air_quality_sunday,    region_name: "{location}" }
+    - when: { timeframe: 1, location: "*" }
       new_name: info
-      args: { type: air_quality_tomorrow }
-    - when: { timeframe: 2, location: region }
+      args: { type: air_quality_tomorrow,  region_name: "{location}" }
+    - when: { timeframe: 2, location: "*" }
       new_name: info
-      args: { type: air_quality_weekend }
-    - when: { timeframe: 0, location: region }
+      args: { type: air_quality_weekend,   region_name: "{location}" }
+    - when: { timeframe: 0, location: "*" }
       new_name: info
-      args: { type: air_quality_today }
+      args: { type: air_quality_today,     region_name: "{location}" }
 
   function_JS:
     - when: { type: 1 }
@@ -327,6 +385,11 @@ function_map:
       new_name: mode_on
       args: { mode: charging_mode }
 
+  function_UY:
+    - when: {}
+      new_name: info
+      args: { mode: value_error_code }
+
   function_MV:
     - when: { mute: true }
       new_name: mode_on
@@ -334,6 +397,9 @@ function_map:
     - when: { mute: false }
       new_name: mode_off
       args: { mode: mute_mode }
+    - when: { get: true }
+      new_name: info
+      args: { type: value_mute_mode }   # ← 조회(info)는 args 키를 type로 통일
 
   function_HG:
     - when: { theme: -1 }
@@ -390,6 +456,9 @@ function_map:
     - when: { enable: false }
       new_name: mode_off
       args: { mode: uv_led_mode }
+    - when: { get: true }
+      new_name: info
+      args: { mode: value_uv_led_mode }
 
   function_PC:
     - when: { type: 1 }
@@ -425,6 +494,9 @@ function_map:
       new_name: manual_env
       args: { type: airflow_turbo }
     - when: { speed: 1 }
+      new_name: manual_env
+      args: { type: airflow_low }
+    - when: { speed: 2 }
       new_name: manual_env
       args: { type: airflow_medium }
     - when: { type: 13 }
@@ -487,11 +559,6 @@ function_map:
       new_name: info
       args: { type: value_filter }
 
-  function_UV:
-    - when: {}
-      new_name: info
-      args: { type: value_error_code }
-
   function_XO:
     - when: {}
       new_name: info
@@ -512,9 +579,9 @@ function_map:
     - when: { move: 0 }
       new_name: mode_off
       args: { mode: move_mode }
-    - when: { move: 1, puase: true }
+    - when: { move: 1 }
       new_name: mode_off
-      args: { mode: move_mode, puase: true }
+      args: { mode: move_mode, pause: true }
 
   # MR: 단순 토크 함수로 매핑
   function_MR:
