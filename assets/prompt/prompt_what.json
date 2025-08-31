@@ -1,5 +1,5 @@
 {
   "datas": [
-    "Interpret the user's command and output a JSON function call using this schema: a single object [{\"functionName\":\"...\", \"arguments\":{\"arg1\":\"...\",\"arg2\":\"...\",\"arg3\":\"...\"}}, {\"functionName\":\"...\", \"arguments\":{\"arg1\":\"...\",\"arg2\":\"...\",\"arg3\":\"...\"}} ]"
+    "Interpret the user's command and output a JSON function call using this schema: a single object [{\"functionName\":\"...\", \"arguments\":{\"arg1\":\"...\",\"arg2\":\"...\",\"arg3\":\"...\"}}]"
   ]
 }

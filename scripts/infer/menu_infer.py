@@ -252,7 +252,30 @@ def _parse_args_kv(arg_str: str) -> dict:
         k, v = p.split("=", 1)
         out[k.strip()] = _coerce_scalar(v)
     return out
-
+def _parse_expected_multi(expected_raw: str) -> list[tuple[str, dict]]:
+    """Parse expected into a list of (name, args) pairs.
+    Supports:
+      - JSON array: [{"name":..., "arguments":{...}}, ...]
+      - Single JSON object or function-call string: returns singleton list.
+    """
+    if not expected_raw:
+        return []
+    obj = parse_json(expected_raw)
+    out: list[tuple[str, dict]] = []
+    if isinstance(obj, list):
+        for it in obj:
+            if isinstance(it, dict) and "functionName" in it:
+                n = it.get("functionName")
+                a = it.get("arguments") if isinstance(it.get("arguments"), dict) else {}
+                if isinstance(n, str):
+                    out.append((n, a))
+        if out:
+            return out
+    # fallback to single
+    n, a = decode_call_any(expected_raw)
+    if n:
+        return [(n, a or {})]
+    return []
 def parse_function_call(s: str):
     """Return (name, args) from strings like '<function_WN>(brightness=2)' or '<function_IO>(timeframe=1, location="0")'.
     If multiple calls are present (separated by ';'), parse the first. Returns (None, None) on failure.
@@ -283,8 +306,8 @@ def decode_call_any(s: str):
         return None, None
     # try JSON first
     obj = parse_json(s)
-    if isinstance(obj, dict) and "name" in obj:
-        return obj.get("name"), obj.get("arguments") if isinstance(obj.get("arguments"), dict) else {}
+    if isinstance(obj, dict) and "functionName" in obj:
+        return obj.get("functionName"), obj.get("arguments") if isinstance(obj.get("arguments"), dict) else {}
     # try function-call format
     return parse_function_call(s)
 def _finalize_pred_continuation(cont: str):
@@ -301,9 +324,9 @@ def _finalize_pred_continuation(cont: str):
 
     # 2) quick attempts
     candidates = [
-        '{"name":' + cont,
-        '{"name":' + cont + "}",
-        '{"name":' + cont.rstrip(", ") + "}",
+        '{"functionName":' + cont,
+        '{"functionName":' + cont + "}",
+        '{"functionName":' + cont.rstrip(", ") + "}",
     ]
     for c in candidates:
         try:
@@ -430,21 +453,21 @@ def _finalize_pred_continuation(cont: str):
 
         for v in variants:
             # try without extra outer brace first
-            cand = '{"name":' + v
+            cand = '{"functionName":' + v
             try:
                 return json.loads(cand), cand
             except Exception:
                 pass
 
             # try with one outer brace
-            cand2 = '{"name":' + v + "}"
+            cand2 = '{"functionName":' + v + "}"
             try:
                 return json.loads(cand2), cand2
             except Exception:
                 pass
 
             # try with rstrip of trailing comma/space then one outer brace
-            cand3 = '{"name":' + v.rstrip(", ") + "}"
+            cand3 = '{"functionName":' + v.rstrip(", ") + "}"
             try:
                 return json.loads(cand3), cand3
             except Exception:
@@ -517,12 +540,12 @@ def _finalize_pred_continuation(cont: str):
                     else:
                         # 3) Neither '}}' nor '}' found -> force a proper close
                         trunc = cont[:brace_close + 1] + '}}'
-                cand = '{"name":' + trunc
+                cand = '{"functionName":' + trunc
                 try:
                     return json.loads(cand), cand
                 except Exception:
                     # Try without trailing commas/spaces and ensure one final brace
-                    cand2 = '{"name":' + trunc.rstrip(", ") + "}"
+                    cand2 = '{"functionName":' + trunc.rstrip(", ") + "}"
                     try:
                         return json.loads(cand2), cand2
                     except Exception:
@@ -531,7 +554,7 @@ def _finalize_pred_continuation(cont: str):
     # 4) Fallback: cut at first '}}' and close once
     i = cont.find("}}")
     if i != -1:
-        cand = '{"name":' + cont[:i+2]
+        cand = '{"functionName":' + cont[:i+2]
         try:
             return json.loads(cand), cand
         except Exception:
@@ -543,7 +566,7 @@ def _finalize_pred_continuation(cont: str):
         return obj, used
 
     # 5) Last resort: return partially formed variant
-    return None, '{"name":' + cont
+    return None, '{"functionName":' + cont
 
 def _infer_once(sys_text:str, user_text: str, model: str, adapters: str | None, max_tokens: int, allow_fallback: bool, runner_index: int) -> dict:
     prompt = build_prompt(sys_text, user_text)
@@ -559,15 +582,15 @@ def _infer_once(sys_text:str, user_text: str, model: str, adapters: str | None, 
     fname, fargs, pred_txt_used = _decode_with_triple_brace_fix(pred_txt)
     used_fallback = False
     if fname:
-        pred = {"name": fname, "arguments": fargs or {}}
+        pred = {"functionName": fname, "arguments": fargs or {}}
         final_pred_text = pred_txt_used
     else:
         pred, _used = _finalize_pred_continuation(pred_txt_used)
         final_pred_text = pred_txt_used
-        if ((not pred) or (not isinstance(pred, dict)) or ("name" not in pred)) and allow_fallback:
+        if ((not pred) or (not isinstance(pred, dict)) or ("functionName" not in pred)) and allow_fallback:
             fb = fallback_route_ko(user_text)
             if fb:
-                pred = {"name": fb, "arguments": {}}
+                pred = {"functionName": fb, "arguments": {}}
                 final_pred_text = json.dumps(pred, ensure_ascii=False)
                 used_fallback = True
     return {
@@ -601,13 +624,39 @@ def _iter_infer_rows(index: int, s_prompt: str, msg_list: list[dict], model: str
         print(f"[infer] prompt#{index:02d} runner_idx={runner_index} thread={threading.current_thread().name} -> done {elapsed_ms} ms")
 
         expected_raw = (m.get("expected") or "").strip()
-        expected_name, expected_args = decode_call_any(expected_raw)
+        exp_list = _parse_expected_multi(expected_raw)
 
         pred_obj = out.get("pred")
         pred_name = None
         pred_args = None
-        if isinstance(pred_obj, dict) and "name" in pred_obj:
-            pred_name = pred_obj.get("name")
+        if isinstance(pred_obj, dict) and "functionName" in pred_obj:
+            pred_name = pred_obj.get("functionName")
+            pred_args = pred_obj.get("arguments") if isinstance(pred_obj.get("arguments"), dict) else {}
+        else:
+            # try to decode from pred_text (new format)
+            ptxt = out.get("pred_text") or ""
+            pn, pa = decode_call_any(ptxt)
+            pred_name, pred_args = pn, pa
+
+        # Any-of matching across expected candidates
+        name_match = any((pred_name == en) for en, ea in exp_list) if exp_list else False
+        arg_match = any(
+            (pred_name == en) and _args_equal(pred_args, ea, True, en) for en, ea in exp_list) if exp_list else False
+
+        # 대표 expected(표시/그룹핑용)
+        if len(exp_list) == 1:
+            expected_name, expected_args = exp_list[0]
+        elif len(exp_list) > 1:
+            expected_name, expected_args = "(multi)", {
+                "candidates": [{"functionName": en, "arguments": ea} for en, ea in exp_list]}
+        else:
+            expected_name, expected_args = None, {}
+
+        pred_obj = out.get("pred")
+        pred_name = None
+        pred_args = None
+        if isinstance(pred_obj, dict) and "functionName" in pred_obj:
+            pred_name = pred_obj.get("functionName")
             pred_args = pred_obj.get("arguments") if isinstance(pred_obj.get("arguments"), dict) else {}
         else:
             # try to decode from pred_text (new format)
@@ -682,12 +731,7 @@ def _args_equal(a, b, name_match, name: str | None = None) -> bool:
     if name_match is True and nm == 'talk':
         return True
 
-    if name_match is True and nm == 'info_air_quality':
-        va = a.get('type') if isinstance(a, dict) else None
-        vb = b.get('type') if isinstance(b, dict) else None
-        return str(va) == str(vb)
-
-    if name_match is True and nm == 'info_weather':
+    if name_match is True and (nm in { 'info_air_quality', 'info_weather', 'info_caution', 'info_organic_compound'}):
         va = a.get('type') if isinstance(a, dict) else None
         vb = b.get('type') if isinstance(b, dict) else None
         return str(va) == str(vb)
@@ -835,7 +879,14 @@ def render(
                     pred_obj = row.get("pred")
 
                     # Decode expected from either '<function_XX>(...)' or legacy JSON
-                    expected_name, expected_args = decode_call_any(row.get("expected") or "")
+                    exp_list = _parse_expected_multi(row.get("expected") or "")
+                    if len(exp_list) == 1:
+                        expected_name, expected_args = exp_list[0]
+                    elif len(exp_list) > 1:
+                        expected_name, expected_args = "(multi)", {
+                            "candidates": [{"functionName": en, "arguments": ea} for en, ea in exp_list]}
+                    else:
+                        expected_name, expected_args = None, {}
 
                     # --- per expected-name bucket counters ---
                     key = (expected_name or "(none)")
@@ -849,8 +900,8 @@ def render(
                         bucket["arg_only"] += 1
 
                     # Predicted: prefer already-parsed dict; else decode from pred_text
-                    if isinstance(pred_obj, dict) and "name" in pred_obj:
-                        pred_name = pred_obj.get("name")
+                    if isinstance(pred_obj, dict) and "functionName" in pred_obj:
+                        pred_name = pred_obj.get("functionName")
                         pred_args = pred_obj.get("arguments") if isinstance(pred_obj.get("arguments"), dict) else {}
                     else:
                         pred_name, pred_args = decode_call_any(row.get("pred_text") or "")
@@ -1061,29 +1112,40 @@ def _iter_infer_rows_batched(index: int, s_prompt: str, msg_list: list[dict], mo
             out = {"pred_text": pred_txt_used, "source": "model"}
 
             if fname:
-                pred = {"name": fname, "arguments": fargs or {}}
+                pred = {"functionName": fname, "arguments": fargs or {}}
             else:
                 pred, _used = _finalize_pred_continuation(pred_txt_used)
 
-            if ((not pred) or (not isinstance(pred, dict)) or ("name" not in pred)) and allow_fb:
+            if ((not pred) or (not isinstance(pred, dict)) or ("functionName" not in pred)) and allow_fb:
                 fb = fallback_route_ko(user_text)
                 if fb:
-                    pred = {"name": fb, "arguments": {}}
+                    pred = {"functionName": fb, "arguments": {}}
                     out["pred_text"] = json.dumps(pred, ensure_ascii=False)
                     out["source"] = "fallback"
 
             out["pred"] = pred
 
-            expected_name, expected_args = decode_call_any(expected_raw)
+            exp_list = _parse_expected_multi(expected_raw)
 
-            if isinstance(pred, dict) and "name" in pred:
-                pred_name = pred.get("name")
+            if isinstance(pred, dict) and "functionName" in pred:
+                pred_name = pred.get("functionName")
                 pred_args = pred.get("arguments") if isinstance(pred.get("arguments"), dict) else {}
             else:
                 pred_name, pred_args = decode_call_any(out.get("pred_text") or "")
 
-            name_match = (pred_name == expected_name)
-            arg_match = _args_equal(pred_args, expected_args, name_match, expected_name)
+            # Any-of matching across expected candidates
+            name_match = any((pred_name == en) for en, ea in exp_list) if exp_list else False
+            arg_match = any((pred_name == en) and _args_equal(pred_args, ea, True, en) for en, ea in
+                            exp_list) if exp_list else False
+
+            # 대표 expected(표시/그룹핑용)
+            if len(exp_list) == 1:
+                expected_name, expected_args = exp_list[0]
+            elif len(exp_list) > 1:
+                expected_name, expected_args = "(multi)", {
+                    "candidates": [{"functionName": en, "arguments": ea} for en, ea in exp_list]}
+            else:
+                expected_name, expected_args = None, {}
 
             yield {
                 "index": index,

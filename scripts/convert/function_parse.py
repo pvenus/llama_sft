@@ -153,7 +153,7 @@ class PairMapper:
                     break
             if mapped is None:
                 # 아이덴티티 폴백
-                mapped = {"name": c.func, "arguments": c.args or {}}
+                mapped = {"functionName": c.func, "arguments": c.args or {}}
             out.append(mapped)
         return out
 
@@ -232,13 +232,13 @@ class CodeGroupedBidirectionalMapper:
                     logger.info(f"[TRACE]  matched rule → new_name={rule.get('new_name')} args={rule.get('args')}")
                 vars_ = {"code": call.func, **(call.args or {})}
                 return {
-                    "name": rule.get("new_name") or call.func,
+                    "functionName": rule.get("new_name") or call.func,
                     "arguments": _fmt_args(dict(rule.get("args") or {}), vars_),
                 }
         if TRACE:
             logger.info(f"[TRACE]  no match in {sect}, falling back to identity")
         # 매칭 없으면 아이덴티티
-        return {"name": call.func, "arguments": call.args or {}}
+        return {"functionName": call.func, "arguments": call.args or {}}
 
     def forward_llm_output(self, llm_output: str) -> List[Dict[str, Any]]:
         calls = parse_function_tags(llm_output)
@@ -350,9 +350,11 @@ def run(in_path: str, pairs_path: Optional[str], yaml_path: Optional[str],
         Path(out_jsonl_path).parent.mkdir(parents=True, exist_ok=True)
         with open(out_jsonl_path, "w", encoding=encoding) as wf:
             for r in rows_out:
+                # expected: array JSON (serialized as string), because a row can map to multiple function calls
+                expected_list = r["LLM Output JSON"] if isinstance(r.get("LLM Output JSON"), list) else []
                 record = {
                     "message": r["Query(한글)"],
-                    "expected": json.dumps(r["LLM Output JSON"][0] if r["LLM Output JSON"] else {"name":"","arguments":{}}, ensure_ascii=False)
+                    "expected": json.dumps(expected_list, ensure_ascii=False)
                 }
                 wf.write(json.dumps(record, ensure_ascii=False) + "\n")
         logger.info(f"Wrote out_jsonl: {out_jsonl_path}")

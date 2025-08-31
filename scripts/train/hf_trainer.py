@@ -35,6 +35,8 @@ def train_with_peft(cfg) -> Path:
         return rows
 
     def to_text(ex: Dict[str, Any]) -> Dict[str, str]:
+
+
         msgs = ex.get("messages", [])
         sys_txt = ""
         user_txt = ""
@@ -43,8 +45,25 @@ def train_with_peft(cfg) -> Path:
                 sys_txt = m.get("content", "")
             if m.get("role") == "user":
                 user_txt = m.get("content", "")
-        prompt = (sys_txt + "\n\n" if sys_txt else "") + f"User: {user_txt}\nAssistant: "
-        target = ex.get("assistant", "")
+
+        prompt = ("<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n"
+                  f"{sys_txt}\n"
+                  "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
+                  f"{user_txt}\n"
+                  "<|eot_id|><|start_header_id|>content<|end_header_id|>\n"
+                  '[{"functionName":'
+                  )
+        raw_target = ex.get("assistant", "")
+        try:
+            parsed = json.loads(raw_target)
+            if isinstance(parsed, list):
+                # [{"fn":..}, {"fn":..}] → {"fn":..}{"fn":..} 식으로 flatten
+                target = "".join(json.dumps(obj, ensure_ascii=False) for obj in parsed)
+            else:
+                target = json.dumps(parsed, ensure_ascii=False)
+        except Exception:
+            # 파싱 실패 시 그냥 원문
+            target = raw_target
         return {"prompt": prompt, "target": target}
 
     train_rows = [to_text(r) for r in load_jsonl(train_file)]

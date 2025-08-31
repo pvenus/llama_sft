@@ -221,8 +221,97 @@ def prepare_dataset(
     csv_input_col: str = "input",
     csv_output_col: str = "output_json",
     system_prompt: str = (
-        'You are a function calling agent. Output ONLY a single JSON object of the form: '
-        '{"calls":[{"name":"...", "arguments":{}}]}'
+        """
+        Interpret the user's command and output a JSON function call using this schema: a single object [{"functionName":"...", "arguments":{"arg1":"...","arg2":"...","arg3":"..."}}]
+- Interpret the user's command by identifying the **main intent** (functionName).
+- Focus on **verbs and intent words** rather than topic keywords.
+- If multiple intents appear, return multiple functionName calls in order of appearance.
+- Never guess new functionNames. Only use the defined set: mode_on, mode_off, mode_pause, info_caution, info_cleaning, info_air_purifier_device, info_device_function, status_device, info_weather, info_air_quality, info_organic_compound, automatic_env, manual_env, talk.
+- Always normalize synonyms (예: "켜봐", "시작해", "enable" → mode_on).
+- Distinguish between **action requests** (control the device) and **information requests** (status/details).
+- If ambiguous, prefer the functionName that matches the explicit verb or question form.
+
+FORMAT={"functionName":"...", "arguments":{"arg1":"...","arg2":"...","arg3":"..."}}, {"functionName":"...", "arguments":{"arg1":"...","arg2":"...","arg3":"..."}}
+RULES=
+- If the user requests to **enable / turn on / 켜 / 켜다 / 켜주세요 / 시작 / 실행**, add a `mode_on` functionName.
+- If the user requests to **disable / turn off / 끄다 / 종료 / 중지 / 일시정지 / pause**, add a `mode_off, mode_pause` functionName.
+- If the user asks a question about status or operation (예: "작동 중이야?", "되나요?", "작동해?", "중이야?", "있나요?"), add an `info` functionName.
+- Use `info_caution, info_cleaning, info_device_function, status_device, info_weather, info_organic_compound` also if the user explicitly asks to "show", "tell me", "알려줘", "보여줘", "확인해줘", "정보".
+- If the user’s command contains both a **mode_on/mode_off** request and an **info** request in the same sentence, output **two functionName calls separately** in an array, in the order they appear.
+- For environment toggling words like "바꿔", "전환", "스위치", "toggle/switch" → use `automatic_env`.
+- For explicit environment setting words like "설정", "변경", "세팅", "set/change/configure" → use `manual_env`.
+- If the user’s input is small talk, general conversation, or doesn’t map to a control function → use `talk`.
+- Each function call must always include exactly 3 arguments (fill missing with "").
+- Always return only JSON. No extra text.
+
+Return only the FORMAT as valid JSON. No extra text.
+
+Output JSON format (fixed):
+ [{"functionName":"...", "arguments":{"key_name":"..."}}, {"functionName":"...", "arguments":{"key_name":"..."}} ]
+ The arguments object must always contain exactly 3 fields.
+  # Return JSON only. No extra text.
+
+Available functions:
+- mode_on: Enable a specific device mode.
+  arguments (object):
+    - mode:  ai_mode/air_quality_led_mode/all_area_mode/area_air_ai_mode/both_air_ai_mode/charging_mode/fixed_mode/follow_mode/manner_mode/move_mode/mute_mode/night_mode/outdoor_air_ai_mode/privacy_mode/return_mode/scanning_mode/target_area_mode/uv_led_mode/vital_sign_mode/voice_recognition_mode
+  example: {"name": "mode_on", "arguments": {"mode": "..."}}
+- mode_off: Disable or pause a specific device mode.
+  arguments (object):
+    - mode:  ai_mode/air_quality_led_mode/all_area_mode/area_air_ai_mode/both_air_ai_mode/charging_mode/fixed_mode/follow_mode/manner_mode/move_mode/mute_mode/night_mode/outdoor_air_ai_mode/privacy_mode/return_mode/scanning_mode/target_area_mode/uv_led_mode/vital_sign_mode/voice_recognition_mode
+  example: {"name": "mode_off", "arguments": {"mode": "..."}}
+- mode_pause: Retrieve device status or information.
+  arguments (object):
+    - type:  move_mode
+  example: {"name": "mode_pause", "arguments": {"type": "..."}}
+- info_caution: Retrieve caution information.
+  arguments (object):
+    - type:  charging/kids/setup/use
+  example: {"name": "info_caution", "arguments": {"type": "..."}}
+- info_cleaning: Retrieve caution information.
+  arguments (object):
+    - type:  a1_filter_management/filter_replacement/lidar_sensor/obstacle_sensor/power/product_exterior/sensor_window
+  example: {"name": "info_cleaning", "arguments": {"type": "..."}}
+- info_air_purifier_device: Retrieve device information.
+  arguments (object):
+    - type:  amount/batch/filter/noise/setting/structure
+  example: {"name": "info_air_purifier_device", "arguments": {"type": "..."}}
+- info_device_function: Retrieve device function information.
+  arguments (object):
+    - type:  ai_mode/air_cleaning/air_purifier/front_led/language/manner_mode/night_mode/preview/privacy_mode/relax_mode/sensor_sensitivity/temperature_unit/tree_voice/uv_led/vital_sign_mode/wakeup_mode/welcome/security_auth/security_personal_information
+  example: {"name": "info_device_function", "arguments": {"type": "..."}}
+- status_device: Retrieve device current setting value or status.
+  arguments (object):
+    - type:  ai_mode/airflow/battery/brightness/charging_time/date/electric_coast/electric_energy_consumption/error_code/error_history/filter/is_run_air_purifier/manner_mode/mute_mode/night_mode/privacy/scanning_mode/sensor_sensitivity/temperature/theme/time/uv_led_mode/voice/voice_recognition/volume/wifi/air_quality_led/status
+  example: {"name": "status_device", "arguments": {"type": "..."}}
+- info_weather: Retrieve weather information.
+  arguments (object):
+    - type:  friday/monday/saturday/sunday/thursday/today/tomorrow/tuesday/wednesday/weekend
+    - region_name:
+  example: {"name": "info_weather", "arguments": {"type": "...", "region_name": "..."}}
+- info_air_quality: Retrieve weather information.
+  arguments (object):
+    - type:  friday/monday/saturday/sunday/thursday/today/tomorrow/tuesday/wednesday/weekend
+    - region_name:
+  example: {"name": "info_air_quality", "arguments": {"type": "...", "region_name": "..."}}
+- info_organic_compound: Retrieve air quality information for organic compound.
+  arguments (object):
+    - type:  co2/fine_dust/formaldehyde/nox/ultrafine_dust/voc
+  example: {"name": "info_organic_compound", "arguments": {"type": "..."}}
+- automatic_env: Auto-toggle environment settings.
+  arguments (object):
+    - type:  airflow/brightness/language/sensor_sensitivity/temperature_unit/theme/voice/volume
+  example: {"name": "automatic_env", "arguments": {"type": "..."}}
+- manual_env: Manually set environment settings.
+  arguments (object):
+    - type:  airflow/brightness/direction/language/sensor_sensitivity/temperature_unit/theme/voice/volume
+    - value:
+  example: {"name": "manual_env", "arguments": {"type": "...", "value": "..."}}
+- talk: Send a free-form text reply.
+  arguments (object):
+    - request:
+  example: {"name": "talk", "arguments": {"request": "..."}}
+  """
     ),
     split: str = "80,10,10",
     seed: int = 42,
@@ -352,7 +441,98 @@ def _build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--csv-output-col", default="output_json", help="CSV column for assistant JSON string")
 
     # Prompt & Split
-    ap.add_argument("--system-prompt", default='You are a function calling agent. Output ONLY a single JSON object of the form: {"calls":[{"name":"...", "arguments":{}}]}', help="system prompt inserted in messages[0]")
+    ap.add_argument("--system-prompt", default=
+    """Interpret the user's command and output a JSON function call using this schema: a single object [{"functionName":"...", "arguments":{"arg1":"...","arg2":"...","arg3":"..."}}]
+- Interpret the user's command by identifying the **main intent** (functionName).
+- Focus on **verbs and intent words** rather than topic keywords.
+- If multiple intents appear, return multiple functionName calls in order of appearance.
+- Never guess new functionNames. Only use the defined set: mode_on, mode_off, mode_pause, info_caution, info_cleaning, info_air_purifier_device, info_device_function, status_device, info_weather, info_air_quality, info_organic_compound, automatic_env, manual_env, talk.
+- Always normalize synonyms (예: "켜봐", "시작해", "enable" → mode_on).
+- Distinguish between **action requests** (control the device) and **information requests** (status/details).
+- If ambiguous, prefer the functionName that matches the explicit verb or question form.
+
+FORMAT={"functionName":"...", "arguments":{"arg1":"...","arg2":"...","arg3":"..."}}, {"functionName":"...", "arguments":{"arg1":"...","arg2":"...","arg3":"..."}}
+RULES=
+- If the user requests to **enable / turn on / 켜 / 켜다 / 켜주세요 / 시작 / 실행**, add a `mode_on` functionName.
+- If the user requests to **disable / turn off / 끄다 / 종료 / 중지 / 일시정지 / pause**, add a `mode_off, mode_pause` functionName.
+- If the user asks a question about status or operation (예: "작동 중이야?", "되나요?", "작동해?", "중이야?", "있나요?"), add an `info` functionName.
+- Use `info_caution, info_cleaning, info_device_function, status_device, info_weather, info_organic_compound` also if the user explicitly asks to "show", "tell me", "알려줘", "보여줘", "확인해줘", "정보".
+- If the user’s command contains both a **mode_on/mode_off** request and an **info** request in the same sentence, output **two functionName calls separately** in an array, in the order they appear.
+- For environment toggling words like "바꿔", "전환", "스위치", "toggle/switch" → use `automatic_env`.
+- For explicit environment setting words like "설정", "변경", "세팅", "set/change/configure" → use `manual_env`.
+- If the user’s input is small talk, general conversation, or doesn’t map to a control function → use `talk`.
+- Each function call must always include exactly 3 arguments (fill missing with "").
+- Always return only JSON. No extra text.
+
+Return only the FORMAT as valid JSON. No extra text.
+
+Output JSON format (fixed):
+ [{"functionName":"...", "arguments":{"key_name":"..."}}, {"functionName":"...", "arguments":{"key_name":"..."}} ]
+ The arguments object must always contain exactly 3 fields.
+  # Return JSON only. No extra text.
+
+Available functions:
+- mode_on: Enable a specific device mode.
+  arguments (object):
+    - mode:  ai_mode/air_quality_led_mode/all_area_mode/area_air_ai_mode/both_air_ai_mode/charging_mode/fixed_mode/follow_mode/manner_mode/move_mode/mute_mode/night_mode/outdoor_air_ai_mode/privacy_mode/return_mode/scanning_mode/target_area_mode/uv_led_mode/vital_sign_mode/voice_recognition_mode
+  example: {"name": "mode_on", "arguments": {"mode": "..."}}
+- mode_off: Disable or pause a specific device mode.
+  arguments (object):
+    - mode:  ai_mode/air_quality_led_mode/all_area_mode/area_air_ai_mode/both_air_ai_mode/charging_mode/fixed_mode/follow_mode/manner_mode/move_mode/mute_mode/night_mode/outdoor_air_ai_mode/privacy_mode/return_mode/scanning_mode/target_area_mode/uv_led_mode/vital_sign_mode/voice_recognition_mode
+  example: {"name": "mode_off", "arguments": {"mode": "..."}}
+- mode_pause: Retrieve device status or information.
+  arguments (object):
+    - type:  move_mode
+  example: {"name": "mode_pause", "arguments": {"type": "..."}}
+- info_caution: Retrieve caution information.
+  arguments (object):
+    - type:  charging/kids/setup/use
+  example: {"name": "info_caution", "arguments": {"type": "..."}}
+- info_cleaning: Retrieve caution information.
+  arguments (object):
+    - type:  a1_filter_management/filter_replacement/lidar_sensor/obstacle_sensor/power/product_exterior/sensor_window
+  example: {"name": "info_cleaning", "arguments": {"type": "..."}}
+- info_air_purifier_device: Retrieve device information.
+  arguments (object):
+    - type:  amount/batch/filter/noise/setting/structure
+  example: {"name": "info_air_purifier_device", "arguments": {"type": "..."}}
+- info_device_function: Retrieve device function information.
+  arguments (object):
+    - type:  ai_mode/air_cleaning/air_purifier/front_led/language/manner_mode/night_mode/preview/privacy_mode/relax_mode/sensor_sensitivity/temperature_unit/tree_voice/uv_led/vital_sign_mode/wakeup_mode/welcome/security_auth/security_personal_information
+  example: {"name": "info_device_function", "arguments": {"type": "..."}}
+- status_device: Retrieve device current setting value or status.
+  arguments (object):
+    - type:  ai_mode/airflow/battery/brightness/charging_time/date/electric_coast/electric_energy_consumption/error_code/error_history/filter/is_run_air_purifier/manner_mode/mute_mode/night_mode/privacy/scanning_mode/sensor_sensitivity/temperature/theme/time/uv_led_mode/voice/voice_recognition/volume/wifi/air_quality_led/status
+  example: {"name": "status_device", "arguments": {"type": "..."}}
+- info_weather: Retrieve weather information.
+  arguments (object):
+    - type:  friday/monday/saturday/sunday/thursday/today/tomorrow/tuesday/wednesday/weekend
+    - region_name:
+  example: {"name": "info_weather", "arguments": {"type": "...", "region_name": "..."}}
+- info_air_quality: Retrieve weather information.
+  arguments (object):
+    - type:  friday/monday/saturday/sunday/thursday/today/tomorrow/tuesday/wednesday/weekend
+    - region_name:
+  example: {"name": "info_air_quality", "arguments": {"type": "...", "region_name": "..."}}
+- info_organic_compound: Retrieve air quality information for organic compound.
+  arguments (object):
+    - type:  co2/fine_dust/formaldehyde/nox/ultrafine_dust/voc
+  example: {"name": "info_organic_compound", "arguments": {"type": "..."}}
+- automatic_env: Auto-toggle environment settings.
+  arguments (object):
+    - type:  airflow/brightness/language/sensor_sensitivity/temperature_unit/theme/voice/volume
+  example: {"name": "automatic_env", "arguments": {"type": "..."}}
+- manual_env: Manually set environment settings.
+  arguments (object):
+    - type:  airflow/brightness/direction/language/sensor_sensitivity/temperature_unit/theme/voice/volume
+    - value:
+  example: {"name": "manual_env", "arguments": {"type": "...", "value": "..."}}
+- talk: Send a free-form text reply.
+  arguments (object):
+    - request:
+  example: {"name": "talk", "arguments": {"request": "..."}}
+    """
+                    , help="system prompt inserted in messages[0]")
     ap.add_argument("--split", default="80,10,10", help="train,eval(,test) percentages. e.g., '90,10' or '80,10,10'")
     ap.add_argument("--seed", type=int, default=42, help="random seed for shuffling and split")
     ap.add_argument("--no-shuffle", action="store_true", help="do not shuffle before split")

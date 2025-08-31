@@ -1,9 +1,21 @@
 from __future__ import annotations
+
 from dataclasses import dataclass
-from scripts.common.env import backend as env_backend
+
+# Support both "python -m scripts.train.train_sft" and direct "python scripts/train/train_sft.py"
+try:
+    from ..common.env import backend as env_backend  # when run as a package module
+except Exception:  # ImportError or no parent package
+    import os, sys
+    _THIS = os.path.abspath(__file__)
+    _ROOT = os.path.dirname(os.path.dirname(os.path.dirname(_THIS)))
+    if _ROOT not in sys.path:
+        sys.path.insert(0, _ROOT)
+    from scripts.common.env import backend as env_backend  # fall back to absolute-in-project import
 import argparse
 from typing import Optional
 from pathlib import Path
+from dataclasses import dataclass
 
 __all__ = [
     "train_sft",
@@ -11,7 +23,7 @@ __all__ = [
 
 @dataclass
 class SFTConfig:
-    base_model: str = "mlx-community/Bio-Medical-Llama-3-2-1B-CoT-012025"
+    base_model: str = "meta-llama/Llama-3.2-1B-Instruct"
     train_path: str | Path = ""
     eval_path: str | Path = ""
     output_dir: str | Path = "outputs/train/adapters/sample/"

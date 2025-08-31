@@ -503,7 +503,7 @@ function_map:
       new_name: status_device
       args: { type: airflow }
     - when: { speed: -1 }
-      new_name: automatic_env
+      new_name: manual_env
       args: { type: airflow, value: -1 }
 
   function_QT:
