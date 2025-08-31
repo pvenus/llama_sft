@@ -291,7 +291,7 @@ class MapperFacade:
         return self.impl.forward_llm_output(llm_output)
 
 def run(in_path: str, pairs_path: Optional[str], yaml_path: Optional[str],
-        out_path: Optional[str], encoding: str = "utf-8") -> None:
+        out_path: Optional[str], encoding: str = "utf-8", out_jsonl_path: Optional[str] = None) -> None:
     mapper = MapperFacade(pairs_path, yaml_path)
     with open(in_path, "r", encoding=encoding, newline="") as f:
         reader = csv.DictReader(f)
@@ -346,6 +346,17 @@ def run(in_path: str, pairs_path: Optional[str], yaml_path: Optional[str],
                 json.dump(rows_out, wf, ensure_ascii=False, indent=2)
             logger.info(f"Wrote JSON: {out_path}")
 
+    if out_jsonl_path:
+        Path(out_jsonl_path).parent.mkdir(parents=True, exist_ok=True)
+        with open(out_jsonl_path, "w", encoding=encoding) as wf:
+            for r in rows_out:
+                record = {
+                    "message": r["Query(한글)"],
+                    "expected": json.dumps(r["LLM Output JSON"][0] if r["LLM Output JSON"] else {"name":"","arguments":{}}, ensure_ascii=False)
+                }
+                wf.write(json.dumps(record, ensure_ascii=False) + "\n")
+        logger.info(f"Wrote out_jsonl: {out_jsonl_path}")
+
 def main():
     ap = argparse.ArgumentParser(description="CSV의 LLM Output을 파싱해 JSON 표준 포맷으로 매핑합니다.")
     ap.add_argument("--in", dest="inp", required=True, help="입력 CSV 경로")
@@ -354,12 +365,13 @@ def main():
     ap.add_argument("--out", default=None, help="결과 저장 경로(.csv | .jsonl | .json)")
     ap.add_argument("--encoding", default="utf-8", help="입출력 인코딩(기본: utf-8)")
     ap.add_argument("--trace", action="store_true", help="룰 매칭 상세 로깅")
+    ap.add_argument("--out_jsonl", default=None, help="jsonl 저장 (message/expected 필드만)")
     args = ap.parse_args()
     global TRACE
     TRACE = args.trace
     if TRACE:
         logger.setLevel(logging.DEBUG)
-    run(args.inp, args.pairs, args.yaml, args.out, encoding=args.encoding)
+    run(args.inp, args.pairs, args.yaml, args.out, encoding=args.encoding, out_jsonl_path=args.out_jsonl)
 
 if __name__ == "__main__":
     main()

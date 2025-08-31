@@ -33,8 +33,8 @@ function_map:
       args: { mode: both_air_ai_mode }
 
     - when: { get: true }
-      new_name: info
-      args: { type : value_ai_mode }
+      new_name: status_device
+      args: { type: ai_mode }
 
   function_BS:
     - when: { enable: true }
@@ -79,61 +79,61 @@ function_map:
 
   function_CE:
     - when: {}
-      new_name: info
-      args: { type: air_purifier_status }
+      new_name: status_device
+      args: { type: status }
 
   function_CS:
     - when: { type: 1 }
-      new_name: info
-      args: { type: air_purifier_setting }
+      new_name: info_air_purifier_device
+      args: { type: setting }
     - when: { type: 2 }
-      new_name: info
-      args: { type: air_purifier_amount }
+      new_name: info_air_purifier_device
+      args: { type: amount }
     - when: { type: 3 }
-      new_name: info
-      args: { type: air_purifier_batch }
+      new_name: info_air_purifier_device
+      args: { type: batch }
 
   function_DW:
     - when: { type: 1 }
-      new_name: info
-      args: { type: caution_kids }
+      new_name: info_caution
+      args: { type: kids }
     - when: { type: 2 }
-      new_name: info
-      args: { type: caution_charging }
+      new_name: info_caution
+      args: { type: charging }
     - when: { type: 3 }
-      new_name: info
-      args: { type: caution_setup }
+      new_name: info_caution
+      args: { type: setup }
     - when: { type: 4 }
-      new_name: info
-      args: { type: caution_use }
+      new_name: info_caution
+      args: { type: use }
 
   function_EN:
     - when: { type: 1 }
-      new_name: info
-      args: { type: function_air_purifier }
+      new_name: info_device_function
+      args: { type: air_purifier }
     - when: { type: 2 }
-      new_name: info
-      args: { type: function_preview }
+      new_name: info_device_function
+      args: { type: preview }
     - when: { type: 3 }
-      new_name: info
-      args: { type: function_air_cleaning }
+      new_name: info_device_function
+      args: { type: air_cleaning }
     - when: { type: 4 }
-      new_name: info
-      args: { type: function_welcome }
+      new_name: info_device_function
+      args: { type: welcome }
     - when: { type: 5 }
-      new_name: info
-      args: { mode: function_wakeup_mode }
+      new_name: info_device_function
+      args: { type: wakeup_mode }
     - when: { type: 6 }
-      new_name: info
-      args: { type: function_relax_mode }
+      new_name: info_device_function
+      args: { type: relax_mode }
     - when: { type: 7 }
-      new_name: info
-      args: { type: function_vital_sign_mode }
+      new_name: info_device_function
+      args: { type: vital_sign_mode }
 
   function_GN:
     - when: { get: true }
-      new_name: info
-      args: { type: value_privacy }
+      new_name: status_device
+      args: { type: privacy }
     - when: { enable: true }
       new_name: mode_on
       args: { mode: privacy_mode }
@@ -143,52 +143,52 @@ function_map:
 
   function_HI:
     - when: { type: 1 }
-      new_name: info
-      args: { type: value_electric_energy_consumption }
+      new_name: status_device
+      args: { type: electric_energy_consumption }
     - when: { type: 2 }
-      new_name: info
-      args: { type: value_electric_coast }
+      new_name: status_device
+      args: { type: electric_coast }
 
   function_HS:
     - when: { type: -1 }
       new_name: automatic_env
-      args: { mode: language }
+      args: { type: language }
     - when: { type: 1 }
       new_name: manual_env
-      args: { mode: language_korean }
+      args: { type: language, value: korean }
     - when: { type: 2 }
       new_name: manual_env
-      args: { mode: language_english }
+      args: { type: language, value: english }
 
   function_HW:
     - when: { type: 1 }
-      new_name: info
-      args: { type: air_quality_fine_dust }
+      new_name: info_organic_compound
+      args: { type: fine_dust }
     - when: { type: 2 }
-      new_name: info
-      args: { type: air_quality_ultrafine_dust }
+      new_name: info_organic_compound
+      args: { type: ultrafine_dust }
     - when: { type: 3 }
-      new_name: info
-      args: { type: air_quality_voc }
+      new_name: info_organic_compound
+      args: { type: voc }
     - when: { type: 4 }
-      new_name: info
-      args: { type: air_quality_nox }
+      new_name: info_organic_compound
+      args: { type: nox }
     - when: { type: 5 }
-      new_name: info
-      args: { type: air_quality_formaldehyde }
+      new_name: info_organic_compound
+      args: { type: formaldehyde }
     - when: { type: 6 }
-      new_name: info
-      args: { type: air_quality_co2 }
+      new_name: info_organic_compound
+      args: { type: co2 }
 
   function_ID:
     - when: { get: true }
-      new_name: info
-      args: { type: value_is_run_air_purifier }
+      new_name: status_device
+      args: { type: is_run_air_purifier }
 
   function_IH:
     - when: { get: true }
-      new_name: info
-      args: { type: value_scanning_mode }
+      new_name: status_device
+      args: { type: scanning_mode }
     - when: { scan: true }
       new_name: mode_on
       args: { mode: scanning_mode }
@@ -198,77 +198,77 @@ function_map:
 
   function_JJ:
     - when: {}
-      new_name: info
-      args: { type: value_battery }
+      new_name: status_device
+      args: { type: battery }
 
   function_ZV:
     - when: { get: true }
-      new_name: info
-      args: { type: value_volume }
+      new_name: status_device
+      args: { type: volume }
     - when: { volume: -1 }
       new_name: automatic_env
       args: { type: volume }
     - when: { volume: 0 }
       new_name: manual_env
-      args: { type: volume, volume: 0 }
+      args: { type: volume, value: 0 }
     - when: { volume: 1 }
       new_name: manual_env
-      args: { type: volume, volume: 1 }
+      args: { type: volume, value: 1 }
     - when: { volume: 2 }
       new_name: manual_env
-      args: { type: volume, volume: 2 }
+      args: { type: volume, value: 2 }
     - when: { volume: 3 }
       new_name: manual_env
-      args: { type: volume, volume: 3 }
+      args: { type: volume, value: 3 }
     - when: { volume: 4 }
       new_name: manual_env
-      args: { type: volume, volume: 4 }
+      args: { type: volume, value: 4 }
     - when: { volume: 5 }
       new_name: manual_env
-      args: { type: volume, volume: 5 }
+      args: { type: volume, value: 5 }
 
   function_WN:
     - when: { get: true }
-      new_name: info
-      args: { type: value_brightness }
+      new_name: status_device
+      args: { type: brightness }
     - when: { brightness: -1 }
       new_name: automatic_env
       args: { type: brightness }
     - when: { brightness: 0 }
       new_name: manual_env
-      args: { type: brightness, volume: 0 }
+      args: { type: brightness, value: 0 }
     - when: { brightness: 1 }
       new_name: manual_env
-      args: { brightness: brightness, volume: 1 }
+      args: { type: brightness, value: 1 }
     - when: { brightness: 2 }
       new_name: manual_env
-      args: { type: brightness, volume: 2 }
+      args: { type: brightness, value: 2 }
     - when: { brightness: 3 }
       new_name: manual_env
-      args: { type: brightness, volume: 3 }
+      args: { type: brightness, value: 3 }
     - when: { brightness: 4 }
       new_name: manual_env
-      args: { type: brightness, volume: 4 }
+      args: { type: brightness, value: 4 }
     - when: { brightness: 5 }
       new_name: manual_env
-      args: { type: brightness, volume: 5 }
+      args: { type: brightness, value: 5 }
 
   function_QD:
     - when: { get: true }
-      new_name: info
-      args: { type: value_sensor_sensitivity }
+      new_name: status_device
+      args: { type: sensor_sensitivity }
     - when: { type: -1 }
       new_name: automatic_env
       args: { type: sensor_sensitivity }
     - when: { type: 0 }
       new_name: manual_env
-      args: { type: sensor_sensitivity_low }
+      args: { type: sensor_sensitivity, value: 0 }
     - when: { type: 1 }
       new_name: manual_env
-      args: { type: sensor_sensitivity_medium }
+      args: { type: sensor_sensitivity, value: 1 }
     - when: { type: 2 }
       new_name: manual_env
-      args: { type: sensor_sensitivity_high }
+      args: { type: sensor_sensitivity, value: 3 }
 
   function_SC:
     - when: { enable: true }
@@ -278,117 +278,117 @@ function_map:
       new_name: mode_off
       args: { mode: air_quality_led_mode }
     - when: { get: true }
-      new_name: info
+      new_name: status_device
       args: { type: air_quality_led }
 
   function_MO:
     - when: { timeframe: 3, location: "*" }
-      new_name: info
-      args: { type: weather_monday,    region_name: "{location}" }
+      new_name: info_weather
+      args: { type: monday,    region_name: "{location}" }
     - when: { timeframe: 4, location: "*" }
-      new_name: info
-      args: { type: weather_tuesday,   region_name: "{location}" }
+      new_name: info_weather
+      args: { type: tuesday,   region_name: "{location}" }
     - when: { timeframe: 5, location: "*" }
-      new_name: info
-      args: { type: weather_wednesday, region_name: "{location}" }
+      new_name: info_weather
+      args: { type: wednesday, region_name: "{location}" }
     - when: { timeframe: 6, location: "*" }
-      new_name: info
-      args: { type: weather_thursday,  region_name: "{location}" }
+      new_name: info_weather
+      args: { type: thursday,  region_name: "{location}" }
     - when: { timeframe: 7, location: "*" }
-      new_name: info
-      args: { type: weather_friday,    region_name: "{location}" }
+      new_name: info_weather
+      args: { type: friday,    region_name: "{location}" }
     - when: { timeframe: 8, location: "*" }
-      new_name: info
-      args: { type: weather_saturday,  region_name: "{location}" }
+      new_name: info_weather
+      args: { type: saturday,  region_name: "{location}" }
     - when: { timeframe: 9, location: "*" }
-      new_name: info
-      args: { type: weather_sunday,    region_name: "{location}" }
+      new_name: info_weather
+      args: { type: sunday,    region_name: "{location}" }
     - when: { timeframe: 1, location: "*" }
-      new_name: info
-      args: { type: weather_tomorrow,  region_name: "{location}" }
+      new_name: info_weather
+      args: { type: tomorrow,  region_name: "{location}" }
     - when: { timeframe: 2, location: "*" }
-      new_name: info
-      args: { type: weather_weekend,   region_name: "{location}" }
+      new_name: info_weather
+      args: { type: weekend,   region_name: "{location}" }
     - when: { timeframe: 0, location: "*" }
-      new_name: info
-      args: { type: weather_today,     region_name: "{location}" }
+      new_name: info_weather
+      args: { type: today,     region_name: "{location}" }
 
   function_IO:
     - when: { timeframe: 3, location: "*" }
-      new_name: info
-      args: { type: air_quality_monday,    region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: monday,    region_name: "{location}" }
     - when: { timeframe: 4, location: "*" }
-      new_name: info
-      args: { type: air_quality_tuesday,   region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: tuesday,   region_name: "{location}" }
     - when: { timeframe: 5, location: "*" }
-      new_name: info
-      args: { type: air_quality_wednesday, region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: wednesday, region_name: "{location}" }
     - when: { timeframe: 6, location: "*" }
-      new_name: info
-      args: { type: air_quality_thursday,  region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: thursday,  region_name: "{location}" }
     - when: { timeframe: 7, location: "*" }
-      new_name: info
-      args: { type: air_quality_friday,    region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: friday,    region_name: "{location}" }
     - when: { timeframe: 8, location: "*" }
-      new_name: info
-      args: { type: air_quality_saturday,  region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: saturday,  region_name: "{location}" }
     - when: { timeframe: 9, location: "*" }
-      new_name: info
-      args: { type: air_quality_sunday,    region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: sunday,    region_name: "{location}" }
     - when: { timeframe: 1, location: "*" }
-      new_name: info
-      args: { type: air_quality_tomorrow,  region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: tomorrow,  region_name: "{location}" }
     - when: { timeframe: 2, location: "*" }
-      new_name: info
-      args: { type: air_quality_weekend,   region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: weekend,   region_name: "{location}" }
     - when: { timeframe: 0, location: "*" }
-      new_name: info
-      args: { type: air_quality_today,     region_name: "{location}" }
+      new_name: info_air_quality
+      args: { type: today,     region_name: "{location}" }
 
   function_JS:
     - when: { type: 1 }
-      new_name: info
-      args: { type: function_manner_mode }
+      new_name: info_device_function
+      args: { type: manner_mode }
     - when: { type: 2 }
-      new_name: info
-      args: { type: function_privacy_mode }
+      new_name: info_device_function
+      args: { type: privacy_mode }
     - when: { type: 3 }
-      new_name: info
-      args: { type: function_night_mode }
+      new_name: info_device_function
+      args: { type: night_mode }
     - when: { type: 4 }
-      new_name: info
-      args: { type: function_tree_voice }
+      new_name: info_device_function
+      args: { type: tree_voice }
     - when: { type: 5 }
-      new_name: info
-      args: { type: function_temperature_unit }
+      new_name: info_device_function
+      args: { type: temperature_unit }
     - when: { type: 6 }
-      new_name: info
-      args: { type: function_uv_led }
+      new_name: info_device_function
+      args: { type: uv_led }
     - when: { type: 7 }
-      new_name: info
-      args: { type: function_front_led }
+      new_name: info_device_function
+      args: { type: front_led }
     - when: { type: 8 }
-      new_name: info
-      args: { type: function_language }
+      new_name: info_device_function
+      args: { type: language }
     - when: { type: 9 }
-      new_name: info
-      args: { type: function_sensor_sensitivity }
+      new_name: info_device_function
+      args: { type: sensor_sensitivity }
     - when: { type: 10 }
-      new_name: info
-      args: { type: function_ai_mode }
+      new_name: info_device_function
+      args: { type: ai_mode }
 
   function_KP:
     - when: { type: 1 }
-      new_name: info
-      args: { mode: value_charging_time }
+      new_name: status_device
+      args: { type: charging_time }
     - when: { type: 2 }
       new_name: mode_on
       args: { mode: charging_mode }
 
   function_UY:
     - when: {}
-      new_name: info
-      args: { mode: value_error_code }
+      new_name: status_device
+      args: { type: error_code }
 
   function_MV:
     - when: { mute: true }
@@ -398,56 +398,56 @@ function_map:
       new_name: mode_off
       args: { mode: mute_mode }
     - when: { get: true }
-      new_name: info
-      args: { type: value_mute_mode }   # ← 조회(info)는 args 키를 type로 통일
+      new_name: status_device
+      args: { type: mute_mode }
 
   function_HG:
     - when: { theme: -1 }
       new_name: automatic_env
-      args: { mode: theme }
+      args: { type: theme }
     - when: { theme: 2 }
       new_name: manual_env
-      args: { mode: theme_indoor }
+      args: { type: theme, value: indoor }
     - when: { theme: 0 }
       new_name: manual_env
-      args: { mode: theme_default }
+      args: { type: theme, value: default }
     - when: { get: true }
-      new_name: info
-      args: { type: value_theme }
+      new_name: status_device
+      args: { type: theme }
 
   function_EW:
     - when: { get: true }
-      new_name: info
-      args: { type: value_temperature }
+      new_name: status_device
+      args: { type: temperature }
     - when: { type: -1 }
       new_name: automatic_env
-      args: { mode: temperature_unit }
+      args: { type: temperature_unit }
     - when: { type: 0 }
       new_name: manual_env
-      args: { mode: temperature_celsius }
+      args: { type: temperature, value: celsius }
     - when: { type: 1 }
       new_name: manual_env
-      args: { mode: temperature_fahrenheit }
+      args: { type: temperature, value: fahrenheit }
 
 
   function_GQ:
     - when: { get: true }
-      new_name: info
-      args: { type: value_voice }
+      new_name: status_device
+      args: { type: voice }
     - when: { gender: -1 }
       new_name: automatic_env
-      args: { mode: voice }
+      args: { type: voice }
     - when: { gender: 2 }
       new_name: manual_env
-      args: { mode: voice_male }
+      args: { type: voice, value: male }
     - when: { gender: 1 }
       new_name: manual_env
-      args: { mode: voice_female }
+      args: { type: voice, value: female }
 
   function_FR:
     - when: {}
       new_name: manual_env
-      args: { mode: direction_user }
+      args: { type: direction, value: user }
 
   function_NN:
     - when: { enable: true }
@@ -457,61 +457,58 @@ function_map:
       new_name: mode_off
       args: { mode: uv_led_mode }
     - when: { get: true }
-      new_name: info
-      args: { mode: value_uv_led_mode }
+      new_name: status_device
+      args: { type: uv_led_mode }
 
   function_PC:
     - when: { type: 1 }
-      new_name: info
-      args: { type: cleaning_filter_replacement }
+      new_name: info_cleaning
+      args: { type: filter_replacement }
     - when: { type: 3 }
-      new_name: info
-      args: { type: cleaning_a1_filter_management }
+      new_name: info_cleaning
+      args: { type: a1_filter_management }
     - when: { type: 4 }
-      new_name: info
-      args: { type: cleaning_sensor_window }
+      new_name: info_cleaning
+      args: { type: sensor_window }
     - when: { type: 5 }
-      new_name: info
-      args: { type: cleaning_lidar_sensor }
+      new_name: info_cleaning
+      args: { type: lidar_sensor }
     - when: { type: 6 }
-      new_name: info
-      args: { type: cleaning_obstacle_sensor }
+      new_name: info_cleaning
+      args: { type: obstacle_sensor }
     - when: { type: 7 }
-      new_name: info
-      args: { type: cleaning_power }
+      new_name: info_cleaning
+      args: { type: power }
     - when: { type: 8 }
-      new_name: info
-      args: { type: cleaning_product_exterior }
+      new_name: info_cleaning
+      args: { type: product_exterior }
 
   function_NK:
     - when: { speed: 3 }
       new_name: manual_env
-      args: { type: airflow_high }
+      args: { type: airflow, value: 3 }
     - when: { speed: 0 }
       new_name: automatic_env
-      args: { type: airflow }
+      args: { type: airflow, value: 0 }
     - when: { speed: 4 }
       new_name: manual_env
-      args: { type: airflow_turbo }
+      args: { type: airflow, value: 4 }
     - when: { speed: 1 }
       new_name: manual_env
-      args: { type: airflow_low }
+      args: { type: airflow, value: 1  }
     - when: { speed: 2 }
       new_name: manual_env
-      args: { type: airflow_medium }
-    - when: { type: 13 }
-      new_name: manual_env
-      args: { type: airflow_low }
+      args: { type: airflow, value: 2 }
     - when: { get: true }
-      new_name: info
+      new_name: status_device
       args: { type: airflow }
     - when: { speed: -1 }
       new_name: automatic_env
-      args: { type: airflow_down }
+      args: { type: airflow, value: -1 }
 
   function_QT:
     - when: { get: true }
-      new_name: info
+      new_name: status_device
       args: { type: voice_recognition }
     - when: { enable: true }
       new_name: mode_on
@@ -522,47 +519,47 @@ function_map:
 
   function_SB:
     - when: { type: 1 }
-      new_name: info
+      new_name: info_device_function
       args: { type: security_auth }
     - when: { type: 2 }
-      new_name: info
-      args: { type: air_purifier_filter }
+      new_name: info_air_purifier_device
+      args: { type: filter }
     - when: { type: 3 }
-      new_name: info
-      args: { type: air_purifier_noise }
+      new_name: info_air_purifier_device
+      args: { type: noise }
     - when: { type: 4 }
-      new_name: info
-      args: { type: air_purifier_structure }
+      new_name: info_air_purifier_device
+      args: { type: structure }
     - when: { type: 5 }
-      new_name: info
+      new_name: info_device_function
       args: { type: security_personal_information }
 
   function_SV:
     - when: { type: 1 }
-      new_name: info
-      args: { type: value_time }
+      new_name: status_device
+      args: { type: time }
     - when: { type: 2 }
-      new_name: info
-      args: { type: value_manner_mode }
+      new_name: status_device
+      args: { type: manner_mode }
     - when: { type: 3 }
-      new_name: info
-      args: { type: value_night_mode }
+      new_name: status_device
+      args: { type: night_mode }
     - when: { type: 4 }
-      new_name: info
-      args: { type: value_wifi }
+      new_name: status_device
+      args: { type: wifi }
     - when: { type: 5 }
-      new_name: info
-      args: { type: value_date }
+      new_name: status_device
+      args: { type: date }
 
   function_UJ:
     - when: {}
-      new_name: info
-      args: { type: value_filter }
+      new_name: status_device
+      args: { type: filter }
 
   function_XO:
     - when: {}
-      new_name: info
-      args: { type: value_error_history }
+      new_name: status_device
+      args: { type: error_history }
 
   function_ZX:
     - when: { enable: true }
@@ -580,8 +577,8 @@ function_map:
       new_name: mode_off
       args: { mode: move_mode }
     - when: { move: 1 }
-      new_name: mode_off
-      args: { mode: move_mode, pause: true }
+      new_name: mode_pause
+      args: { mode: move_mode }
 
   # MR: 단순 토크 함수로 매핑
   function_MR:

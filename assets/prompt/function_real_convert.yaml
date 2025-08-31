@@ -1,92 +1,261 @@
 functions:
   - name: mode_on
-    description: Turn a specific **mode** ON (start/enable).
+    description: Enable a specific device mode.
     args:
       - name: mode
         type: string
         description: Select which mode to enable.
         enum:
-          - AI_Mode
-          - 에이아이모드
-          - Outdoor_Air_Quality_AI_Mode
-          - Room_Air_Quality_AI_Mode
-          - Night_Mode
-          - Fixed_Mode
-          - Follow_Mode
+          - ai_mode (에이아이 모드)
+          - air_quality_led_mode (공기질 LED 모드)
+          - all_area_mode (전체 영역 모드)
+          - area_air_ai_mode (구역별 공기 AI 모드)
+          - both_air_ai_mode (실내외 공기 AI 모드)
+          - charging_mode (충전 모드)
+          - fixed_mode (고정 모드)
+          - follow_mode (추적 모드)
+          - manner_mode (매너 모드)
+          - move_mode (이동 모드)
+          - mute_mode (음소거 모드)
+          - night_mode (야간 모드)
+          - outdoor_air_ai_mode (실외 공기 AI 모드)
+          - privacy_mode (프라이버시 모드)
+          - return_mode (복귀 모드)
+          - scanning_mode (스캐닝 모드)
+          - target_area_mode (지정 구역 모드)
+          - uv_led_mode (UV LED 모드)
+          - vital_sign_mode (바이탈 사인 모드)
+          - voice_recognition_mode (음성 인식 모드)
   - name: mode_off
-    description: Turn a specific mode OFF or pause/resume it.
+    description:  Disable or pause a specific device mode.
     args:
       - name: mode
         type: string
         description: Select which mode to disable or pause/resume.
         enum:
-          - AI_Mode
-          - 에이아이모드
-          - Outdoor_Air_Quality_AI_Mode
-          - Room_Air_Quality_AI_Mode
-          - Night_Mode
-          - Fixed_Mode
-          - Follow_Mode
-      - name: pause
-        type: boolean
-        description: If provided, pause (true) or unpause (false) the selected mode instead of fully turning it off.
-        enum: [ true, false ]
+          - ai_mode (에이아이 모드)
+          - air_quality_led_mode (공기질 LED 모드)
+          - all_area_mode (전체 영역 모드)
+          - area_air_ai_mode (구역별 공기 AI 모드)
+          - both_air_ai_mode (실내외 공기 AI 모드)
+          - charging_mode (충전 모드)
+          - fixed_mode (고정 모드)
+          - follow_mode (추적 모드)
+          - manner_mode (매너 모드)
+          - move_mode (이동 모드)
+          - mute_mode (음소거 모드)
+          - night_mode (야간 모드)
+          - outdoor_air_ai_mode (실외 공기 AI 모드)
+          - privacy_mode (프라이버시 모드)
+          - return_mode (복귀 모드)
+          - scanning_mode (스캐닝 모드)
+          - target_area_mode (지정 구역 모드)
+          - uv_led_mode (UV LED 모드)
+          - vital_sign_mode (바이탈 사인 모드)
+          - voice_recognition_mode (음성 인식 모드)
 
-  - name: info
-    description: Retrieve information about status, features, settings, battery, or air quality. Optionally provide a sub-detail topic.
+  - name: mode_pause
+    description: Retrieve device status or information.
     args:
-      - name: data
+      - name: type
         type: string
         description: High-level category to query.
         enum:
-          - Status
-          - Information
-          - Precautions
-          - Features
-          - Settings
-          - Battery
-          - Air_Quality
-          - Weather
-          - Machine_Cleaning
-          - Personal_Info
-      - name: detail
-        type: string
-        required: false
-        description: Optional sub-topic to narrow the query (e.g., "filter status", "network", "noise", etc.).
-
-  - name: swap_env
-    description: Query current environment settings (theme, temperature unit, voice) or toggle between available options.
+          - move_mode (이동 모드)
+  - name: info_caution
+    description: Retrieve caution information.
     args:
-      - name: key
+      - name: type
+        type: string
+        description: High-level category to query.
+        enum:
+          - charging (주의 충전)
+          - kids (주의 어린이)
+          - setup (주의 설치)
+          - use (주의 사용)
+  - name: info_cleaning
+    description: Retrieve caution information.
+    args:
+      - name: type
+        type: string
+        description: High-level category to query.
+        enum:
+          - a1_filter_management (청소 A1 필터 관리)
+          - filter_replacement (청소 필터 교체)
+          - lidar_sensor (청소 라이다 센서)
+          - obstacle_sensor (청소 장애물 감지 센서)
+          - power (청소 전원)
+          - product_exterior (청소 제품 외관)
+          - sensor_window (청소 센서창)
+  - name: info_air_purifier_device
+    description: Retrieve device information.
+    args:
+      - name: type
+        type: string
+        description: High-level category to query.
+        enum:
+          - amount (공기청정기 수량)
+          - batch (공기청정기 배치)
+          - filter (공기청정기 필터)
+          - noise (공기청정기 소음)
+          - setting (공기청정기 설정)
+          - structure (공기청정기 구성)
+  - name: info_device_function
+    description: Retrieve device function information.
+    args:
+      - name: type
+        type: string
+        description: High-level category to query.
+        enum:
+          - ai_mode (기능 AI 모드)
+          - air_cleaning (기능 청정 기능)
+          - air_purifier (기능 공기청정기)
+          - front_led (기능 전면 디스플레이)
+          - language (기능 언어)
+          - manner_mode (기능 매너 모드)
+          - night_mode (기능 나이트 모드)
+          - preview (기능 프리뷰)
+          - privacy_mode (기능 프라이버시 모드)
+          - relax_mode (기능 릴렉스 모드)
+          - sensor_sensitivity (기능 센서 민감도)
+          - temperature_unit (기능 온도 단위)
+          - tree_voice (기능 나무 보이스)
+          - uv_led (기능 UV LED)
+          - vital_sign_mode (기능 바이탈 사인 모드)
+          - wakeup_mode (기능 웨이크업 모드)
+          - welcome (기능 웰컴)          -
+          - security_auth (보안 인증)
+          - security_personal_information (보안 개인정보)
+  - name: status_device
+    description: Retrieve device current setting value or status.
+    args:
+      - name: type
+        type: string
+        description: High-level category to query.
+        enum:
+          - ai_mode (값 AI 모드)
+          - airflow (풍량)
+          - battery (값 배터리)
+          - brightness (값 밝기)
+          - charging_time (값 충전 시간)
+          - date (값 날짜)
+          - electric_coast (값 전력 사용 요금)
+          - electric_energy_consumption (값 소비 전력)
+          - error_code (값 에러 코드)
+          - error_history (값 에러 기록)
+          - filter (값 필터)
+          - is_run_air_purifier (값 동작 상태)
+          - manner_mode (값 매너 모드)
+          - mute_mode (값 음소거 모드)
+          - night_mode (값 나이트 모드)
+          - privacy (값 프라이버시)
+          - scanning_mode (값 스캐닝 모드)
+          - sensor_sensitivity (값 센서 민감도)
+          - temperature (값 온도)
+          - theme (값 테마)
+          - time (값 시간)
+          - uv_led_mode (값 UV LED 모드)
+          - voice (값 음성)
+          - voice_recognition (값 음성 인식)
+          - volume (값 음량)
+          - wifi (값 Wi-Fi)
+          - air_quality_led (대기질 LED)
+          - status (공기청정기 상태)
+  - name: info_weather
+    description: Retrieve weather information.
+    args:
+      - name: type
+        type: string
+        description: High-level category to query.
+        enum:
+          - friday (날씨 금요일)
+          - monday (날씨 월요일)
+          - saturday (날씨 토요일)
+          - sunday (날씨 일요일)
+          - thursday (날씨 목요일)
+          - today (날씨 오늘)
+          - tomorrow (날씨 내일)
+          - tuesday (날씨 화요일)
+          - wednesday (날씨 수요일)
+          - weekend (날씨 주말)
+      - name: region_name
+        type: string
+        description: Target value to apply (free-form; validated by the application layer).
+
+  - name: info_air_quality
+    description: Retrieve weather information.
+    args:
+      - name: type
+        type: string
+        description: High-level category to query.
+        enum:
+          - friday (대기질 금요일)
+          - monday (대기질 월요일)
+          - saturday (대기질 토요일)
+          - sunday (대기질 일요일)
+          - thursday (대기질 목요일)
+          - today (대기질 오늘)
+          - tomorrow (대기질 내일)
+          - tuesday (대기질 화요일)
+          - wednesday (대기질 수요일)
+          - weekend (대기질 주말)
+      - name: region_name
+        type: string
+        description: Target value to apply (free-form; validated by the application layer).
+
+  - name: info_organic_compound
+    description: Retrieve air quality information for organic compound.
+    args:
+      - name: type
+        type: string
+        description: High-level category to query.
+        enum:
+          - co2 (대기질 CO₂)
+          - fine_dust (대기질 미세먼지)
+          - formaldehyde (대기질 포름알데히드)
+          - nox (대기질 질소화합물)
+          - ultrafine_dust (대기질 초미세먼지)
+          - voc (대기질 휘발성유기화합물)
+
+  - name: automatic_env
+    description: Auto-toggle environment settings.
+    args:
+      - name: type
         type: string
         description: Environment item to inspect/swap.
         enum:
-          - Theme
-          - Temperature_Unit
-          - Voice
-          - Brightness
-          - Volume
-  - name: set_env
-    description: Explicitly set environment parameters such as theme, temperature unit, direction, or voice.
+          - airflow (풍량)
+          - airflow_down (풍량 감소)
+          - brightness (밝기)
+          - language (언어)
+          - sensor_sensitivity (센서 민감도)
+          - temperature_unit (온도 단위)
+          - theme (테마)
+          - voice (음성)
+          - volume (음량)
+
+  - name: manual_env
+    description: Manually set environment settings.
     args:
-      - name: key
+      - name: type
         type: string
         description: Environment item to set.
         enum:
-          - Theme
-          - Temperature_Unit
-          - Direction
-          - Voice
-          - Fan_Speed
-          - Volume
-          - Brightness
-          - Sensor_Sensitivity
+          - airflow (풍량)
+          - brightness (밝기)
+          - direction (방향 사용자)
+          - language (언어)
+          - sensor_sensitivity (센서 민감도 보통)
+          - temperature_unit (온도 단위)
+          - theme (테마)
+          - voice (음성)
+          - volume (음량)
       - name: value
         type: string
         description: Target value to apply (free-form; validated by the application layer).
 
   - name: talk
-    description: Send a free-form natural language message response (small talk or informational text) without controlling the device.
+    description: Send a free-form text reply.
     args:
       - name: request
         type: string

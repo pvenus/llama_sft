@@ -662,9 +662,43 @@ def fallback_route_ko(text: str):
     if re.search(r'(켜|on|전원\s*켜)', s):             return "power_on"
     return None
 
-def _args_equal(a, b) -> bool:
+# 기존
+# def _args_equal(a, b) -> bool:
+
+# 변경
+def _args_equal(a, b, name_match, name: str | None = None) -> bool:
+    """Compare argument dicts with optional rule branching by function name.
+    - If name == 'talk' and the name already matches, skip arg comparison.
+    - If name in {'mode_on','mode_off'}, compare only the 'mode' field.
+    - Otherwise, require identical key sets and equal values (stringified compare).
+    """
+    # Normalize
     if a is None: a = {}
     if b is None: b = {}
+
+    nm = (name or '').strip().lower()
+
+    # 1) 'talk' → skip args check when the function name matches
+    if name_match is True and nm == 'talk':
+        return True
+
+    if name_match is True and nm == 'info_air_quality':
+        va = a.get('type') if isinstance(a, dict) else None
+        vb = b.get('type') if isinstance(b, dict) else None
+        return str(va) == str(vb)
+
+    if name_match is True and nm == 'info_weather':
+        va = a.get('type') if isinstance(a, dict) else None
+        vb = b.get('type') if isinstance(b, dict) else None
+        return str(va) == str(vb)
+
+    # 2) mode_on/mode_off → compare only the 'mode' value
+    if nm in {'mode_on', 'mode_off'}:
+        va = a.get('mode') if isinstance(a, dict) else None
+        vb = b.get('mode') if isinstance(b, dict) else None
+        return str(va) == str(vb)
+
+    # 3) Default strict comparison (same keys + equal values)
     if not (isinstance(a, dict) and isinstance(b, dict)):
         return False
     if set(a.keys()) != set(b.keys()):
@@ -731,14 +765,14 @@ def render(
         max_rows_keep = st.number_input("Max table rows kept", min_value=50, max_value=5000, value=500, step=50, help="Older rows will be dropped from view to save memory.")
 
     st.markdown("---")
-    st.subheader("Batch Inference (sys_prompt.jsonl × test_convert_msg.jsonl)")
+    st.subheader("Batch Inference (sys_prompt.jsonl × test_user_msg.jsonl)")
 
     colb1, colb2, colb3 = st.columns([5, 5, 1])
     with colb1:
         sys_path = st.text_input("sys_prompt.jsonl 경로", value="assets/prompt/sys_prompt.jsonl",
                                  key="sys_jsonl_path")
     with colb2:
-        msg_path = st.text_input("test_convert_msg.jsonl 경로", value="assets/prompt/test_convert_msg.jsonl",
+        msg_path = st.text_input("test_user_msg.jsonl 경로", value="assets/prompt/test_user_msg.jsonl",
                                  key="msg_jsonl_path")
     run_batch = st.button("Batch Infer", type="primary", key="btn_batch_infer")
 
@@ -787,6 +821,13 @@ def render(
                 name_only_match_sum = 0
                 argument_only_match_sum = 0
                 detail_rows = []
+                # Per expected-name bucket summary (e.g., mode_on / mode_off / info / ...)
+                group_sums = defaultdict(lambda: {
+                    "count": 0,
+                    "all": 0,
+                    "name_only": 0,
+                    "arg_only": 0,
+                })
 
                 for row in _iter_infer_rows_batched(0, s_prompt, msg_list, model, adapters, int(mt), bool(allow_fb), 0, int(max_batch)):
                     name_match = row["name_match"]
@@ -795,6 +836,17 @@ def render(
 
                     # Decode expected from either '<function_XX>(...)' or legacy JSON
                     expected_name, expected_args = decode_call_any(row.get("expected") or "")
+
+                    # --- per expected-name bucket counters ---
+                    key = (expected_name or "(none)")
+                    bucket = group_sums[key]
+                    bucket["count"] += 1
+                    if name_match and arg_match:
+                        bucket["all"] += 1
+                    elif name_match and not arg_match:
+                        bucket["name_only"] += 1
+                    elif arg_match and not name_match:
+                        bucket["arg_only"] += 1
 
                     # Predicted: prefer already-parsed dict; else decode from pred_text
                     if isinstance(pred_obj, dict) and "name" in pred_obj:
@@ -866,6 +918,25 @@ def render(
                     done += 1
                     prog.progress(min(1.0, done / max(1, total)))
 
+                # Build per-expected-name summary table for this sys_prompt
+                group_rows = []
+                for gname, b in group_sums.items():
+                    cnt = b["count"] or 0
+                    acc = b["all"]
+                    name_only = b["name_only"]
+                    arg_only = b["arg_only"]
+                    acc_rate = (acc / cnt * 100.0) if cnt else 0.0
+                    group_rows.append({
+                        "expected_name": gname,
+                        "count": cnt,
+                        "all_match": acc,
+                        "name_only": name_only,
+                        "arg_only": arg_only,
+                        "all_match_%": f"{acc_rate:.1f}%",
+                    })
+                # Sort groups by count desc
+                group_rows.sort(key=lambda r: (-r["count"], r["expected_name"]))
+
                 # record per-prompt summary
                 detail_key = f"sys_{hash(s_prompt) & 0xffff:04x}"
                 summary_rows.append({
@@ -891,6 +962,21 @@ def render(
                         st.markdown("---")
                         st.subheader("Summary by sys message")
                         st.dataframe(summary_df, use_container_width=True)
+                        # Render per-expected-name summary for this sys_prompt
+                        if group_rows:
+                            grp_df = pd.DataFrame(group_rows, columns=[
+                                "expected_name",
+                                "count",
+                                "all_match",
+                                "name_only",
+                                "arg_only",
+                                "all_match_%",
+                            ])
+                            grp_df = _arrow_safe_df(grp_df, force_str_cols=["expected_name", "all_match_%"])
+
+                            st.markdown("---")
+                            st.subheader("Summary by expected name (this sys message)")
+                            st.dataframe(grp_df, use_container_width=True)
                     with details_ph.container():
                         for sr in summary_rows:
                             key_label = sr["detail"].split(":", 1)[-1].strip()
@@ -997,7 +1083,7 @@ def _iter_infer_rows_batched(index: int, s_prompt: str, msg_list: list[dict], mo
                 pred_name, pred_args = decode_call_any(out.get("pred_text") or "")
 
             name_match = (pred_name == expected_name)
-            arg_match = _args_equal(pred_args, expected_args)
+            arg_match = _args_equal(pred_args, expected_args, name_match, expected_name)
 
             yield {
                 "index": index,
