@@ -1,5 +1,5 @@
 {
   "datas": [
-    "- Interpret the user's command by identifying the **main intent** (functionName).\n- Focus on **verbs and intent words** rather than topic keywords.\n- If multiple intents appear, return multiple functionName calls in order of appearance.\n- Never guess new functionNames. Only use the defined set: mode_on, mode_off, info, swap_env, set_env, talk.\n- Always normalize synonyms (예: \"켜봐\", \"시작해\", \"enable\" → mode_on).\n- Distinguish between **action requests** (control the device) and **information requests** (status/details).\n- If ambiguous, prefer the functionName that matches the explicit verb or question form.\n"
+    "- Identify the main intent as a functionName.  \n- Focus on verbs and question forms rather than topic keywords.  \n- If multiple intents exist, return multiple functionName calls in sentence order.  \n- Use only the defined set: mode_on, mode_off, info, swap_env, set_env, talk.  \n- Normalize synonyms (e.g., \"turn on\", \"start\", \"enable\" → mode_on).  \n- Distinguish control requests (mode_on/mode_off) from information requests (info).  \n- If ambiguous, choose the functionName that matches the explicit verb or question form.\n"
   ]
 }
