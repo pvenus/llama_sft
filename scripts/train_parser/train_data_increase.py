@@ -49,6 +49,7 @@ import argparse
 import itertools
 import json
 import sys
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Dict, Iterable, Tuple, Set
@@ -90,6 +91,40 @@ def apply_one_rule_to_text(text: str, rule: Rule, replacement: str) -> str:
     if token:
       out = out.replace(token, replacement)
   return out
+
+
+def extract_location_value(output_text: str) -> str | None:
+  """
+  Extract the value next to 'location=' in LLM Output.
+  Handles optional spaces and optional single/double quotes.
+  Examples it should capture:
+    location=자카르타
+    location="자카르타"
+    location = '서울'
+  It will stop before delimiters like , ) ; ] } or whitespace.
+  """
+  if not output_text:
+    return None
+  pattern = r"location\s*=\s*(?P<q>['\"])?(?P<val>[^'\"\s,);\]}]+)(?P=q)?"
+  m = re.search(pattern, output_text)
+  if m:
+    return m.group("val")
+  return None
+
+
+def conditional_loc_replace(row: pd.Series) -> pd.Series:
+  """
+  If LLM Output contains 'location=XXX', and the exact same string XXX
+  appears in Query(한글), replace those occurrences in Query(한글) with '<loc>'.
+  """
+  qcol = "Query(한글)"
+  ocol = "LLM Output"
+  if qcol not in row or ocol not in row:
+    return row
+  loc_val = extract_location_value(str(row.get(ocol, "")))
+  if loc_val and loc_val in str(row.get(qcol, "")):
+    row[qcol] = str(row[qcol]).replace(loc_val, "<loc>")
+  return row
 
 
 def expand_row_by_rules(
@@ -208,15 +243,30 @@ def main(argv: List[str]) -> int:
   expanded_rows: List[pd.Series] = []
 
   for _, row in df.iterrows():
+    # Apply conditional location-based replacement on Query(한글) first
+    row = conditional_loc_replace(row)
+
     variants = expand_row_by_rules(
-      row=row,
-      target_cols=args.cols,
-      rules=rules,
-      keep_original=not args.drop_original,
-      max_expansions=args.max_expansions,
+        row=row,
+        target_cols=args.cols,
+        rules=rules,
+        keep_original=not args.drop_original,
+        max_expansions=args.max_expansions,
     )
-    assign_variant_indices(variants, row.get("Index", None), use_suffix=args.id_suffix)
-    expanded_rows.extend(variants)
+
+    # Drop any variants that still contain the placeholder "<loc>" in any target column
+    filtered_variants = []
+    for v in variants:
+        has_loc = any("<loc>" in str(v[c]) for c in args.cols)
+        if not has_loc:
+            filtered_variants.append(v)
+
+    # If nothing remains after filtering, skip appending for this row
+    if not filtered_variants:
+        continue
+
+    assign_variant_indices(filtered_variants, row.get("Index", None), use_suffix=args.id_suffix)
+    expanded_rows.extend(filtered_variants)
 
   out_df = pd.DataFrame(expanded_rows, columns=df.columns)
   args.output_csv.parent.mkdir(parents=True, exist_ok=True)
