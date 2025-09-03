@@ -124,6 +124,25 @@ def conditional_loc_replace(row: pd.Series) -> pd.Series:
   loc_val = extract_location_value(str(row.get(ocol, "")))
   if loc_val and loc_val in str(row.get(qcol, "")):
     row[qcol] = str(row[qcol]).replace(loc_val, "<loc>")
+    row[ocol] = str(row[ocol]).replace(loc_val, "<loc>")
+  return row
+
+def conditional_pos_replace(row: pd.Series) -> pd.Series:
+  """
+  If LLM Output contains 'position=XXX', and the exact same string XXX
+  appears in Query(한글), replace those occurrences in Query(한글) with '<pos>'.
+  """
+  qcol = "Query(한글)"
+  ocol = "LLM Output"
+  if qcol not in row or ocol not in row:
+    return row
+  pattern = r"position\s*=\s*(?P<q>['\"])?(?P<val>[^'\"\s,);\]}]+)(?P=q)?"
+  m = re.search(pattern, str(row.get(ocol, "")))
+  if m:
+    pos_val = m.group("val")
+    if pos_val and pos_val in str(row.get(qcol, "")):
+      row[qcol] = str(row[qcol]).replace(pos_val, "<pos>")
+      row[ocol] = str(row[ocol]).replace(pos_val, "<pos>")
   return row
 
 
@@ -245,6 +264,7 @@ def main(argv: List[str]) -> int:
   for _, row in df.iterrows():
     # Apply conditional location-based replacement on Query(한글) first
     row = conditional_loc_replace(row)
+    row = conditional_pos_replace(row)
 
     variants = expand_row_by_rules(
         row=row,
