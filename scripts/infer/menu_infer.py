@@ -144,14 +144,24 @@ def build_prompt(sys_text: str, user_text: str) -> str:
     # System block -> User block -> Assistant header. We keep the JSON priming
     # so downstream logic that expects a continuation starting after '{"name":'
     # continues to work.
-    return (
-        "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n"
-        f"{sys_text}\n"
-        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
-        f"{user_text}\n"
-        "<|eot_id|><|start_header_id|>content<|end_header_id|>\n"
-        '[{"functionName":'
-    )
+    # return (
+    #     "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n"
+    #     f"{sys_text}\n"
+    #     "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
+    #     f"{user_text}\n"
+    #     "<|eot_id|><|start_header_id|>content<|end_header_id|>\n"
+    #     '[{"functionName":'
+    # )
+    return f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+        
+    사용자의 입력을 분석하여 `<function_identifier>()<end>` 형식의 함수 호출 형태로 반환하세요.
+    
+    <|eot_id|><|start_header_id|>user<|end_header_id|>
+    
+    {user_text}
+    
+    <|eot_id|><|start_header_id|>assistant<|end_header_id|>
+    """
 
 # --- Import runners from package (no local caching) ---
 try:
@@ -1086,6 +1096,7 @@ def _iter_infer_rows_batched(index: int, s_prompt: str, msg_list: list[dict], mo
         chunk = pairs[i:i+int(batch_size)]
         prompts = [build_prompt(s_prompt, u) for (u, _) in chunk]
         print(f"[batch] prompt#{index:02d} runner_idx={runner_index} size={len(prompts)} thread={threading.current_thread().name} -> start")
+        print(f"prompt:{prompts}")
         t0 = time.perf_counter()
         outputs = None
         # Try true batch first

@@ -56,13 +56,31 @@ def main():
         raise SystemExit(subprocess.call(cmd))
 
     # Already under Streamlit: run the UI
-    run_streamlit(
-        model="meta-llama/Llama-3.2-1B-Instruct",
-        adapters=None,
-        spec_path="assets/train/fc_patterns.json",
-        default_max_tokens=32,
-        default_no_fallback=False,
-    )
+    # run_streamlit(
+    #     model="meta-llama/Llama-3.2-1B-Instruct",
+    #     adapters=None,
+    #     spec_path="assets/train/fc_patterns.json",
+    #     default_max_tokens=32,
+    #     default_no_fallback=False,
+    # )
+
+    if __name__ == "__main__":
+        import argparse
+        ap = argparse.ArgumentParser()
+        ap.add_argument("--model", required=True, help="로컬 병합모델(혹은 베이스) 폴더 경로")
+        ap.add_argument("--adapters", default=None, help="LoRA 어댑터 경로(병합모델이면 비움)")
+        ap.add_argument("--spec", default="assets/train/fc_patterns.json")
+        ap.add_argument("--max_tokens", type=int, default=32)
+        ap.add_argument("--no_fallback", action="store_true")
+        args = ap.parse_args()
+
+        run_streamlit(
+            model=args.model,
+            adapters=args.adapters,
+            spec_path=args.spec,
+            default_max_tokens=args.max_tokens,
+            default_no_fallback=args.no_fallback,
+        )
 
 # ===== Streamlit UI (optional) =====
 
