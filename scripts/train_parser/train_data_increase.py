@@ -263,8 +263,8 @@ def main(argv: List[str]) -> int:
 
   for _, row in df.iterrows():
     # Apply conditional location-based replacement on Query(한글) first
-    row = conditional_loc_replace(row)
-    row = conditional_pos_replace(row)
+    # row = conditional_pos_replace(row)
+    # row = conditional_loc_replace(row)
 
     variants = expand_row_by_rules(
         row=row,

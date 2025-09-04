@@ -1,0 +1,1129 @@
+functions:
+  - name: function_BP
+    signatures:
+      - [get]
+      - [enable, type]
+  - name: function_BS
+    signatures:
+      - [enable]
+  - name: function_CE
+    signatures:
+      - []
+  - name: function_CK
+    signatures:
+      - []
+  - name: function_CS
+    signatures:
+      - [get]
+  - name: function_DA
+    signatures:
+      - [get]
+  - name: function_DD
+    signatures:
+      - [get]
+  - name: function_DH
+    signatures:
+      - []
+  - name: function_DP
+    signatures:
+      - [get]
+  - name: function_DQ
+    signatures:
+      - [get]
+  - name: function_DY
+    signatures:
+      - []
+  - name: function_EF
+    signatures:
+      - [get]
+  - name: function_EG
+    signatures:
+      - []
+  - name: function_EI
+    signatures:
+      - [get]
+  - name: function_EJ
+    signatures:
+      - []
+  - name: function_EM
+    signatures:
+      - [get]
+  - name: function_EN
+    signatures:
+      - []
+  - name: function_EO
+    signatures:
+      - [get]
+  - name: function_EP
+    signatures:
+      - [get]
+  - name: function_EQ
+    signatures:
+      - [get]
+  - name: function_ES
+    signatures:
+      - []
+  - name: function_EU
+    signatures:
+      - [get]
+  - name: function_FA
+    signatures:
+      - []
+  - name: function_FB
+    signatures:
+      - [get]
+  - name: function_FC
+    signatures:
+      - []
+  - name: function_FF
+    signatures:
+      - []
+  - name: function_FG
+    signatures:
+      - []
+  - name: function_FM
+    signatures:
+      - [get]
+  - name: function_FN
+    signatures:
+      - [get]
+  - name: function_FO
+    signatures:
+      - [get]
+  - name: function_FP
+    signatures:
+      - []
+  - name: function_FR
+    signatures:
+      - []
+  - name: function_FS
+    signatures:
+      - [enable]
+  - name: function_FT
+    signatures:
+      - [get]
+  - name: function_FU
+    signatures:
+      - []
+  - name: function_FV
+    signatures:
+      - []
+  - name: function_FW
+    signatures:
+      - []
+  - name: function_FX
+    signatures:
+      - []
+  - name: function_GA
+    signatures:
+      - []
+  - name: function_GC
+    signatures:
+      - []
+  - name: function_GG
+    signatures:
+      - [get]
+  - name: function_GI
+    signatures:
+      - [get]
+  - name: function_GK
+    signatures:
+      - []
+  - name: function_GL
+    signatures:
+      - []
+  - name: function_GO
+    signatures:
+      - [get]
+  - name: function_GQ
+    signatures:
+      - []
+  - name: function_GR
+    signatures:
+      - []
+  - name: function_GS
+    signatures:
+      - [get]
+  - name: function_GT
+    signatures:
+      - []
+  - name: function_GU
+    signatures:
+      - []
+  - name: function_GX
+    signatures:
+      - []
+  - name: function_GZ
+    signatures:
+      - []
+  - name: function_HA
+    signatures:
+      - []
+  - name: function_HC
+    signatures:
+      - []
+  - name: function_HF
+    signatures:
+      - []
+  - name: function_HH
+    signatures:
+      - [get]
+  - name: function_HK
+    signatures:
+      - []
+  - name: function_HQ
+    signatures:
+      - [get]
+  - name: function_HT
+    signatures:
+      - []
+  - name: function_HU
+    signatures:
+      - []
+  - name: function_HV
+    signatures:
+      - []
+  - name: function_HY
+    signatures:
+      - [get]
+  - name: function_IB
+    signatures:
+      - []
+  - name: function_IC
+    signatures:
+      - [get]
+  - name: function_ID
+    signatures:
+      - []
+  - name: function_IE
+    signatures:
+      - []
+  - name: function_IF
+    signatures:
+      - [get]
+  - name: function_IG
+    signatures:
+      - []
+  - name: function_IJ
+    signatures:
+      - [get]
+  - name: function_IP
+    signatures:
+      - [get]
+  - name: function_IQ
+    signatures:
+      - [get]
+  - name: function_IS
+    signatures:
+      - []
+  - name: function_IU
+    signatures:
+      - [get]
+  - name: function_JA
+    signatures:
+      - [get]
+  - name: function_JB
+    signatures:
+      - []
+  - name: function_JC
+    signatures:
+      - [get]
+  - name: function_JE
+    signatures:
+      - []
+  - name: function_JK
+    signatures:
+      - []
+  - name: function_JQ
+    signatures:
+      - []
+  - name: function_JS
+    signatures:
+      - []
+  - name: function_JT
+    signatures:
+      - []
+  - name: function_JU
+    signatures:
+      - []
+  - name: function_JV
+    signatures:
+      - []
+  - name: function_JW
+    signatures:
+      - []
+  - name: function_JY
+    signatures:
+      - []
+  - name: function_JZ
+    signatures:
+      - []
+  - name: function_KF
+    signatures:
+      - []
+  - name: function_KG
+    signatures:
+      - []
+  - name: function_KH
+    signatures:
+      - []
+  - name: function_KI
+    signatures:
+      - []
+  - name: function_KJ
+    signatures:
+      - [get]
+  - name: function_KK
+    signatures:
+      - []
+  - name: function_KL
+    signatures:
+      - []
+  - name: function_KM
+    signatures:
+      - []
+  - name: function_KO
+    signatures:
+      - []
+  - name: function_KP
+    signatures:
+      - []
+  - name: function_KQ
+    signatures:
+      - [get]
+  - name: function_KR
+    signatures:
+      - []
+  - name: function_KS
+    signatures:
+      - []
+  - name: function_KT
+    signatures:
+      - []
+  - name: function_KU
+    signatures:
+      - []
+  - name: function_KV
+    signatures:
+      - []
+  - name: function_KW
+    signatures:
+      - []
+  - name: function_KX
+    signatures:
+      - []
+  - name: function_KZ
+    signatures:
+      - []
+  - name: function_LA
+    signatures:
+      - []
+  - name: function_LC
+    signatures:
+      - [get]
+  - name: function_LD
+    signatures:
+      - []
+  - name: function_LF
+    signatures:
+      - []
+  - name: function_LG
+    signatures:
+      - []
+  - name: function_LH
+    signatures:
+      - []
+  - name: function_LI
+    signatures:
+      - []
+  - name: function_LJ
+    signatures:
+      - []
+  - name: function_LK
+    signatures:
+      - []
+  - name: function_LL
+    signatures:
+      - []
+  - name: function_LN
+    signatures:
+      - []
+  - name: function_LO
+    signatures:
+      - []
+  - name: function_LP
+    signatures:
+      - []
+  - name: function_LR
+    signatures:
+      - []
+  - name: function_LS
+    signatures:
+      - []
+  - name: function_LT
+    signatures:
+      - []
+  - name: function_LU
+    signatures:
+      - []
+  - name: function_LV
+    signatures:
+      - []
+  - name: function_LW
+    signatures:
+      - [get]
+  - name: function_MA
+    signatures:
+      - []
+  - name: function_MB
+    signatures:
+      - []
+  - name: function_MC
+    signatures:
+      - []
+  - name: function_MD
+    signatures:
+      - []
+  - name: function_ME
+    signatures:
+      - []
+  - name: function_MF
+    signatures:
+      - []
+  - name: function_MG
+    signatures:
+      - []
+  - name: function_MH
+    signatures:
+      - []
+  - name: function_MI
+    signatures:
+      - []
+  - name: function_MJ
+    signatures:
+      - []
+  - name: function_MK
+    signatures:
+      - []
+  - name: function_ML
+    signatures:
+      - []
+  - name: function_MM
+    signatures:
+      - []
+  - name: function_MO
+    signatures:
+      - [get]
+  - name: function_MR
+    signatures:
+      - []
+  - name: function_MS
+    signatures:
+      - []
+  - name: function_MT
+    signatures:
+      - []
+  - name: function_MU
+    signatures:
+      - []
+  - name: function_MV
+    signatures:
+      - []
+  - name: function_MW
+    signatures:
+      - []
+  - name: function_MX
+    signatures:
+      - []
+  - name: function_MY
+    signatures:
+      - []
+  - name: function_MZ
+    signatures:
+      - []
+  - name: function_NA
+    signatures:
+      - []
+  - name: function_NB
+    signatures:
+      - []
+  - name: function_NC
+    signatures:
+      - []
+  - name: function_NE
+    signatures:
+      - []
+  - name: function_NF
+    signatures:
+      - []
+  - name: function_NG
+    signatures:
+      - []
+  - name: function_NI
+    signatures:
+      - []
+  - name: function_NJ
+    signatures:
+      - []
+  - name: function_NK
+    signatures:
+      - []
+  - name: function_NL
+    signatures:
+      - []
+  - name: function_NM
+    signatures:
+      - []
+  - name: function_NO
+    signatures:
+      - []
+  - name: function_NP
+    signatures:
+      - []
+  - name: function_NQ
+    signatures:
+      - [get]
+  - name: function_NR
+    signatures:
+      - []
+  - name: function_NS
+    signatures:
+      - []
+  - name: function_NT
+    signatures:
+      - []
+  - name: function_NU
+    signatures:
+      - []
+  - name: function_NV
+    signatures:
+      - []
+  - name: function_NW
+    signatures:
+      - []
+  - name: function_NX
+    signatures:
+      - []
+  - name: function_NY
+    signatures:
+      - []
+  - name: function_NZ
+    signatures:
+      - []
+  - name: function_OA
+    signatures:
+      - []
+  - name: function_OC
+    signatures:
+      - []
+  - name: function_OD
+    signatures:
+      - []
+  - name: function_OE
+    signatures:
+      - []
+  - name: function_OF
+    signatures:
+      - []
+  - name: function_OG
+    signatures:
+      - []
+  - name: function_OH
+    signatures:
+      - []
+  - name: function_OI
+    signatures:
+      - []
+  - name: function_OK
+    signatures:
+      - []
+  - name: function_OL
+    signatures:
+      - []
+  - name: function_OM
+    signatures:
+      - []
+  - name: function_ON
+    signatures:
+      - []
+  - name: function_OO
+    signatures:
+      - [get]
+  - name: function_OP
+    signatures:
+      - [get]
+  - name: function_OQ
+    signatures:
+      - []
+  - name: function_OR
+    signatures:
+      - []
+  - name: function_OS
+    signatures:
+      - [get]
+  - name: function_OT
+    signatures:
+      - []
+  - name: function_OV
+    signatures:
+      - []
+  - name: function_OW
+    signatures:
+      - []
+  - name: function_OX
+    signatures:
+      - []
+  - name: function_OY
+    signatures:
+      - [get]
+  - name: function_OZ
+    signatures:
+      - [get]
+  - name: function_PA
+    signatures:
+      - []
+  - name: function_PC
+    signatures:
+      - []
+  - name: function_PD
+    signatures:
+      - []
+  - name: function_PE
+    signatures:
+      - []
+  - name: function_PF
+    signatures:
+      - []
+  - name: function_PG
+    signatures:
+      - [get]
+  - name: function_PH
+    signatures:
+      - []
+  - name: function_PI
+    signatures:
+      - []
+  - name: function_PJ
+    signatures:
+      - []
+  - name: function_PK
+    signatures:
+      - [get]
+  - name: function_PL
+    signatures:
+      - []
+  - name: function_PM
+    signatures:
+      - []
+  - name: function_PO
+    signatures:
+      - []
+  - name: function_PP
+    signatures:
+      - [get]
+  - name: function_PQ
+    signatures:
+      - []
+  - name: function_PR
+    signatures:
+      - []
+  - name: function_PS
+    signatures:
+      - []
+  - name: function_PT
+    signatures:
+      - []
+  - name: function_PU
+    signatures:
+      - []
+  - name: function_PV
+    signatures:
+      - [get]
+  - name: function_PW
+    signatures:
+      - []
+  - name: function_PY
+    signatures:
+      - []
+  - name: function_QA
+    signatures:
+      - []
+  - name: function_QB
+    signatures:
+      - []
+  - name: function_QC
+    signatures:
+      - []
+  - name: function_QE
+    signatures:
+      - []
+  - name: function_QH
+    signatures:
+      - []
+  - name: function_QI
+    signatures:
+      - []
+  - name: function_QJ
+    signatures:
+      - []
+  - name: function_QK
+    signatures:
+      - []
+  - name: function_QL
+    signatures:
+      - []
+  - name: function_QM
+    signatures:
+      - []
+  - name: function_QO
+    signatures:
+      - []
+  - name: function_QP
+    signatures:
+      - []
+  - name: function_QQ
+    signatures:
+      - [get]
+  - name: function_QR
+    signatures:
+      - []
+  - name: function_QS
+    signatures:
+      - [get]
+  - name: function_QT
+    signatures:
+      - []
+  - name: function_QU
+    signatures:
+      - []
+  - name: function_QV
+    signatures:
+      - []
+  - name: function_QW
+    signatures:
+      - []
+  - name: function_QX
+    signatures:
+      - []
+  - name: function_QY
+    signatures:
+      - []
+  - name: function_QZ
+    signatures:
+      - []
+  - name: function_RA
+    signatures:
+      - []
+  - name: function_RB
+    signatures:
+      - []
+  - name: function_RC
+    signatures:
+      - []
+  - name: function_RD
+    signatures:
+      - []
+  - name: function_RE
+    signatures:
+      - []
+  - name: function_RF
+    signatures:
+      - []
+  - name: function_RG
+    signatures:
+      - []
+  - name: function_RH
+    signatures:
+      - []
+  - name: function_RI
+    signatures:
+      - [get]
+  - name: function_RJ
+    signatures:
+      - []
+  - name: function_RK
+    signatures:
+      - []
+  - name: function_RL
+    signatures:
+      - []
+  - name: function_RM
+    signatures:
+      - []
+  - name: function_RN
+    signatures:
+      - []
+  - name: function_RO
+    signatures:
+      - []
+  - name: function_RP
+    signatures:
+      - []
+  - name: function_RQ
+    signatures:
+      - []
+  - name: function_RR
+    signatures:
+      - []
+  - name: function_RS
+    signatures:
+      - []
+  - name: function_RT
+    signatures:
+      - []
+  - name: function_RU
+    signatures:
+      - []
+  - name: function_RV
+    signatures:
+      - []
+  - name: function_RW
+    signatures:
+      - []
+  - name: function_RX
+    signatures:
+      - []
+  - name: function_RY
+    signatures:
+      - []
+  - name: function_RZ
+    signatures:
+      - []
+  - name: function_SA
+    signatures:
+      - []
+  - name: function_SB
+    signatures:
+      - []
+  - name: function_SC
+    signatures:
+      - [get]
+  - name: function_SD
+    signatures:
+      - []
+  - name: function_SE
+    signatures:
+      - []
+  - name: function_SF
+    signatures:
+      - []
+  - name: function_SG
+    signatures:
+      - []
+  - name: function_SH
+    signatures:
+      - []
+  - name: function_SI
+    signatures:
+      - []
+  - name: function_SJ
+    signatures:
+      - []
+  - name: function_SK
+    signatures:
+      - []
+  - name: function_SL
+    signatures:
+      - []
+  - name: function_SM
+    signatures:
+      - []
+  - name: function_SN
+    signatures:
+      - []
+  - name: function_SO
+    signatures:
+      - []
+  - name: function_SP
+    signatures:
+      - []
+  - name: function_SQ
+    signatures:
+      - []
+  - name: function_SR
+    signatures:
+      - []
+  - name: function_SS
+    signatures:
+      - []
+  - name: function_ST
+    signatures:
+      - []
+  - name: function_SU
+    signatures:
+      - [get]
+  - name: function_SV
+    signatures:
+      - []
+  - name: function_SW
+    signatures:
+      - []
+  - name: function_SX
+    signatures:
+      - []
+  - name: function_SY
+    signatures:
+      - [get]
+  - name: function_SZ
+    signatures:
+      - []
+  - name: function_TA
+    signatures:
+      - []
+  - name: function_TC
+    signatures:
+      - []
+  - name: function_TD
+    signatures:
+      - []
+  - name: function_TE
+    signatures:
+      - []
+  - name: function_TF
+    signatures:
+      - []
+  - name: function_TG
+    signatures:
+      - []
+  - name: function_TH
+    signatures:
+      - []
+  - name: function_TJ
+    signatures:
+      - []
+  - name: function_TK
+    signatures:
+      - []
+  - name: function_TL
+    signatures:
+      - []
+  - name: function_TM
+    signatures:
+      - []
+  - name: function_TN
+    signatures:
+      - []
+  - name: function_TO
+    signatures:
+      - []
+  - name: function_TP
+    signatures:
+      - [get]
+  - name: function_TR
+    signatures:
+      - [get]
+  - name: function_TV
+    signatures:
+      - []
+  - name: function_TW
+    signatures:
+      - []
+  - name: function_TX
+    signatures:
+      - []
+  - name: function_TY
+    signatures:
+      - [get]
+  - name: function_TZ
+    signatures:
+      - []
+  - name: function_UA
+    signatures:
+      - []
+  - name: function_UB
+    signatures:
+      - []
+  - name: function_UD
+    signatures:
+      - []
+  - name: function_UF
+    signatures:
+      - []
+  - name: function_UG
+    signatures:
+      - []
+  - name: function_UH
+    signatures:
+      - []
+  - name: function_UI
+    signatures:
+      - []
+  - name: function_UJ
+    signatures:
+      - []
+  - name: function_UL
+    signatures:
+      - []
+  - name: function_UM
+    signatures:
+      - []
+  - name: function_UO
+    signatures:
+      - []
+  - name: function_UP
+    signatures:
+      - []
+  - name: function_UQ
+    signatures:
+      - []
+  - name: function_UR
+    signatures:
+      - []
+  - name: function_US
+    signatures:
+      - []
+  - name: function_UT
+    signatures:
+      - []
+  - name: function_UV
+    signatures:
+      - []
+  - name: function_UW
+    signatures:
+      - []
+  - name: function_UX
+    signatures:
+      - []
+  - name: function_UZ
+    signatures:
+      - []
+  - name: function_VA
+    signatures:
+      - []
+  - name: function_VB
+    signatures:
+      - []
+  - name: function_VC
+    signatures:
+      - []
+  - name: function_VD
+    signatures:
+      - []
+  - name: function_VE
+    signatures:
+      - []
+  - name: function_VF
+    signatures:
+      - []
+  - name: function_VG
+    signatures:
+      - []
+  - name: function_VH
+    signatures:
+      - []
+  - name: function_VI
+    signatures:
+      - []
+  - name: function_VJ
+    signatures:
+      - []
+  - name: function_VK
+    signatures:
+      - []
+  - name: function_VL
+    signatures:
+      - []
+  - name: function_VM
+    signatures:
+      - []
+  - name: function_VN
+    signatures:
+      - []
+  - name: function_VO
+    signatures:
+      - []
+  - name: function_VP
+    signatures:
+      - []
+  - name: function_VR
+    signatures:
+      - []
+  - name: function_VS
+    signatures:
+      - []
+  - name: function_VT
+    signatures:
+      - []
+  - name: function_VU
+    signatures:
+      - []
+  - name: function_VW
+    signatures:
+      - []
+  - name: function_VX
+    signatures:
+      - []
+  - name: function_VY
+    signatures:
+      - []
+  - name: function_VZ
+    signatures:
+      - []
+  - name: function_WA
+    signatures:
+      - []
+  - name: function_WB
+    signatures:
+      - []
+  - name: function_WC
+    signatures:
+      - []
+  - name: function_WE
+    signatures:
+      - []
+  - name: function_WF
+    signatures:
+      - []
+  - name: function_WG
+    signatures:
+      - []
+  - name: function_WI
+    signatures:
+      - []
+  - name: function_WJ
+    signatures:
+      - []
+  - name: function_WK
+    signatures:
+      - []
+  - name: function_WL
+    signatures:
+      - []
+  - name: function_WM
+    signatures:
+      - []
+  - name: function_WN
+    signatures:
+      - []
+  - name: function_WO
+    signatures:
+      - []
+  - name: function_WP
+    signatures:
+      - []
+  - name: function_WQ
+    signatures:
+      - []
+  - name: function_WR
+    signatures:
+      - []
+  - name: function_WS
+    signatures:
+      - []
+  - name: function_WT
+    signatures:
+      - [brightness]
+      - [get]
+  - name: function_XO
+    signatures:
+      - []
+  - name: function_YA
+    signatures:
+      - [move]
+  - name: function_ZV
+    signatures:
+      - [get]
+      - [volume]
+  - name: function_ZX
+    signatures:
+      - [enable]

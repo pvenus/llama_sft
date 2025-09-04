@@ -1,0 +1,21 @@
+id,label,raw
+ok01,success_expected,<function_BP>(enable=True)
+ok02,success_expected,<function_BP>(enable=True);<function_MR>()
+ok03,success_expected,<function_BP(enable=True);<function_MR>()<end>
+ok04,success_expected,＜function_BP＞(enable=True);＜function_MR＞()<end>
+ok05,success_expected,<function_BP>(enable=True;<function_MR>()<end>
+ok06,success_expected,<function_BP>(enable=True)<end>
+ok07,success_expected,<function_BP>(enable=True)<end>  noise
+ok08,success_expected,<function_BP>(enable=True)<end>   <end>
+ok09,success_expected,<function_BP>(enable=True)<end>;<function_MR>()
+ok10,success_expected,〈function_MR〉()<end>
+ok11,success_expected,<function_MR() <end>
+ok12,success_expected,＜function_MR＞(<end>
+ok13,success_expected,<function_BP>(enable=True);<function_MR()<end>
+ok14,success_expected,  <function_BP>(enable=True)   ;   <function_MR>()    <end>
+ng15,fail_expected,<function_BP>(enable=True)<function_MR>()<end>
+ng16,fail_expected,function_BP(enable=True);<function_MR>()<end>
+ng17,fail_expected,[function_BP](enable=True);<function_MR>()<end>
+ng18,fail_expected,hello world
+ng19,fail_expected,<function_BP>(enable=True;<function_MR()><end>)
+ng20,fail_expected,﹤function_BP﹥(enable=True);﹤function_MR﹥()<end>
