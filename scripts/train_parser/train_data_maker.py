@@ -32,7 +32,7 @@ def combine_same_type_tokens(tokens):
 
     # 각 경계에 대해 '' 또는 ' ' 조합 생성
     variants = []
-    for seps_bits in itertools.product(["", " "], repeat=n-1):
+    for seps_bits in itertools.product([" "], repeat=n-1):
         parts = [tokens[0]]
         for i, sep in enumerate(seps_bits, start=1):
             parts.append(sep + tokens[i])
