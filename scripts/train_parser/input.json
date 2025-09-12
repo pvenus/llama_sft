@@ -200,17 +200,17 @@
       "확인",
       "조회"
     ],
-    "<v41>": [
-      "설명"
-    ],
-    "<v45>": [
+    "<v38>": [
       "설정",
       "조정",
       "조절"
     ],
-    "<v46>": [
+    "<v39>": [
       "맞춰",
       "바꿔"
+    ],
+    "<v41>": [
+      "설명"
     ],
     "<s_bp1>": [
       "에이아이",
@@ -1377,7 +1377,7 @@
     {
       "fname": "<function_HS>(type=-1)",
       "formats": [
-        "<s_hs1><s_l_1><v45><v2>",
+        "<s_hs1><s_l_1><v38><v2>",
         "<s_hs1><v_l_1><v2>",
         "<s_hs1><s_l_1><v_l_1><v2>",
         "<s_l_1><v_l_1><v2>"
@@ -2544,43 +2544,43 @@
     {
       "fname": "<function_QD>(type=-1)",
       "formats": [
-        "<s_qd1><s_qd2><v46><v4>",
-        "<s_qd1><v46><v4>",
-        "<s_qd1><s_qd2><v45><v2>",
-        "<s_qd1><v45><v2>"
+        "<s_qd1><s_qd2><v39><v4>",
+        "<s_qd1><v39><v4>",
+        "<s_qd1><s_qd2><v38><v2>",
+        "<s_qd1><v38><v2>"
       ]
     },
     {
       "fname": "<function_QD>(type=0)",
       "formats": [
         "<s_qd1><s_lmh_1><v2>",
-        "<s_qd1><s_lmh_1><v45><v2>",
-        "<s_qd1><s_lmh_1><v46><v4>",
+        "<s_qd1><s_lmh_1><v38><v2>",
+        "<s_qd1><s_lmh_1><v39><v4>",
         "<s_qd1><s_qd2><s_lmh_1><v2>",
-        "<s_qd1><s_qd2><s_lmh_1><v45><v2>",
-        "<s_qd1><s_qd2><s_lmh_1><v46><v4>"
+        "<s_qd1><s_qd2><s_lmh_1><v38><v2>",
+        "<s_qd1><s_qd2><s_lmh_1><v39><v4>"
       ]
     },
     {
       "fname": "<function_QD>(type=1)",
       "formats": [
         "<s_qd1><s_lmh_2><v2>",
-        "<s_qd1><s_lmh_2><v45><v2>",
-        "<s_qd1><s_lmh_2><v46><v4>",
+        "<s_qd1><s_lmh_2><v38><v2>",
+        "<s_qd1><s_lmh_2><v39><v4>",
         "<s_qd1><s_qd2><s_lmh_2><v2>",
-        "<s_qd1><s_qd2><s_lmh_2><v45><v2>",
-        "<s_qd1><s_qd2><s_lmh_2><v46><v4>"
+        "<s_qd1><s_qd2><s_lmh_2><v38><v2>",
+        "<s_qd1><s_qd2><s_lmh_2><v39><v4>"
       ]
     },
     {
       "fname": "<function_QD>(type=2)",
       "formats": [
         "<s_qd1><s_lmh_3><v2>",
-        "<s_qd1><s_lmh_3><v45><v2>",
-        "<s_qd1><s_lmh_3><v46><v4>",
+        "<s_qd1><s_lmh_3><v38><v2>",
+        "<s_qd1><s_lmh_3><v39><v4>",
         "<s_qd1><s_qd2><s_lmh_3><v2>",
-        "<s_qd1><s_qd2><s_lmh_3><v45><v2>",
-        "<s_qd1><s_qd2><s_lmh_3><v46><v4>"
+        "<s_qd1><s_qd2><s_lmh_3><v38><v2>",
+        "<s_qd1><s_qd2><s_lmh_3><v39><v4>"
       ]
     },
     {
@@ -3004,7 +3004,7 @@
       "fname": "<function_WN>(brightness=-1)",
       "formats": [
         "<s_wn1><s_l_1><s_l_2><v2>",
-        "<s_wn1><s_l_1><v45><v2>"
+        "<s_wn1><s_l_1><v38><v2>"
       ],
       "tags": {
         "<s_l_1>": [
@@ -3021,8 +3021,8 @@
     {
       "fname": "<function_WN>(brightness=0)",
       "formats": [
-        "<s_wn1><s_lv_0><s_l_3><v46><v4>",
-        "<s_wn1><s_lv_0><s_l_3><v45><v2>",
+        "<s_wn1><s_lv_0><s_l_3><v39><v4>",
+        "<s_wn1><s_lv_0><s_l_3><v38><v2>",
         "<s_wn1><v6><v4>"
       ],
       "tags": {
@@ -3034,8 +3034,8 @@
     {
       "fname": "<function_WN>(brightness=1)",
       "formats": [
-        "<s_wn1><s_lv_1><s_l_3><v46><v4>",
-        "<s_wn1><s_lv_1><s_l_3><v45><v2>"
+        "<s_wn1><s_lv_1><s_l_3><v39><v4>",
+        "<s_wn1><s_lv_1><s_l_3><v38><v2>"
       ],
       "tags": {
         "<s_l_3>": [
@@ -3046,8 +3046,8 @@
     {
       "fname": "<function_WN>(brightness=2)",
       "formats": [
-        "<s_wn1><s_lv_2><s_l_3><v46><v4>",
-        "<s_wn1><s_lv_2><s_l_3><v45><v2>"
+        "<s_wn1><s_lv_2><s_l_3><v39><v4>",
+        "<s_wn1><s_lv_2><s_l_3><v38><v2>"
       ],
       "tags": {
         "<s_l_3>": [
@@ -3058,8 +3058,8 @@
     {
       "fname": "<function_WN>(brightness=3)",
       "formats": [
-        "<s_wn1><s_lv_3><s_l_3><v46><v4>",
-        "<s_wn1><s_lv_3><s_l_3><v45><v2>"
+        "<s_wn1><s_lv_3><s_l_3><v39><v4>",
+        "<s_wn1><s_lv_3><s_l_3><v38><v2>"
       ],
       "tags": {
         "<s_l_3>": [
@@ -3070,8 +3070,8 @@
     {
       "fname": "<function_WN>(brightness=4)",
       "formats": [
-        "<s_wn1><s_lv_4><s_l_3><v46><v4>",
-        "<s_wn1><s_lv_4><s_l_3><v45><v2>"
+        "<s_wn1><s_lv_4><s_l_3><v39><v4>",
+        "<s_wn1><s_lv_4><s_l_3><v38><v2>"
       ],
       "tags": {
         "<s_l_3>": [
@@ -3082,8 +3082,8 @@
     {
       "fname": "<function_WN>(brightness=5)",
       "formats": [
-        "<s_wn1><s_lv_5><s_l_3><v46><v4>",
-        "<s_wn1><s_lv_5><s_l_3><v45><v2>",
+        "<s_wn1><s_lv_5><s_l_3><v39><v4>",
+        "<s_wn1><s_lv_5><s_l_3><v38><v2>",
         "<s_wn1><s_l_1><s_l_3><v4>",
         "<s_wn1><s_l_1><v3><v4>"
       ],
