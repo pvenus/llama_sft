@@ -120,10 +120,8 @@ def main():
         func_name = block.get("fname", "")
         # 동일 포맷 중복 제거
         fmts = list(dict.fromkeys(block.get("formats", [])))
-        if not block.get("tags"):
-            continue
         tags = block.get("tags", [])
-
+        
         merged_tags = merge_tag_sources(tags, common_tags)
 
         for fmt in fmts:
