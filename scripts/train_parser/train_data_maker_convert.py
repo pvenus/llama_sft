@@ -152,30 +152,44 @@ def build_pools(df: pd.DataFrame, seed: int):
             singles_initial.append((q, fn))
 
     return pair_pool, singles_initial
+from collections import deque
+import heapq
 
-# --- 페어 만들고, 남은 건 단일로 ------------------------------------------------
 def make_pairs_and_collect_singles(pair_pool: Dict[str, List[Tuple[int, str, str]]], seed: int):
     """
-    pair_pool에서 서로 다른 함수 2개씩 뽑아 페어 생성.
-    페어링 후 남은 샘플은 단일로 반환.
+    pair_pool에서 만들 수 있는 '서로 다른 함수' 페어를 최대 개수로 생성.
+    - 내부적으로 각 함수 리스트를 섞고(deque), 남은 개수가 가장 많은 두 함수를
+      매 스텝마다 꺼내 1개씩 사용 → 페어 생성.
+    - 더 이상 서로 다른 두 함수가 남지 않으면 종료.
+    - 남은 항목은 단일로 반환.
     반환:
       - pairs: List[Dict[str, str]]  # index/query/function
       - leftovers_single: List[(query, fncall)]
     """
     random.seed(seed)
+
+    # 1) 각 함수 아이템을 섞고 deque로 변환(무작위 선택 보장)
+    pools: Dict[str, deque] = {}
+    for f, items in pair_pool.items():
+        items = items.copy()
+        random.shuffle(items)
+        pools[f] = deque(items)
+
+    # 2) (남은개수, 함수명) 최대 힙 구성. 파이썬 heapq는 최소힙이므로 음수로 저장
+    heap = [(-len(dq), f) for f, dq in pools.items() if len(dq) > 0]
+    heapq.heapify(heap)
+
     pairs: List[Dict[str, str]] = []
-
-    def have_two_funcs() -> bool:
-        return sum(1 for k in pair_pool if len(pair_pool[k]) > 0) >= 2
-
     rec_id = 0
-    while have_two_funcs():
-        active = [k for k, v in pair_pool.items() if len(v) > 0]
-        f1, f2 = random.sample(active, 2)
-        item1 = pair_pool[f1].pop()
-        item2 = pair_pool[f2].pop()
-        _, q1, fn1 = item1
-        _, q2, fn2 = item2
+
+    # 3) 항상 남은 개수가 가장 큰 두 함수를 뽑아 서로 다른 함수 페어 생성
+    while len(heap) >= 2:
+        n1, f1 = heapq.heappop(heap)  # 가장 큼
+        n2, f2 = heapq.heappop(heap)  # 두 번째로 큼
+
+        # 각 함수에서 하나씩 사용
+        ridx1, q1, fn1 = pools[f1].pop()
+        ridx2, q2, fn2 = pools[f2].pop()
 
         # 순서 랜덤
         if random.random() < 0.5:
@@ -192,10 +206,17 @@ def make_pairs_and_collect_singles(pair_pool: Dict[str, List[Tuple[int, str, str
         })
         rec_id += 1
 
-    # 풀에 남은 잔여분 -> 단일로
+        # 남은 개수 갱신 후 다시 힙에 넣기
+        if len(pools[f1]) > 0:
+            heapq.heappush(heap, (-(len(pools[f1])), f1))
+        if len(pools[f2]) > 0:
+            heapq.heappush(heap, (-(len(pools[f2])), f2))
+
+    # 4) 남은 것은 단일로
     leftovers_single: List[Tuple[str, str]] = []
-    for items in pair_pool.values():
-        for _, q, fn in items:
+    for f, dq in pools.items():
+        while dq:
+            _, q, fn = dq.pop()
             leftovers_single.append((q, fn))
 
     return pairs, leftovers_single
@@ -214,6 +235,8 @@ def main():
 
     # 페어 만들기 + 페어링 풀 잔여분 수거(단일)
     pairs, leftovers_single = make_pairs_and_collect_singles(pair_pool, seed=args.seed)
+
+    print(f"{len(pairs)} {len(leftovers_single)}");
 
     # 최종 단일 목록 = (초기 단일 후보) + (페어링 실패 잔여)
     singles_all: List[Dict[str, str]] = []
