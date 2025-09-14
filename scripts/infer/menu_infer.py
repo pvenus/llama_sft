@@ -10,7 +10,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from collections import deque, defaultdict
 import threading
- # --- Per-file write locks to support multi-thread shards writing into one file ---
+
+from postprocess import postprocess_fn_calls
+
+# --- Per-file write locks to support multi-thread shards writing into one file ---
 _FILE_LOCKS = defaultdict(threading.Lock)
 
 def _read_jsonl(path: str) -> list[dict]:
@@ -634,48 +637,9 @@ def _iter_infer_rows(index: int, s_prompt: str, msg_list: list[dict], model: str
         print(f"[infer] prompt#{index:02d} runner_idx={runner_index} thread={threading.current_thread().name} -> done {elapsed_ms} ms")
 
         expected_raw = (m.get("expected") or "").strip()
-        exp_list = _parse_expected_multi(expected_raw)
 
         pred_obj = out.get("pred")
-        pred_name = None
-        pred_args = None
-        if isinstance(pred_obj, dict) and "functionName" in pred_obj:
-            pred_name = pred_obj.get("functionName")
-            pred_args = pred_obj.get("arguments") if isinstance(pred_obj.get("arguments"), dict) else {}
-        else:
-            # try to decode from pred_text (new format)
-            ptxt = out.get("pred_text") or ""
-            pn, pa = decode_call_any(ptxt)
-            pred_name, pred_args = pn, pa
-
-        # Any-of matching across expected candidates
-        name_match = any((pred_name == en) for en, ea in exp_list) if exp_list else False
-        arg_match = any(
-            (pred_name == en) and _args_equal(pred_args, ea, True, en) for en, ea in exp_list) if exp_list else False
-
-        # 대표 expected(표시/그룹핑용)
-        if len(exp_list) == 1:
-            expected_name, expected_args = exp_list[0]
-        elif len(exp_list) > 1:
-            expected_name, expected_args = "(multi)", {
-                "candidates": [{"functionName": en, "arguments": ea} for en, ea in exp_list]}
-        else:
-            expected_name, expected_args = None, {}
-
-        pred_obj = out.get("pred")
-        pred_name = None
-        pred_args = None
-        if isinstance(pred_obj, dict) and "functionName" in pred_obj:
-            pred_name = pred_obj.get("functionName")
-            pred_args = pred_obj.get("arguments") if isinstance(pred_obj.get("arguments"), dict) else {}
-        else:
-            # try to decode from pred_text (new format)
-            ptxt = out.get("pred_text") or ""
-            pn, pa = decode_call_any(ptxt)
-            pred_name, pred_args = pn, pa
-
-        name_match = (pred_name == expected_name)
-        arg_match = _args_equal(pred_args, expected_args)
+        name_match = (pred_obj == expected_raw)
 
         yield {
             "index": index,
@@ -688,7 +652,6 @@ def _iter_infer_rows(index: int, s_prompt: str, msg_list: list[dict], model: str
             "pred_text": out.get("pred_text"),
             "elapsed_ms": elapsed_ms,
             "name_match": name_match,
-            "arg_match": arg_match,
             "source": out.get("source"),
         }
 
@@ -844,12 +807,8 @@ def render(
 
             cols = [
                 "name_match",
-                "arg_match",
-                "pred_name",
-                "pred_args",
                 "pred_text",  # raw model output string in <function_XX>(...) format
-                "expected_name",
-                "expected_args",
+                "expected",
                 "sys_prompt",
                 "user_message",
                 "elapsed_ms",
@@ -885,69 +844,27 @@ def render(
 
                 for row in _iter_infer_rows_batched(0, s_prompt, msg_list, model, adapters, int(mt), bool(allow_fb), 0, int(max_batch)):
                     name_match = row["name_match"]
-                    arg_match = row["arg_match"]
-                    pred_obj = row.get("pred")
-
-                    # Decode expected from either '<function_XX>(...)' or legacy JSON
-                    exp_list = _parse_expected_multi(row.get("expected") or "")
-                    if len(exp_list) == 1:
-                        expected_name, expected_args = exp_list[0]
-                    elif len(exp_list) > 1:
-                        expected_name, expected_args = "(multi)", {
-                            "candidates": [{"functionName": en, "arguments": ea} for en, ea in exp_list]}
-                    else:
-                        expected_name, expected_args = None, {}
-
-                    # --- per expected-name bucket counters ---
-                    key = (expected_name or "(none)")
-                    bucket = group_sums[key]
-                    bucket["count"] += 1
-                    if name_match and arg_match:
-                        bucket["all"] += 1
-                    elif name_match and not arg_match:
-                        bucket["name_only"] += 1
-                    elif arg_match and not name_match:
-                        bucket["arg_only"] += 1
-
-                    # Predicted: prefer already-parsed dict; else decode from pred_text
-                    if isinstance(pred_obj, dict) and "functionName" in pred_obj:
-                        pred_name = pred_obj.get("functionName")
-                        pred_args = pred_obj.get("arguments") if isinstance(pred_obj.get("arguments"), dict) else {}
-                    else:
-                        pred_name, pred_args = decode_call_any(row.get("pred_text") or "")
 
                     # update per-prompt counters (mutually exclusive buckets)
-                    if name_match and arg_match:
+                    if name_match:
                         all_match_sum += 1
-                    elif name_match and not arg_match:
-                        name_only_match_sum += 1
-                    elif arg_match and not name_match:
-                        argument_only_match_sum += 1
 
                     # collect detailed row for this sys_prompt
                     detail_rows.append({
                         "ts": row["ts"],
                         "user": row["user"],
-                        "expected_name": expected_name,
-                        "expected_args": expected_args,
-                        "pred_name": pred_name,
-                        "pred_args": pred_args,
+                        "expected": row.get("expected"),
                         "pred_text": row.get("pred_text"),
                         "name_match": name_match,
-                        "arg_match": arg_match,
                         "elapsed_ms": row["elapsed_ms"],
                         "source": row.get("source"),
                     })
 
                     row_min = {
                         "name_match": "✅" if name_match else "❌",
-                        "arg_match": "✅" if arg_match else "❌",
-                        "pred_name": pred_name,
-                        "pred_args": json.dumps(pred_args, ensure_ascii=False) if isinstance(pred_args, dict) else str(pred_args),
                         "pred_text": row.get("pred_text"),
-                        "expected_name": expected_name,
-                        "expected_args": json.dumps(expected_args, ensure_ascii=False) if isinstance(expected_args, dict) else str(expected_args),
-                        "sys_prompt": s_prompt,
+                        "expected": row.get("expected"),
+                        "sys_prompt": row["sys_prompt"],
                         "user_message": row["user"],
                         "elapsed_ms": row["elapsed_ms"],
                         "source": row.get("source"),
@@ -964,104 +881,17 @@ def render(
                         df_render = _arrow_safe_df(
                             df_view,
                             force_str_cols=[
-                                "pred_args",
-                                "expected_args",
                                 "pred_text",
                                 "sys_prompt",
                                 "user_message",
                                 "source",
-                                "pred_name",
-                                "expected_name",
+                                "expected",
                             ],
                         )
                         table_ph.dataframe(df_render, use_container_width=True)
 
                     done += 1
                     prog.progress(min(1.0, done / max(1, total)))
-
-                # Build per-expected-name summary table for this sys_prompt
-                group_rows = []
-                for gname, b in group_sums.items():
-                    cnt = b["count"] or 0
-                    acc = b["all"]
-                    name_only = b["name_only"]
-                    arg_only = b["arg_only"]
-                    acc_rate = (acc / cnt * 100.0) if cnt else 0.0
-                    group_rows.append({
-                        "expected_name": gname,
-                        "count": cnt,
-                        "all_match": acc,
-                        "name_only": name_only,
-                        "arg_only": arg_only,
-                        "all_match_%": f"{acc_rate:.1f}%",
-                    })
-                # Sort groups by count desc
-                group_rows.sort(key=lambda r: (-r["count"], r["expected_name"]))
-
-                # record per-prompt summary
-                detail_key = f"sys_{hash(s_prompt) & 0xffff:04x}"
-                summary_rows.append({
-                    "all match sum": all_match_sum,
-                    "name only match sum": name_only_match_sum,
-                    "argument only match sum": argument_only_match_sum,
-                    "sys message": s_prompt,
-                    "detail": f"click to expand: {detail_key}",
-                })
-                details_by_key[detail_key] = detail_rows
-
-                # --- Incremental render: update summary table and details per prompt ---
-                if summary_rows:
-                    summary_df = pd.DataFrame(summary_rows, columns=[
-                        "all match sum",
-                        "name only match sum",
-                        "argument only match sum",
-                        "sys message",
-                        "detail",
-                    ])
-                    summary_df = _arrow_safe_df(summary_df, force_str_cols=["sys message", "detail"])
-                    with summary_ph:
-                        st.markdown("---")
-                        st.subheader("Summary by sys message")
-                        st.dataframe(summary_df, use_container_width=True)
-                        # Render per-expected-name summary for this sys_prompt
-                        if group_rows:
-                            grp_df = pd.DataFrame(group_rows, columns=[
-                                "expected_name",
-                                "count",
-                                "all_match",
-                                "name_only",
-                                "arg_only",
-                                "all_match_%",
-                            ])
-                            grp_df = _arrow_safe_df(grp_df, force_str_cols=["expected_name", "all_match_%"])
-
-                            st.markdown("---")
-                            st.subheader("Summary by expected name (this sys message)")
-                            st.dataframe(grp_df, use_container_width=True)
-                    with details_ph.container():
-                        for sr in summary_rows:
-                            key_label = sr["detail"].split(":", 1)[-1].strip()
-                            with st.expander(f"Details — {key_label}"):
-                                det = details_by_key.get(key_label, [])
-                                if det:
-                                    det_df = pd.DataFrame(det)
-                                    det_df = _arrow_safe_df(
-                                        det_df,
-                                        force_str_cols=[
-                                            "ts",
-                                            "user",
-                                            "expected_name",
-                                            "expected_args",
-                                            "pred_name",
-                                            "pred_args",
-                                            "pred_text",
-                                            "source",
-                                        ],
-                                    )
-                                    st.dataframe(det_df, use_container_width=True)
-                                else:
-                                    st.write("No details.")
-
 
             # release runner for index 0 after batch
             release_runner(0)
@@ -1119,7 +949,11 @@ def _iter_infer_rows_batched(index: int, s_prompt: str, msg_list: list[dict], mo
         for (user_text, expected_raw), raw in zip(chunk, outputs):
             pred_txt = (raw or "").strip()
             # Try normal parse, then retry once with triple-brace collapse on failure.
-            fname, fargs, pred_txt_used = _decode_with_triple_brace_fix(pred_txt)
+
+            fname, fargs, pred_txt_used = _decode_with_triple_brace_fix(pred_txt.strip().replace('"', ""))
+
+            pred_txt_used = postprocess_fn_calls(pred_txt_used)
+
             out = {"pred_text": pred_txt_used, "source": "model"}
 
             if fname:
@@ -1136,40 +970,20 @@ def _iter_infer_rows_batched(index: int, s_prompt: str, msg_list: list[dict], mo
 
             out["pred"] = pred
 
-            exp_list = _parse_expected_multi(expected_raw)
-
-            if isinstance(pred, dict) and "functionName" in pred:
-                pred_name = pred.get("functionName")
-                pred_args = pred.get("arguments") if isinstance(pred.get("arguments"), dict) else {}
-            else:
-                pred_name, pred_args = decode_call_any(out.get("pred_text") or "")
-
             # Any-of matching across expected candidates
-            name_match = any((pred_name == en) for en, ea in exp_list) if exp_list else False
-            arg_match = any((pred_name == en) and _args_equal(pred_args, ea, True, en) for en, ea in
-                            exp_list) if exp_list else False
-
-            # 대표 expected(표시/그룹핑용)
-            if len(exp_list) == 1:
-                expected_name, expected_args = exp_list[0]
-            elif len(exp_list) > 1:
-                expected_name, expected_args = "(multi)", {
-                    "candidates": [{"functionName": en, "arguments": ea} for en, ea in exp_list]}
-            else:
-                expected_name, expected_args = None, {}
+            name_match = expected_raw == pred_txt_used
 
             yield {
                 "index": index,
                 "runner_idx": runner_index,
                 "ts": datetime.now().isoformat(timespec="seconds"),
-                "sys_prompt": s_prompt,
+                "sys_prompt": prompts,
                 "user": user_text,
                 "expected": expected_raw,
                 "pred": out.get("pred"),
                 "pred_text": out.get("pred_text"),
                 "elapsed_ms": elapsed_ms,
                 "name_match": name_match,
-                "arg_match": arg_match,
                 "source": out.get("source"),
             }
         i += int(batch_size)
