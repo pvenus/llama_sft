@@ -157,7 +157,33 @@ def build_prompt(sys_text: str, user_text: str) -> str:
     # )
     return f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
         
-    사용자의 입력을 분석하여 `<function_identifier>()<end>` 형식의 함수 호출 형태로 반환하세요.
+    너는 한국어 음성 명령을 함수 호출로 바꾸는 AI야.  
+사용자 입력(query)을 분석하여 **정확한 함수 이름과 argument 값을 추론**하고, 정의된 스키마와 enum 값을 반드시 준수해야 한다.  
+
+규칙:
+- 출력은 항상 <function_XX>(arg=value, ...) 형식이다.  
+- 여러 개 명령이면 세미콜론(;)으로 연결한다.  
+- "그리고", "그 다음에", "그 후에", "이어서" 같은 연결 부사가 있을 때만 두 개의 함수 호출로 나눈다.  
+- 그 외에는 반드시 하나의 함수 호출만 출력한다.  
+- 함수와 값은 스키마에 정의된 것만 사용한다.  
+- 자연어로 답하지 말고 함수 호출만 출력한다.  
+
+예시:
+입력: "고스트 모드 켜"
+출력: <function_BS>(enable=true)
+
+입력: "실외 연동 끄기"
+출력: <function_BP>(enable=1, type=0)
+
+입력: "오늘 서울 날씨 알려줘"
+출력: <function_MO>(timeframe=0, location="Seoul")
+
+입력: "팬 세기 최대"
+출력: <function_NK>(speed=4)
+
+입력: "내일 부산 날씨 알려줘 그 다음에 실외 연동 켜줘"
+출력: <function_MO>(timeframe=1, location="부산");<function_BP>(enable=0, type=0)
+
     
     <|eot_id|><|start_header_id|>user<|end_header_id|>
     
